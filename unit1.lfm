@@ -2,121 +2,131 @@ object Form1: TForm1
   Left = 200
   Height = 378
   Top = 147
-  Width = 662
+  Width = 716
   Caption = 'Form1'
   ClientHeight = 378
-  ClientWidth = 662
+  ClientWidth = 716
+  OnCreate = FormCreate
   LCLVersion = '1.4.0.4'
-  object Image1: TImage
-    Left = 16
-    Height = 176
-    Top = 136
-    Width = 144
-  end
   object Label1: TLabel
-    Left = 312
+    Left = 288
     Height = 15
-    Top = 24
-    Width = 34
-    Caption = 'Label1'
+    Top = 136
+    Width = 128
+    Caption = 'Zadajte, prosím, Váš kód'
     ParentColor = False
   end
   object Edit1: TEdit
-    Left = 288
+    Left = 304
     Height = 23
-    Top = 48
+    Top = 160
     Width = 80
     TabOrder = 0
     Text = 'Edit1'
   end
-  object Image2: TImage
-    Left = 176
-    Height = 178
-    Top = 134
-    Width = 146
-  end
-  object Image3: TImage
-    Left = 336
-    Height = 178
-    Top = 134
-    Width = 146
-  end
-  object Image4: TImage
-    Left = 496
-    Height = 178
-    Top = 136
-    Width = 146
-  end
   object Button1: TButton
-    Left = 288
+    Left = 304
     Height = 25
-    Top = 80
-    Width = 75
-    Caption = 'Button1'
+    Top = 192
+    Width = 78
+    Caption = 'vstúpiť'
+    OnClick = Button1Click
     TabOrder = 1
   end
   object Edit2: TEdit
-    Left = 16
+    Left = 592
     Height = 23
-    Top = 328
-    Width = 80
+    Top = 152
+    Width = 105
     TabOrder = 2
-    Text = 'Edit2'
-  end
-  object Edit3: TEdit
-    Left = 176
-    Height = 23
-    Top = 328
-    Width = 80
-    TabOrder = 3
-    Text = 'Edit3'
-  end
-  object Edit4: TEdit
-    Left = 336
-    Height = 23
-    Top = 328
-    Width = 80
-    TabOrder = 4
-    Text = 'Edit4'
-  end
-  object Edit5: TEdit
-    Left = 496
-    Height = 23
-    Top = 328
-    Width = 80
-    TabOrder = 5
-    Text = 'Edit5'
+    Text = 'Zadaj počet'
   end
   object Button2: TButton
-    Left = 104
-    Height = 25
-    Top = 328
-    Width = 56
-    Caption = 'Button2'
-    TabOrder = 6
+    Left = 16
+    Height = 49
+    Top = 72
+    Width = 112
+    Caption = 'Ovocie'
+    TabOrder = 3
   end
   object Button3: TButton
-    Left = 266
-    Height = 25
-    Top = 328
-    Width = 56
-    Caption = 'Button3'
-    TabOrder = 7
+    Left = 144
+    Height = 49
+    Top = 72
+    Width = 112
+    Caption = 'Zelenina'
+    OnClick = Button3Click
+    TabOrder = 4
   end
   object Button4: TButton
-    Left = 424
-    Height = 25
-    Top = 328
-    Width = 56
-    Caption = 'Button4'
-    TabOrder = 8
+    Left = 272
+    Height = 49
+    Top = 72
+    Width = 112
+    Caption = 'Pečivo'
+    TabOrder = 5
   end
   object Button5: TButton
-    Left = 592
+    Left = 400
+    Height = 49
+    Top = 72
+    Width = 120
+    Caption = 'Ostatné'
+    TabOrder = 6
+  end
+  object Button6: TButton
+    Left = 392
     Height = 25
-    Top = 328
-    Width = 56
-    Caption = 'Button5'
+    Top = 8
+    Width = 75
+    Caption = 'vyhľadaj'
+    TabOrder = 7
+  end
+  object Image1: TImage
+    Left = 632
+    Height = 65
+    Top = 8
+    Width = 73
+  end
+  object Image2: TImage
+    Left = 16
+    Height = 214
+    Top = 136
+    Width = 500
+    OnClick = Image2Click
+  end
+  object Label2: TLabel
+    Left = 544
+    Height = 15
+    Top = 152
+    Width = 34
+    Caption = 'Label2'
+    ParentColor = False
+  end
+  object Edit3: TEdit
+    Left = 24
+    Height = 23
+    Top = 10
+    Width = 352
+    TabOrder = 8
+    Text = 'Zadaj kód tovaru'
+  end
+  object Button7: TButton
+    Left = 544
+    Height = 40
+    Top = 184
+    Width = 153
+    Caption = 'VLOŽ'
     TabOrder = 9
+  end
+  object Memo1: TMemo
+    Left = 546
+    Height = 109
+    Top = 241
+    Width = 147
+    Lines.Strings = (
+      'Memo1'
+    )
+    TabOrder = 10
   end
 end
