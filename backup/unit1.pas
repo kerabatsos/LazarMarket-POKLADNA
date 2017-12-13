@@ -110,6 +110,7 @@ end;
 
 procedure TForm1.vyhladajpodlakodu;
 begin
+ListBox1.Items.Clear;
 kodtovaru:=strtoint(edit3.text);
 for i:=1 to m do
     if kodtovaru=pole2[i].kod then
@@ -145,9 +146,9 @@ assignfile(uctenka,'uctenka.txt');
 append(uctenka);
 //write(uctenka,'Meno pokladnika: '+pokladnik);
 //writeln(uctenka);
-writeln(uctenka,pole2[itemindex].nazov+'    '+edit2.text+'x'+'    '+inttostr((pole2[itemindex].cena*strtoint(edit2.text)))+'€');
+writeln(uctenka,pole2[itemindex].nazov+'     '+edit2.text+'x'+'    '+inttostr((pole2[itemindex].cena*strtoint(edit2.text)))+'€');
 closefile(uctenka);
-memo1.append(pole2[itemindex].nazov+'    '+edit2.text+'x'+'    '+inttostr((pole2[itemindex].cena*strtoint(edit2.text)))+'€');
+memo1.append(pole2[itemindex].nazov+'     '+edit2.text+'x'+'    '+inttostr((pole2[itemindex].cena*strtoint(edit2.text)))+'€');
 end;
 
 procedure TForm1.Edit1EditingDone(Sender: TObject);

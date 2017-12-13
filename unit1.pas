@@ -110,6 +110,7 @@ end;
 
 procedure TForm1.vyhladajpodlakodu;
 begin
+ListBox1.Items.Clear;
 kodtovaru:=strtoint(edit3.text);
 for i:=1 to m do
     if kodtovaru=pole2[i].kod then
@@ -227,6 +228,7 @@ for i:= 0 to ListBox1.Count-1 do
             break;
        end;
 label2.caption:=(ListBox1.Items[itemIndex]);
+label2.visible:=true;
 end;
 
 end.
