@@ -1,0 +1,177 @@
+object Form1: TForm1
+  Left = 256
+  Height = 406
+  Top = 142
+  Width = 716
+  Caption = 'Form1'
+  ClientHeight = 406
+  ClientWidth = 716
+  Color = clSkyBlue
+  OnCreate = FormCreate
+  LCLVersion = '1.8.0.6'
+  object Label1: TLabel
+    Left = 288
+    Height = 15
+    Top = 136
+    Width = 128
+    Caption = 'Zadajte, prosím, Váš kód'
+    ParentColor = False
+  end
+  object Edit1: TEdit
+    Left = 304
+    Height = 23
+    Top = 160
+    Width = 80
+    EchoMode = emPassword
+    OnEditingDone = Edit1EditingDone
+    PasswordChar = '*'
+    TabOrder = 0
+    Text = '0'
+  end
+  object Button1: TButton
+    Left = 304
+    Height = 25
+    Top = 192
+    Width = 78
+    Caption = 'vstúpiť'
+    OnClick = Button1Click
+    TabOrder = 1
+  end
+  object Edit2: TEdit
+    Left = 616
+    Height = 23
+    Top = 136
+    Width = 81
+    TabOrder = 2
+  end
+  object Button2: TButton
+    Left = 16
+    Height = 49
+    Top = 72
+    Width = 112
+    Caption = 'Ovocie'
+    OnClick = Button2Click
+    TabOrder = 3
+  end
+  object Button3: TButton
+    Left = 144
+    Height = 49
+    Top = 72
+    Width = 112
+    Caption = 'Zelenina'
+    OnClick = Button3Click
+    TabOrder = 4
+  end
+  object Button4: TButton
+    Left = 272
+    Height = 49
+    Top = 72
+    Width = 112
+    Caption = 'Pečivo'
+    TabOrder = 5
+  end
+  object Button5: TButton
+    Left = 400
+    Height = 49
+    Top = 72
+    Width = 120
+    Caption = 'Ostatné'
+    TabOrder = 6
+  end
+  object Button6: TButton
+    Left = 392
+    Height = 26
+    Top = 29
+    Width = 75
+    Caption = 'vyhľadaj'
+    OnClick = Button6Click
+    TabOrder = 7
+  end
+  object Image1: TImage
+    Left = 632
+    Height = 65
+    Top = 8
+    Width = 73
+  end
+  object Label2: TLabel
+    Left = 576
+    Height = 34
+    Top = 96
+    Width = 87
+    Caption = 'Label2'
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Height = -29
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+  end
+  object Edit3: TEdit
+    Left = 24
+    Height = 23
+    Top = 29
+    Width = 352
+    TabOrder = 8
+  end
+  object Button7: TButton
+    Left = 544
+    Height = 40
+    Top = 168
+    Width = 153
+    Caption = 'VLOŽ'
+    OnClick = Button7Click
+    TabOrder = 9
+  end
+  object Memo1: TMemo
+    Left = 550
+    Height = 109
+    Top = 216
+    Width = 147
+    Lines.Strings = (
+      'Memo1'
+    )
+    TabOrder = 10
+  end
+  object ListBox1: TListBox
+    Left = 16
+    Height = 248
+    Top = 136
+    Width = 516
+    ItemHeight = 0
+    OnClick = ListBox1Click
+    TabOrder = 11
+  end
+  object Label3: TLabel
+    Left = 550
+    Height = 15
+    Top = 369
+    Width = 34
+    Caption = 'Label3'
+    ParentColor = False
+  end
+  object Label4: TLabel
+    Left = 24
+    Height = 15
+    Top = 8
+    Width = 142
+    Caption = 'Vyhľadať tovar podľa kódu'
+    ParentColor = False
+  end
+  object Button8: TButton
+    Left = 569
+    Height = 25
+    Top = 336
+    Width = 104
+    Caption = 'Prejsť k platbe'
+    TabOrder = 12
+  end
+  object Label5: TLabel
+    Left = 550
+    Height = 15
+    Top = 141
+    Width = 62
+    Caption = 'Zadaj počet'
+    ParentColor = False
+  end
+end
