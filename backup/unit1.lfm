@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 256
-  Height = 406
-  Top = 142
-  Width = 716
+  Left = 138
+  Height = 473
+  Top = 116
+  Width = 756
   Caption = 'Form1'
-  ClientHeight = 406
-  ClientWidth = 716
+  ClientHeight = 473
+  ClientWidth = 756
   Color = clMoneyGreen
   OnCreate = FormCreate
   LCLVersion = '1.8.0.6'
@@ -44,25 +44,25 @@ object Form1: TForm1
     Width = 81
     TabOrder = 2
   end
-  object Button2: TButton
+  object OvocieBtn: TButton
     Left = 16
     Height = 49
     Top = 72
     Width = 112
     Caption = 'Ovocie'
-    OnClick = Button2Click
+    OnClick = OvocieBtnClick
     TabOrder = 3
   end
-  object Button3: TButton
+  object ZeleninaBtn: TButton
     Left = 144
     Height = 49
     Top = 72
     Width = 112
     Caption = 'Zelenina'
-    OnClick = Button3Click
+    OnClick = ZeleninaBtnClick
     TabOrder = 4
   end
-  object Button4: TButton
+  object PecivoBtn: TButton
     Left = 272
     Height = 49
     Top = 72
@@ -70,7 +70,7 @@ object Form1: TForm1
     Caption = 'Pečivo'
     TabOrder = 5
   end
-  object Button5: TButton
+  object OstatneBtn: TButton
     Left = 400
     Height = 49
     Top = 72
@@ -114,38 +114,28 @@ object Form1: TForm1
     Width = 352
     TabOrder = 8
   end
-  object Button7: TButton
-    Left = 544
+  object VlozBtn: TButton
+    Left = 560
     Height = 40
     Top = 168
     Width = 153
     Caption = 'VLOŽ'
-    OnClick = Button7Click
+    OnClick = VlozBtnClick
     TabOrder = 9
-  end
-  object Memo1: TMemo
-    Left = 550
-    Height = 109
-    Top = 216
-    Width = 147
-    Lines.Strings = (
-      'Memo1'
-    )
-    TabOrder = 10
   end
   object ListBox1: TListBox
     Left = 16
-    Height = 248
+    Height = 321
     Top = 136
     Width = 516
     ItemHeight = 0
     OnClick = ListBox1Click
-    TabOrder = 11
+    TabOrder = 10
   end
   object Label3: TLabel
     Left = 550
     Height = 15
-    Top = 369
+    Top = 442
     Width = 34
     Caption = 'Label3'
     ParentColor = False
@@ -159,12 +149,12 @@ object Form1: TForm1
     ParentColor = False
   end
   object Button8: TButton
-    Left = 569
+    Left = 550
     Height = 25
-    Top = 336
+    Top = 400
     Width = 104
     Caption = 'Prejsť k platbe'
-    TabOrder = 12
+    TabOrder = 11
   end
   object Label5: TLabel
     Left = 550
@@ -173,5 +163,22 @@ object Form1: TForm1
     Width = 62
     Caption = 'Zadaj počet'
     ParentColor = False
+  end
+  object ListBox2: TListBox
+    Left = 560
+    Height = 144
+    Top = 216
+    Width = 156
+    ItemHeight = 0
+    TabOrder = 12
+  end
+  object StornoBtn: TButton
+    Left = 664
+    Height = 25
+    Top = 400
+    Width = 75
+    Caption = 'Storno'
+    OnClick = StornoBtnClick
+    TabOrder = 13
   end
 end
