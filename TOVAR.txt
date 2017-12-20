@@ -1,0 +1,11 @@
+10
+111 Jablka
+112 Banany
+113 Broskyne
+114 Marhule
+115 Jahody
+221 Mrkva
+222 Uhorka
+223 Rajciny
+224 Paprika
+225 Zemiaky

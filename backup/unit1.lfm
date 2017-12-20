@@ -1,10 +1,10 @@
 object Form1: TForm1
-  Left = 138
-  Height = 473
-  Top = 116
+  Left = 135
+  Height = 652
+  Top = 35
   Width = 756
   Caption = 'Form1'
-  ClientHeight = 473
+  ClientHeight = 652
   ClientWidth = 756
   Color = clMoneyGreen
   OnCreate = FormCreate
@@ -23,10 +23,11 @@ object Form1: TForm1
     Top = 160
     Width = 80
     EchoMode = emPassword
+    NumbersOnly = True
     OnEditingDone = Edit1EditingDone
     PasswordChar = '*'
     TabOrder = 0
-    Text = '0'
+    Text = '0000'
   end
   object Button1: TButton
     Left = 304
@@ -124,7 +125,7 @@ object Form1: TForm1
     TabOrder = 9
   end
   object ListBox1: TListBox
-    Left = 16
+    Left = 24
     Height = 321
     Top = 136
     Width = 516
@@ -148,12 +149,13 @@ object Form1: TForm1
     Caption = 'Vyhľadať tovar podľa kódu'
     ParentColor = False
   end
-  object Button8: TButton
+  object PlatbaBtn: TButton
     Left = 550
     Height = 25
     Top = 400
     Width = 104
     Caption = 'Prejsť k platbe'
+    OnClick = PlatbaBtnClick
     TabOrder = 11
   end
   object Label5: TLabel
@@ -166,7 +168,7 @@ object Form1: TForm1
   end
   object ListBox2: TListBox
     Left = 560
-    Height = 144
+    Height = 168
     Top = 216
     Width = 156
     ItemHeight = 0
@@ -180,5 +182,15 @@ object Form1: TForm1
     Caption = 'Storno'
     OnClick = StornoBtnClick
     TabOrder = 13
+  end
+  object Memo1: TMemo
+    Left = 304
+    Height = 90
+    Top = 480
+    Width = 150
+    Lines.Strings = (
+      'Memo1'
+    )
+    TabOrder = 14
   end
 end
