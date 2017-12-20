@@ -222,7 +222,7 @@ begin
      read(subor2,ovocie[i].cena);
      read(subor2,ovocie[i].pocet);
      readln(subor1);
-     //memo1.append(inttostr(ovocie[i].kod)+ovocie[i].nazov+inttostr(ovocie[i].cena)+inttostr(ovocie[i].pocet));
+     ////memo1.append(inttostr(ovocie[i].kod)+ovocie[i].nazov+inttostr(ovocie[i].cena)+inttostr(ovocie[i].pocet));
 end;
 
 end;
