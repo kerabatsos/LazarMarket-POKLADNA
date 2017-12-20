@@ -43,8 +43,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure Image2Click(Sender: TObject);
     procedure ListBox1Click(Sender: TObject);
-    procedure vyhladajpodlakodu;
-    procedure prihlasenie;
+    procedure Vyhladajpodlakodu;
+    procedure Prihlasenie;
   private
     { private declarations }
   public
@@ -60,7 +60,7 @@ end;
 
 type zoznam1=record
      meno: string;
-     kod: integer;
+     kod: string;
 end;
 
 const n=6;
@@ -69,10 +69,10 @@ const n=6;
 var
   pokladnici: array[1..n] of zoznam1;
   ovocie: array[1..m] of zoznam2;
-  kod,i,itemindex,kodtovaru: integer;
-  subor1,subor2,uctenka: textfile;
+  i, itemindex, kodtovaru: integer;
+  subor1, subor2, uctenka: textfile;
   znak: char;
-  pokladnik: string;
+  kod, pokladnik: string;
   Form1: TForm1;
 
 implementation
@@ -81,9 +81,9 @@ implementation
 
 { TForm1 }
 
-procedure TForm1.prihlasenie;
+procedure TForm1.Prihlasenie;
 begin
-kod:=strtoint(edit1.Text);
+kod:=edit1.Text;
 for i:=1 to n do                           //tu asi treba zmenit cyklus
     if pokladnici[i].kod = kod then begin
        pokladnik:=pokladnici[i].meno;
@@ -110,7 +110,7 @@ for i:=1 to n do                           //tu asi treba zmenit cyklus
     end;
 end;
 
-procedure TForm1.vyhladajpodlakodu;
+procedure TForm1.VyhladajPodlaKodu;
 begin
 ListBox1.Items.Clear;
 kodtovaru:=strtoint(edit3.text);
@@ -121,7 +121,7 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-prihlasenie;
+prihlasenie();
 end;
 
 procedure TForm1.OvocieBtnClick(Sender: TObject);
@@ -133,17 +133,22 @@ end;
 
 procedure TForm1.StornoBtnClick(Sender: TObject);
 var
-  stornoIndex,i:integer;
-
+  stornoIndex, i: integer;
 begin
 
-for i:= 0 to ListBox2.Count-1 do
-  if ListBox2.Selected[i]=True then
-          stornoIndex:=i;
+     case QuestionDlg ('STORNO','Chcete stornovať celý nákup, zvolenú položku?',mtCustom,[mrYes,'Nákup', mrNo , 'Položku', 'IsDefault'],'') of
+        mrYes: if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) = kod  then Close else ShowMessage('Nesprávny kód.');
+        mrNo:  if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) =  kod  then
+                  begin
+                    for i := 0 to (ListBox2.Count - 1) do
+                        if ListBox2.Selected[ i ] = True then
+                           stornoIndex := i;
 
-Listbox2.Items.Delete(stornoIndex);
-
-
+                    Listbox2.Items.Delete(stornoIndex);
+                  end
+               else ShowMessage('Nesprávny kód.');
+        mrCancel: ;
+     end;
 
 end;
 
@@ -171,6 +176,8 @@ prihlasenie;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
+var
+  hold: integer;
 begin
 ListBox2.Items.Clear;
 image1.picture.loadfromfile('logo.png');
@@ -199,10 +206,14 @@ begin
      inc(i);
      read(subor1,znak);
      repeat
-     pokladnici[i].meno:=pokladnici[i].meno+znak;
+       pokladnici[i].meno:=pokladnici[i].meno+znak;
+       read(subor1,znak);
+     until znak = ' ';
      read(subor1,znak);
-     until znak=' ';
-     read(subor1,pokladnici[i].kod);
+     repeat
+       pokladnici[i].kod:=pokladnici[i].kod+znak;
+       read(subor1,znak);
+     until eoLn(subor1);
      readln(subor1);
 end;
 
@@ -222,7 +233,7 @@ begin
      read(subor2,ovocie[i].cena);
      read(subor2,ovocie[i].pocet);
      readln(subor1);
-     //memo1.append(inttostr(ovocie[i].kod)+ovocie[i].nazov+inttostr(ovocie[i].cena)+inttostr(ovocie[i].pocet));
+     ////memo1.append(inttostr(ovocie[i].kod)+ovocie[i].nazov+inttostr(ovocie[i].cena)+inttostr(ovocie[i].pocet));
 end;
 
 end;
