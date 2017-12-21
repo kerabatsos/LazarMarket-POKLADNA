@@ -24,7 +24,6 @@ object Form1: TForm1
     Width = 80
     EchoMode = emPassword
     NumbersOnly = True
-    OnChange = Edit1Change
     OnEditingDone = Edit1EditingDone
     PasswordChar = '*'
     TabOrder = 0

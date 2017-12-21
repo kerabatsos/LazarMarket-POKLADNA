@@ -167,7 +167,7 @@ end;
 
 procedure TForm1.LogInBtnClick(Sender: TObject);
 begin
-prihlasenie();
+Prihlasenie;
 end;
 
 procedure TForm1.Edit1Change(Sender: TObject);
