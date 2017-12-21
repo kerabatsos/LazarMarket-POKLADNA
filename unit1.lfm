@@ -1,10 +1,10 @@
 object Form1: TForm1
-  Left = 110
-  Height = 593
-  Top = 100
+  Left = 189
+  Height = 497
+  Top = 81
   Width = 756
   Caption = 'Form1'
-  ClientHeight = 593
+  ClientHeight = 497
   ClientWidth = 756
   Color = clMoneyGreen
   OnCreate = FormCreate
@@ -27,7 +27,7 @@ object Form1: TForm1
     OnEditingDone = Edit1EditingDone
     PasswordChar = '*'
     TabOrder = 0
-    Text = '0000'
+    Text = '9999'
   end
   object Button1: TButton
     Left = 304
@@ -46,22 +46,13 @@ object Form1: TForm1
     TabOrder = 2
   end
   object OvocieBtn: TButton
-    Left = 16
+    Left = 24
     Height = 49
     Top = 72
-    Width = 112
-    Caption = 'Ovocie'
+    Width = 232
+    Caption = 'Ovocie a zelenina'
     OnClick = OvocieBtnClick
     TabOrder = 3
-  end
-  object ZeleninaBtn: TButton
-    Left = 144
-    Height = 49
-    Top = 72
-    Width = 112
-    Caption = 'Zelenina'
-    OnClick = ZeleninaBtnClick
-    TabOrder = 4
   end
   object PecivoBtn: TButton
     Left = 272
@@ -69,7 +60,7 @@ object Form1: TForm1
     Top = 72
     Width = 112
     Caption = 'Pečivo'
-    TabOrder = 5
+    TabOrder = 4
   end
   object OstatneBtn: TButton
     Left = 400
@@ -77,7 +68,7 @@ object Form1: TForm1
     Top = 72
     Width = 120
     Caption = 'Ostatné'
-    TabOrder = 6
+    TabOrder = 5
   end
   object Button6: TButton
     Left = 392
@@ -86,12 +77,12 @@ object Form1: TForm1
     Width = 75
     Caption = 'vyhľadaj'
     OnClick = Button6Click
-    TabOrder = 7
+    TabOrder = 6
   end
   object Image1: TImage
-    Left = 632
+    Left = 664
     Height = 65
-    Top = 8
+    Top = 16
     Width = 73
   end
   object Label2: TLabel
@@ -113,7 +104,7 @@ object Form1: TForm1
     Height = 23
     Top = 29
     Width = 352
-    TabOrder = 8
+    TabOrder = 7
   end
   object VlozBtn: TButton
     Left = 560
@@ -122,21 +113,21 @@ object Form1: TForm1
     Width = 153
     Caption = 'VLOŽ'
     OnClick = VlozBtnClick
-    TabOrder = 9
+    TabOrder = 8
   end
   object ListBox1: TListBox
     Left = 24
-    Height = 321
+    Height = 337
     Top = 136
     Width = 516
     ItemHeight = 0
     OnClick = ListBox1Click
-    TabOrder = 10
+    TabOrder = 9
   end
   object Label3: TLabel
-    Left = 550
+    Left = 552
     Height = 15
-    Top = 442
+    Top = 456
     Width = 34
     Caption = 'Label3'
     ParentColor = False
@@ -151,12 +142,12 @@ object Form1: TForm1
   end
   object PlatbaBtn: TButton
     Left = 550
-    Height = 25
+    Height = 48
     Top = 400
-    Width = 104
+    Width = 130
     Caption = 'Prejsť k platbe'
     OnClick = PlatbaBtnClick
-    TabOrder = 11
+    TabOrder = 10
   end
   object Label5: TLabel
     Left = 550
@@ -170,18 +161,18 @@ object Form1: TForm1
     Left = 560
     Height = 168
     Top = 216
-    Width = 156
+    Width = 176
     ItemHeight = 0
-    TabOrder = 12
+    TabOrder = 11
   end
   object StornoBtn: TButton
-    Left = 664
-    Height = 25
+    Left = 680
+    Height = 49
     Top = 400
-    Width = 75
+    Width = 56
     Caption = 'Storno'
     OnClick = StornoBtnClick
-    TabOrder = 13
+    TabOrder = 12
   end
   object Memo1: TMemo
     Left = 24
@@ -191,16 +182,16 @@ object Form1: TForm1
     Lines.Strings = (
       'Memo1'
     )
-    TabOrder = 14
+    TabOrder = 13
   end
   object NakupBtn: TButton
-    Left = 232
+    Left = 240
     Height = 121
     Top = 168
     Width = 247
     Caption = 'Prejsť k nákupu'
     OnClick = NakupBtnClick
-    TabOrder = 15
+    TabOrder = 14
   end
   object Label6: TLabel
     Left = 328
@@ -217,16 +208,6 @@ object Form1: TForm1
     Width = 152
     Caption = 'Zaplatiť'
     OnClick = ZaplatitBtnClick
-    TabOrder = 16
-  end
-  object Memo2: TMemo
-    Left = 256
-    Height = 90
-    Top = 472
-    Width = 150
-    Lines.Strings = (
-      'Memo2'
-    )
-    TabOrder = 17
+    TabOrder = 15
   end
 end

@@ -14,14 +14,12 @@ type
 
   TForm1 = class(TForm)
     Button1: TButton;
-    Memo2: TMemo;
     ZaplatitBtn: TButton;
     Label6: TLabel;
     NakupBtn: TButton;
     Memo1: TMemo;
     StornoBtn: TButton;
     OvocieBtn: TButton;
-    ZeleninaBtn: TButton;
     PecivoBtn: TButton;
     OstatneBtn: TButton;
     Button6: TButton;
@@ -99,7 +97,8 @@ var
   sklad: array[1..2,1..m] of integer;
   ovocie: array[1..o] of zoznamovocia;
   uctenka: array[1..p] of zoznamuctenka;
-  i, itemindex, kodtovaru, pocetobjektov, celkom: integer;
+  //subory: array of textfile;
+  i, itemindex, kodtovaru, pocetobjektov, celkom, q: integer;
   subor1, subor2, subor3, subor4, subor5: textfile;
   znak: char;
   kod, pokladnik: string;
@@ -133,7 +132,6 @@ label3.visible:=false;
 label4.visible:=false;
 label5.visible:=false;
 OvocieBtn.visible:=false;
-ZeleninaBtn.visible:=false;
 PecivoBtn.visible:=false;
 OstatneBtn.visible:=false;
 button6.visible:=false;
@@ -166,8 +164,18 @@ end;
 
 procedure TForm1.NakupBtnClick(Sender: TObject);
 begin
+for i:=1 to pocetobjektov do
+                 begin
+                   uctenka[i].kod:=0;
+                   uctenka[i].nazov:=' ';
+                   uctenka[i].pocet:=0;
+                   uctenka[i].cena:=0;
+                 end;
+listbox1.Items.clear;
+listbox2.items.clear;
 celkom:=0;
 pocetobjektov:=0;
+q:=0;
 image1.visible:=true;
 listbox1.visible:=true;
 label2.visible:=false;
@@ -175,7 +183,6 @@ label3.visible:=true;
 label4.visible:=true;
 label5.visible:=true;
 OvocieBtn.visible:=true;
-ZeleninaBtn.visible:=true;
 PecivoBtn.visible:=true;
 OstatneBtn.visible:=true;
 button6.visible:=true;
@@ -200,12 +207,14 @@ SchovajObjekty;
 Label6.visible:=true;
 memo1.Visible:=true;
 ZaplatitBtn.visible:=true;
-memo1.append('                     Lazarmarket                   ');
+memo1.append('                                                                                          Lazarmarket');
 memo1.append('Obsluhuje Vas: '+pokladnik);
+memo1.append(' ');
 for i:=1 to pocetobjektov do
     (memo1.append(inttostr(uctenka[i].kod)+'  '+uctenka[i].nazov+'         '+inttostr(uctenka[i].pocet)+'x'+inttostr(uctenka[i].cena)+'€'+'    '+inttostr(uctenka[i].pocet*uctenka[i].cena)+'€'));
 memo1.append(' ');
-memo1.append(inttostr(celkom));
+memo1.append('---------------------------');
+memo1.append(inttostr(celkom)+' €');
 
 end;
 
@@ -222,7 +231,20 @@ var
 begin
 
      case QuestionDlg ('STORNO','Chcete stornovať celý nákup alebo zvolenú položku?',mtCustom,[mrYes,'Nákup', mrNo , 'Položku', 'IsDefault'],'') of
-        mrYes: if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) = kod  then Close else ShowMessage('Nesprávny kód.');
+        mrYes: if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) = kod  then
+           begin
+             SchovajObjekty;
+             listbox1.Items.clear;
+             listbox2.items.clear;
+             for i:=1 to pocetobjektov do
+                 begin
+                   uctenka[i].kod:=0;
+                   uctenka[i].nazov:=' ';
+                   uctenka[i].pocet:=0;
+                   uctenka[i].cena:=0;
+                 end;
+           end
+        else ShowMessage('Nesprávny kód.');
         mrNo:  if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) =  kod  then
                   begin
                     for i := 0 to (ListBox2.Count - 1) do
@@ -230,13 +252,22 @@ begin
                            stornoIndex := i;
 
                     Listbox2.Items.Delete(stornoIndex);
-
                     stornoindex:=stornoindex+1;
+                    celkom:=celkom-(uctenka[stornoindex].cena*uctenka[stornoindex].pocet);
+                    if stornoindex=pocetobjektov then
+                       begin
                     uctenka[stornoindex].kod:=0;
                     uctenka[stornoindex].nazov:=' ';
                     uctenka[stornoindex].cena:=0;
                     uctenka[stornoindex].pocet:=0;
-
+                    dec(pocetobjektov);
+                       end
+                    else
+                        begin
+                             for i:=stornoindex to pocetobjektov do
+                                 uctenka[i]:=uctenka[i+1];
+                             dec(pocetobjektov);
+                        end;
                   end
                else ShowMessage('Nesprávny kód.');
         mrCancel: ;
@@ -246,7 +277,22 @@ end;
 
 procedure TForm1.ZaplatitBtnClick(Sender: TObject);
 begin
+SchovajObjekty;
+NakupBtn.visible:=true;
+inc(q);
+//SetLength(subory,q);
+assignfile(subor5,'uctenka'+inttostr(q)+'.txt');
+rewrite(subor5);
+writeln(subor5,'                                                                                          Lazarmarket');
+writeln(subor5,'Obsluhuje Vas: '+pokladnik);
+writeln(subor5);
+for i:=1 to pocetobjektov do
+    (writeln(subor5,inttostr(uctenka[i].kod)+'  '+uctenka[i].nazov+'         '+inttostr(uctenka[i].pocet)+'x'+inttostr(uctenka[i].cena)+'€'+'    '+inttostr(uctenka[i].pocet*uctenka[i].cena)+'€'));
+writeln(subor5);
+writeln(subor5,'---------------------------');
+writeln(subor5,inttostr(celkom)+' €');
 
+closefile(subor5);
 end;
 
 procedure TForm1.ZeleninaBtnClick(Sender: TObject);
@@ -265,15 +311,15 @@ pocet: integer;
 begin
 itemindex:=itemindex+1;
 inc(pocetobjektov);
-memo2.append('pocet objektov '+inttostr(pocetobjektov));
+//memo2.append('pocet objektov '+inttostr(pocetobjektov));
 pocet:=strtoint(edit2.text);
 Listbox2.Items.Add(inttostr(tovar[itemindex].kod)+'  '+tovar[itemindex].nazov+'         '+inttostr(pocet)+'x'+inttostr(tovar[itemindex].predajnacena)+'€'+'    '+inttostr(pocet*tovar[itemindex].predajnacena)+'€');
 uctenka[pocetobjektov].kod:=tovar[itemindex].kod;
 uctenka[pocetobjektov].nazov:=tovar[itemindex].nazov;
 uctenka[pocetobjektov].cena:=tovar[itemindex].predajnacena;
 uctenka[pocetobjektov].pocet:=pocet;
-memo2.append(inttostr(uctenka[pocetobjektov].kod)+'  '+uctenka[pocetobjektov].nazov+'         '+inttostr(uctenka[pocetobjektov].pocet)+'x'+inttostr(uctenka[pocetobjektov].cena)+'€'+'    '+inttostr(uctenka[pocetobjektov].pocet*uctenka[pocetobjektov].cena)+'€');
-celkom:=celkom+inttostr(uctenka[pocetobjektov].pocet*uctenka[pocetobjektov].cena);
+//memo2.append(inttostr(uctenka[pocetobjektov].kod)+'  '+uctenka[pocetobjektov].nazov+'         '+inttostr(uctenka[pocetobjektov].pocet)+'x'+inttostr(uctenka[pocetobjektov].cena)+'€'+'    '+inttostr(uctenka[pocetobjektov].pocet*uctenka[pocetobjektov].cena)+'€');
+celkom:=celkom+(uctenka[pocetobjektov].pocet*uctenka[pocetobjektov].cena);
 edit2.clear;
 end;
 
