@@ -13,7 +13,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    Button1: TButton;
+    LogInBtn: TButton;
     ZaplatitBtn: TButton;
     Label6: TLabel;
     NakupBtn: TButton;
@@ -22,7 +22,7 @@ type
     OvocieBtn: TButton;
     PecivoBtn: TButton;
     OstatneBtn: TButton;
-    Button6: TButton;
+    VyhladajBtn: TButton;
     VlozBtn: TButton;
     PlatbaBtn: TButton;
     Edit1: TEdit;
@@ -36,14 +36,15 @@ type
     Label5: TLabel;
     ListBox1: TListBox;
     ListBox2: TListBox;
-    procedure Button1Click(Sender: TObject);
+    procedure LogInBtnClick(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
     procedure NakupBtnClick(Sender: TObject);
     procedure PlatbaBtnClick(Sender: TObject);
     procedure OvocieBtnClick(Sender: TObject);
     procedure StornoBtnClick(Sender: TObject);
     procedure ZaplatitBtnClick(Sender: TObject);
     procedure ZeleninaBtnClick(Sender: TObject);
-    procedure Button6Click(Sender: TObject);
+    procedure VyhladajBtnClick(Sender: TObject);
     procedure VlozBtnClick(Sender: TObject);
     procedure Edit1EditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -122,7 +123,7 @@ for i:=1 to n do
        label3.caption:='Pokladnu obsluhuje: '+pokladnik;
        NakupBtn.visible:=true;
        Edit1.visible:=false;
-       Button1.visible:=false;
+       LogInBtn.visible:=false;
        Label1.visible:=false;
        k := true;
     end;
@@ -141,7 +142,7 @@ label5.visible:=false;
 OvocieBtn.visible:=false;
 PecivoBtn.visible:=false;
 OstatneBtn.visible:=false;
-button6.visible:=false;
+VyhladajBtn.visible:=false;
 VlozBtn.visible:=false;
 PlatbaBtn.visible:=false;
 edit2.visible:=false;
@@ -164,9 +165,14 @@ for i:=1 to m do
        ListBox1.Items.Add(tovar[i].nazov);
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.LogInBtnClick(Sender: TObject);
 begin
 prihlasenie();
+end;
+
+procedure TForm1.Edit1Change(Sender: TObject);
+begin
+
 end;
 
 procedure TForm1.NakupBtnClick(Sender: TObject);
@@ -191,7 +197,7 @@ label5.visible:=true;
 OvocieBtn.visible:=true;
 PecivoBtn.visible:=true;
 OstatneBtn.visible:=true;
-button6.visible:=true;
+VyhladajBtn.visible:=true;
 VlozBtn.visible:=true;
 PlatbaBtn.visible:=true;
 edit2.visible:=true;
@@ -199,7 +205,7 @@ edit3.visible:=true;
 listbox2.visible:=true;
 label1.visible:=false;
 edit1.visible:=false;
-button1.visible:=false;
+LogInBtn.visible:=false;
 StornoBtn.visible:=true;
 Label6.visible:=false;
 memo1.Visible:=false;
@@ -306,7 +312,7 @@ begin
 
 end;
 
-procedure TForm1.Button6Click(Sender: TObject);
+procedure TForm1.VyhladajBtnClick(Sender: TObject);
 begin
 vyhladajpodlakodu;
 end;

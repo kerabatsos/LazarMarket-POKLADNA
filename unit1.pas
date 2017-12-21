@@ -245,8 +245,8 @@ begin
      case QuestionDlg ('STORNO','Chcete stornovať celý nákup alebo zvolenú položku?',mtCustom,[mrYes,'Nákup', mrNo , 'Položku', 'IsDefault'],'') of
         mrYes: if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) = kod  then
            begin
-             NakupBtn.visible:=true;
              SchovajObjekty;
+             NakupBtn.visible:=true;
              listbox1.Items.clear;
              listbox2.items.clear;
              for i:=1 to pocetobjektov do
