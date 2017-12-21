@@ -1,7 +1,8 @@
                                                                                  Lazarmarket
 Obsluhuje Vas: Katka
 
-112  Banany         20x3€    60€
+115  Jahody         50x6€    300€
+224  Paprika         50x2€    100€
 
 ---------------------------
-60 €
+400 €

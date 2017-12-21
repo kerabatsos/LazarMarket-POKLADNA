@@ -13,10 +13,10 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    OdhlasitBtn: TButton;
     LogInBtn: TButton;
     ZaplatitBtn: TButton;
     Label6: TLabel;
+    NakupBtn: TButton;
     Memo1: TMemo;
     StornoBtn: TButton;
     OvocieBtn: TButton;
@@ -36,9 +36,9 @@ type
     Label5: TLabel;
     ListBox1: TListBox;
     ListBox2: TListBox;
-    procedure OdhlasitBtnClick(Sender: TObject);
     procedure LogInBtnClick(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
+    procedure NakupBtnClick(Sender: TObject);
     procedure PlatbaBtnClick(Sender: TObject);
     procedure OvocieBtnClick(Sender: TObject);
     procedure StornoBtnClick(Sender: TObject);
@@ -53,7 +53,6 @@ type
     procedure Vyhladajpodlakodu;
     procedure Prihlasenie;
     procedure SchovajObjekty;
-    procedure NovyNakup;
   private
     { private declarations }
   public
@@ -122,7 +121,7 @@ for i:=1 to n do
     if pokladnici[i].kod = kod then begin
        pokladnik:=pokladnici[i].meno;
        label3.caption:='Pokladnu obsluhuje: '+pokladnik;
-       NovyNakup;
+       NakupBtn.visible:=true;
        Edit1.visible:=false;
        LogInBtn.visible:=false;
        Label1.visible:=false;
@@ -151,10 +150,10 @@ edit3.visible:=false;
 listbox2.visible:=false;
 listbox1.Visible:=false;
 StornoBtn.visible:=false;
+NakupBtn.visible:=false;
 Label6.visible:=false;
 memo1.Visible:=false;
 ZaplatitBtn.visible:=false;
-OdhlasitBtn.visible:=false;
 end;
 
 procedure TForm1.VyhladajPodlaKodu;
@@ -171,21 +170,12 @@ begin
 prihlasenie();
 end;
 
-procedure TForm1.OdhlasitBtnClick(Sender: TObject);
-begin
-SchovajObjekty;
-Edit1.text:='';
-LogInBtn.visible:=true;
-Edit1.visible:=true;
-Label1.visible:=true;
-end;
-
 procedure TForm1.Edit1Change(Sender: TObject);
 begin
 
 end;
 
-procedure TForm1.NovyNakup;
+procedure TForm1.NakupBtnClick(Sender: TObject);
 begin
 for i:=1 to pocetobjektov do
                  begin
@@ -220,9 +210,7 @@ StornoBtn.visible:=true;
 Label6.visible:=false;
 memo1.Visible:=false;
 ZaplatitBtn.visible:=false;
-OdhlasitBtn.visible:=true;
 end;
-
 
 procedure TForm1.PlatbaBtnClick(Sender: TObject);
 begin
@@ -257,7 +245,8 @@ begin
      case QuestionDlg ('STORNO','Chcete stornovať celý nákup alebo zvolenú položku?',mtCustom,[mrYes,'Nákup', mrNo , 'Položku', 'IsDefault'],'') of
         mrYes: if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) = kod  then
            begin
-             NovyNakup;
+             SchovajObjekty;
+             NakupBtn.visible:=true;
              listbox1.Items.clear;
              listbox2.items.clear;
              for i:=1 to pocetobjektov do
@@ -301,7 +290,8 @@ end;
 
 procedure TForm1.ZaplatitBtnClick(Sender: TObject);
 begin
-NovyNakup;
+SchovajObjekty;
+NakupBtn.visible:=true;
 inc(q);
 assignfile(subor5,'uctenka'+inttostr(q)+'.txt');
 rewrite(subor5);
