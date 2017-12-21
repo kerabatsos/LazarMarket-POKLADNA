@@ -24,18 +24,18 @@ object Form1: TForm1
     Width = 80
     EchoMode = emPassword
     NumbersOnly = True
+    OnChange = Edit1Change
     OnEditingDone = Edit1EditingDone
     PasswordChar = '*'
     TabOrder = 0
-    Text = '9999'
   end
-  object Button1: TButton
+  object LogInBtn: TButton
     Left = 304
     Height = 25
     Top = 192
     Width = 78
     Caption = 'vstúpiť'
-    OnClick = Button1Click
+    OnClick = LogInBtnClick
     TabOrder = 1
   end
   object Edit2: TEdit
@@ -70,13 +70,13 @@ object Form1: TForm1
     Caption = 'Ostatné'
     TabOrder = 5
   end
-  object Button6: TButton
+  object VyhladajBtn: TButton
     Left = 392
     Height = 26
     Top = 29
     Width = 75
     Caption = 'vyhľadaj'
-    OnClick = Button6Click
+    OnClick = VyhladajBtnClick
     TabOrder = 6
   end
   object Image1: TImage

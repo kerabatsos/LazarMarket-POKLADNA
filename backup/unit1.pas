@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls;
+  StdCtrls, LCLType;
 
 type
 
@@ -111,8 +111,11 @@ implementation
 { TForm1 }
 
 procedure TForm1.Prihlasenie;
+var
+  k: boolean;
 begin
 kod:=edit1.Text;
+k := false;
 for i:=1 to n do
     if pokladnici[i].kod = kod then begin
        pokladnik:=pokladnici[i].meno;
@@ -121,7 +124,11 @@ for i:=1 to n do
        Edit1.visible:=false;
        Button1.visible:=false;
        Label1.visible:=false;
+       k := true;
     end;
+
+ if k = false then
+    ShowMessage('Nesprávny kód.');
 end;
 
 procedure TForm1.SchovajObjekty;
@@ -175,7 +182,6 @@ listbox1.Items.clear;
 listbox2.items.clear;
 celkom:=0;
 pocetobjektov:=0;
-q:=0;
 image1.visible:=true;
 listbox1.visible:=true;
 label2.visible:=false;
@@ -233,6 +239,7 @@ begin
      case QuestionDlg ('STORNO','Chcete stornovať celý nákup alebo zvolenú položku?',mtCustom,[mrYes,'Nákup', mrNo , 'Položku', 'IsDefault'],'') of
         mrYes: if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) = kod  then
            begin
+             NakupBtn.visible:=true;
              SchovajObjekty;
              listbox1.Items.clear;
              listbox2.items.clear;
@@ -280,10 +287,9 @@ begin
 SchovajObjekty;
 NakupBtn.visible:=true;
 inc(q);
-//SetLength(subory,q);
 assignfile(subor5,'uctenka'+inttostr(q)+'.txt');
 rewrite(subor5);
-writeln(subor5,'                                                                                          Lazarmarket');
+writeln(subor5,'                                                                                 Lazarmarket');
 writeln(subor5,'Obsluhuje Vas: '+pokladnik);
 writeln(subor5);
 for i:=1 to pocetobjektov do
@@ -333,6 +339,7 @@ var
 hold,j,x2,x3,x4,kod,nakupnacena,predajnacena,pocet: integer;    //x je premenna na pocet riadkov v txt subore
 begin
 ListBox2.Items.Clear;
+q:=0;
 image1.picture.loadfromfile('logo.png');
 Label6.Caption:='Košík';
 SchovajObjekty;

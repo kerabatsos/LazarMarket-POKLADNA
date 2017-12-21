@@ -1,8 +1,7 @@
-                                                                                          Lazarmarket
+                                                                                 Lazarmarket
 Obsluhuje Vas: Katka
 
-222  Uhorka         5x2€    10€
-114  Marhule         5x3€    15€
+222  Uhorka         50x2€    100€
 
 ---------------------------
-25 €
+100 €
