@@ -209,4 +209,13 @@ object Form1: TForm1
     OnClick = ZaplatitBtnClick
     TabOrder = 15
   end
+  object OdhlasitBtn: TButton
+    Left = 576
+    Height = 25
+    Top = 16
+    Width = 75
+    Caption = 'Odhlásiť sa'
+    OnClick = OdhlasitBtnClick
+    TabOrder = 16
+  end
 end

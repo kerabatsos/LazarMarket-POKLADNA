@@ -24,7 +24,6 @@ object Form1: TForm1
     Width = 80
     EchoMode = emPassword
     NumbersOnly = True
-    OnChange = Edit1Change
     OnEditingDone = Edit1EditingDone
     PasswordChar = '*'
     TabOrder = 0
@@ -209,5 +208,14 @@ object Form1: TForm1
     Caption = 'Zaplatiť'
     OnClick = ZaplatitBtnClick
     TabOrder = 15
+  end
+  object OdhlasitBtn: TButton
+    Left = 576
+    Height = 25
+    Top = 16
+    Width = 75
+    Caption = 'Odhlásiť sa'
+    OnClick = OdhlasitBtnClick
+    TabOrder = 16
   end
 end

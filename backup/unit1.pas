@@ -13,6 +13,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    OdhlasitBtn: TButton;
     LogInBtn: TButton;
     ZaplatitBtn: TButton;
     Label6: TLabel;
@@ -36,8 +37,8 @@ type
     Label5: TLabel;
     ListBox1: TListBox;
     ListBox2: TListBox;
+    procedure OdhlasitBtnClick(Sender: TObject);
     procedure LogInBtnClick(Sender: TObject);
-    procedure Edit1Change(Sender: TObject);
     procedure NakupBtnClick(Sender: TObject);
     procedure PlatbaBtnClick(Sender: TObject);
     procedure OvocieBtnClick(Sender: TObject);
@@ -48,7 +49,6 @@ type
     procedure VlozBtnClick(Sender: TObject);
     procedure Edit1EditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Image2Click(Sender: TObject);
     procedure ListBox1Click(Sender: TObject);
     procedure Vyhladajpodlakodu;
     procedure Prihlasenie;
@@ -111,25 +111,25 @@ implementation
 
 { TForm1 }
 
-procedure TForm1.Prihlasenie;
+procedure TForm1.Prihlasenie;     //procedura
 var
   k: boolean;
 begin
-kod:=edit1.Text;
-k := false;
+kod:=edit1.text;
+k:=false;
 for i:=1 to n do
-    if pokladnici[i].kod = kod then begin
-       pokladnik:=pokladnici[i].meno;
-       label3.caption:='Pokladnu obsluhuje: '+pokladnik;
-       NakupBtn.visible:=true;
-       Edit1.visible:=false;
-       LogInBtn.visible:=false;
-       Label1.visible:=false;
-       k := true;
-    end;
-
- if k = false then
-    ShowMessage('Nesprávny kód.');
+    if pokladnici[i].kod = kod then
+       begin
+         pokladnik:=pokladnici[i].meno;
+         label3.caption:='Pokladnu obsluhuje: '+pokladnik;
+         NakupBtn.visible:=true;
+         Edit1.visible:=false;
+         LogInBtn.visible:=false;
+         Label1.visible:=false;
+         k:=true;
+       end;
+if k=false then
+   ShowMessage('Nesprávny kód.');
 end;
 
 procedure TForm1.SchovajObjekty;
@@ -139,21 +139,22 @@ label2.visible:=false;
 label3.visible:=false;
 label4.visible:=false;
 label5.visible:=false;
+Label6.visible:=false;
 OvocieBtn.visible:=false;
 PecivoBtn.visible:=false;
 OstatneBtn.visible:=false;
 VyhladajBtn.visible:=false;
 VlozBtn.visible:=false;
 PlatbaBtn.visible:=false;
-edit2.visible:=false;
-edit3.visible:=false;
-listbox2.visible:=false;
-listbox1.Visible:=false;
 StornoBtn.visible:=false;
 NakupBtn.visible:=false;
-Label6.visible:=false;
-memo1.Visible:=false;
 ZaplatitBtn.visible:=false;
+edit2.visible:=false;
+edit3.visible:=false;
+listbox1.Visible:=false;
+listbox2.visible:=false;
+memo1.Visible:=false;
+OdhlasitBtn.visible:=false;
 end;
 
 procedure TForm1.VyhladajPodlaKodu;
@@ -170,54 +171,60 @@ begin
 Prihlasenie;
 end;
 
-procedure TForm1.Edit1Change(Sender: TObject);
+procedure TForm1.OdhlasitBtnClick(Sender: TObject);
 begin
-
+SchovajObjekty;
+label1.visible:=true;
+edit1.visible:=true;
+loginbtn.visible:=true;
+edit1.caption:='';
 end;
+
 
 procedure TForm1.NakupBtnClick(Sender: TObject);
 begin
 for i:=1 to pocetobjektov do
-                 begin
-                   uctenka[i].kod:=0;
-                   uctenka[i].nazov:=' ';
-                   uctenka[i].pocet:=0;
-                   uctenka[i].cena:=0;
-                 end;
-listbox1.Items.clear;
-listbox2.items.clear;
+                             begin
+                               uctenka[i].kod:=0;
+                               uctenka[i].nazov:=' ';
+                               uctenka[i].pocet:=0;
+                               uctenka[i].cena:=0;
+                             end;
 celkom:=0;
 pocetobjektov:=0;
+listbox1.Items.clear;
+listbox2.items.clear;
+
 image1.visible:=true;
 listbox1.visible:=true;
+listbox2.visible:=true;
+label1.visible:=false;
 label2.visible:=false;
 label3.visible:=true;
 label4.visible:=true;
 label5.visible:=true;
+Label6.visible:=false;
 OvocieBtn.visible:=true;
 PecivoBtn.visible:=true;
 OstatneBtn.visible:=true;
 VyhladajBtn.visible:=true;
+ZaplatitBtn.visible:=false;
 VlozBtn.visible:=true;
-PlatbaBtn.visible:=true;
-edit2.visible:=true;
-edit3.visible:=true;
-listbox2.visible:=true;
-label1.visible:=false;
-edit1.visible:=false;
 LogInBtn.visible:=false;
 StornoBtn.visible:=true;
-Label6.visible:=false;
+PlatbaBtn.visible:=true;
+edit1.visible:=false;
+edit2.visible:=true;
+edit3.visible:=true;
 memo1.Visible:=false;
-ZaplatitBtn.visible:=false;
 end;
 
 procedure TForm1.PlatbaBtnClick(Sender: TObject);
 begin
 memo1.clear;
 SchovajObjekty;
-Label6.visible:=true;
-memo1.Visible:=true;
+memo1.visible:=true;
+label6.visible:=true;
 ZaplatitBtn.visible:=true;
 memo1.append('                                                                                          Lazarmarket');
 memo1.append('Obsluhuje Vas: '+pokladnik);
@@ -227,7 +234,6 @@ for i:=1 to pocetobjektov do
 memo1.append(' ');
 memo1.append('---------------------------');
 memo1.append(inttostr(celkom)+' €');
-
 end;
 
 procedure TForm1.OvocieBtnClick(Sender: TObject);
@@ -415,11 +421,6 @@ begin
          if tovar[j].kod=kod then tovar[j].pocet:=pocet;
      //memo1.append(inttostr(tovar[i].kod)+tovar[i].nazov+inttostr(tovar[i].nakupnacena)+inttostr(tovar[i].predajnacena)+inttostr(tovar[i].pocet));
 end;
-
-end;
-
-procedure TForm1.Image2Click(Sender: TObject);
-begin
 
 end;
 

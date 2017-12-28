@@ -13,6 +13,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    OdhlasitBtn: TButton;
     LogInBtn: TButton;
     ZaplatitBtn: TButton;
     Label6: TLabel;
@@ -36,6 +37,7 @@ type
     Label5: TLabel;
     ListBox1: TListBox;
     ListBox2: TListBox;
+    procedure OdhlasitBtnClick(Sender: TObject);
     procedure LogInBtnClick(Sender: TObject);
     procedure NakupBtnClick(Sender: TObject);
     procedure PlatbaBtnClick(Sender: TObject);
@@ -146,6 +148,7 @@ VlozBtn.visible:=false;
 PlatbaBtn.visible:=false;
 StornoBtn.visible:=false;
 NakupBtn.visible:=false;
+OdhlasitBtn.visible:=false;
 ZaplatitBtn.visible:=false;
 edit2.visible:=false;
 edit3.visible:=false;
@@ -166,6 +169,15 @@ end;
 procedure TForm1.LogInBtnClick(Sender: TObject);
 begin
 Prihlasenie;
+end;
+
+procedure TForm1.OdhlasitBtnClick(Sender: TObject);
+begin
+SchovajObjekty;
+label1.visible:=true;
+edit1.visible:=true;
+loginbtn.visible:=true;
+edit1.caption:='';
 end;
 
 
@@ -197,6 +209,7 @@ PecivoBtn.visible:=true;
 OstatneBtn.visible:=true;
 VyhladajBtn.visible:=true;
 ZaplatitBtn.visible:=false;
+OdhlasitBtn.visible:=true;
 VlozBtn.visible:=true;
 LogInBtn.visible:=false;
 StornoBtn.visible:=true;
