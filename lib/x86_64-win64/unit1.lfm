@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 189
+  Left = 224
   Height = 497
-  Top = 81
+  Top = 131
   Width = 756
   Caption = 'Form1'
   ClientHeight = 497
@@ -139,13 +139,13 @@ object Form1: TForm1
     Caption = 'Vyhľadať tovar podľa kódu'
     ParentColor = False
   end
-  object PlatbaBtn: TButton
+  object PrejstKPlatbeBtn: TButton
     Left = 550
     Height = 48
     Top = 400
     Width = 130
     Caption = 'Prejsť k platbe'
-    OnClick = PlatbaBtnClick
+    OnClick = PrejstKPlatbeBtnClick
     TabOrder = 10
   end
   object Label5: TLabel
@@ -183,23 +183,6 @@ object Form1: TForm1
     )
     TabOrder = 13
   end
-  object NakupBtn: TButton
-    Left = 240
-    Height = 121
-    Top = 168
-    Width = 247
-    Caption = 'Prejsť k nákupu'
-    OnClick = NakupBtnClick
-    TabOrder = 14
-  end
-  object Label6: TLabel
-    Left = 328
-    Height = 15
-    Top = 8
-    Width = 34
-    Caption = 'Label6'
-    ParentColor = False
-  end
   object ZaplatitBtn: TButton
     Left = 274
     Height = 39
@@ -207,7 +190,7 @@ object Form1: TForm1
     Width = 152
     Caption = 'Zaplatiť'
     OnClick = ZaplatitBtnClick
-    TabOrder = 15
+    TabOrder = 14
   end
   object OdhlasitBtn: TButton
     Left = 576
@@ -216,6 +199,14 @@ object Form1: TForm1
     Width = 75
     Caption = 'Odhlásiť sa'
     OnClick = OdhlasitBtnClick
-    TabOrder = 16
+    TabOrder = 15
+  end
+  object Label6: TLabel
+    Left = 320
+    Height = 15
+    Top = 10
+    Width = 34
+    Caption = 'Label6'
+    ParentColor = False
   end
 end
