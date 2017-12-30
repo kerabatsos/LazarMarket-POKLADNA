@@ -436,17 +436,14 @@ end;
 procedure TForm1.ListBox1Click(Sender: TObject);
 var i: integer;
 begin
-if  ListBox1.Count > 0 then
-   begin
-      for i:= 0 to ListBox1.Count-1 do
-          if ListBox1.Selected[ i ] = True then
-             begin
-                  itemIndex:= i;
-                  Break;
-             end;
-          Label2.Caption:= ( ListBox1.Items[ itemIndex ] );
-          Label2.Visible:= True;
-   end;
+for i:= 0 to ListBox1.Count-1 do
+    if ListBox1.Selected[ i ] = True then
+       begin
+            itemIndex:= i;
+            Break;
+       end;
+Label2.Caption:= (ListBox1.Items[itemIndex]);
+Label2.Visible:= True;
 end;
 
 procedure TForm1.OdhlasitBtnClick(Sender: TObject);
@@ -457,8 +454,6 @@ begin
      Loginbtn.Visible:= True;
      Edit1.Caption:= '';
 end;
-
-
 
 end.
 

@@ -105,9 +105,7 @@ object Form1: TForm1
     Height = 28
     Top = 29
     Width = 352
-    NumbersOnly = True
     TabOrder = 7
-    Text = '0'
   end
   object VlozBtn: TButton
     Left = 560
