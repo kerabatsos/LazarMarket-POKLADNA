@@ -2,7 +2,7 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="10"/>
+    <Version Value="9"/>
     <BuildModes Active="Default"/>
     <Units Count="5">
       <Unit0>
@@ -10,7 +10,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="1"/>
         <CursorPos Y="20"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -21,20 +21,10 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <TopLine Value="429"/>
-        <CursorPos X="33" Y="448"/>
-=======
-        <TopLine Value="183"/>
-        <CursorPos X="83" Y="227"/>
->>>>>>> 695c4b2a6049443d59b1cb2061eb741d5fae8dd2
-=======
-        <TopLine Value="410"/>
-        <CursorPos X="9" Y="433"/>
->>>>>>> parent of 09937c3... listboxClick bug fix
+        <TopLine Value="427"/>
+        <CursorPos X="31" Y="448"/>
         <FoldState Value=" T3k90c0213121Q"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -61,12 +51,12 @@
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32listsl.inc"/>
         <EditorIndex Value="2"/>
         <TopLine Value="141"/>
-        <CursorPos Y="153"/>
+        <CursorPos X="100" Y="146"/>
         <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit4>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="unit1.pas"/>
         <Caret Line="175" Column="3" TopLine="170"/>
@@ -181,28 +171,8 @@
       </Position28>
       <Position29>
         <Filename Value="unit1.pas"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <Caret Line="446" Column="42" TopLine="430"/>
-      </Position29>
-      <Position30>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="440" Column="28" TopLine="408"/>
-=======
         <Caret Line="216" Column="128" TopLine="183"/>
       </Position29>
-      <Position30>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="227" Column="83" TopLine="183"/>
->>>>>>> 695c4b2a6049443d59b1cb2061eb741d5fae8dd2
-=======
-        <Caret Line="226" Column="12" TopLine="262"/>
-      </Position29>
-      <Position30>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="216" Column="128" TopLine="183"/>
->>>>>>> parent of 09937c3... listboxClick bug fix
-      </Position30>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
