@@ -441,7 +441,7 @@ if  ListBox1.Count > 0 then
       for i:= 0 to ListBox1.Count-1 do
           if ListBox1.Selected[ i ] = True then
              begin
-                  itemIndex:= i;
+                  itemIndex:= i;//
                   Break;
              end;
       Label2.Caption:= (ListBox1.Items[itemIndex]);
