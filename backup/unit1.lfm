@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 224
+  Left = 565
   Height = 497
-  Top = 131
+  Top = 132
   Width = 756
   Caption = 'Form1'
   ClientHeight = 497
@@ -42,7 +42,9 @@ object Form1: TForm1
     Height = 23
     Top = 136
     Width = 81
+    NumbersOnly = True
     TabOrder = 2
+    Text = '0'
   end
   object OvocieBtn: TButton
     Left = 24
@@ -59,6 +61,7 @@ object Form1: TForm1
     Top = 72
     Width = 112
     Caption = 'Pečivo'
+    OnClick = PecivoBtnClick
     TabOrder = 4
   end
   object OstatneBtn: TButton
@@ -176,7 +179,7 @@ object Form1: TForm1
   object Memo1: TMemo
     Left = 24
     Height = 305
-    Top = 40
+    Top = 79
     Width = 704
     Lines.Strings = (
       'Memo1'
@@ -208,5 +211,15 @@ object Form1: TForm1
     Width = 34
     Caption = 'Label6'
     ParentColor = False
+  end
+  object Memo2: TMemo
+    Left = 24
+    Height = 337
+    Top = 136
+    Width = 515
+    Lines.Strings = (
+      'Memo2'
+    )
+    TabOrder = 16
   end
 end
