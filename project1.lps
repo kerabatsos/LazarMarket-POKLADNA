@@ -2,7 +2,7 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="10"/>
+    <Version Value="9"/>
     <BuildModes Active="Default"/>
     <Units Count="5">
       <Unit0>
@@ -21,8 +21,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="349"/>
-        <CursorPos X="74" Y="365"/>
+        <TopLine Value="221"/>
+        <CursorPos X="23" Y="229"/>
         <FoldState Value=" T3kb0d091$"/>
         <UsageCount Value="46"/>
         <Loaded Value="True"/>
@@ -167,15 +167,15 @@
       </Position27>
       <Position28>
         <Filename Value="unit1.pas"/>
-        <Caret Line="363" Column="42" TopLine="458"/>
+        <Caret Line="476" Column="80" TopLine="398"/>
       </Position28>
       <Position29>
         <Filename Value="unit1.pas"/>
-        <Caret Line="476" Column="80" TopLine="398"/>
+        <Caret Line="365" Column="74" TopLine="270"/>
       </Position29>
       <Position30>
         <Filename Value="unit1.pas"/>
-        <Caret Line="365" Column="63" TopLine="360"/>
+        <Caret Line="244" Column="61" TopLine="223"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

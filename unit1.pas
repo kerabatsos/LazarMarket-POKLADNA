@@ -221,25 +221,33 @@ Prihlasenie;
 end;
 
 procedure TForm1.VyhladajBtnClick(Sender: TObject);
+var
+  mameTovar: boolean;
 begin
 memo2.clear;
-//co keby teraz vybehlo memo s nazvom tovaru a uz nan nemusim klikat, ved som ho uz vybral <=== presne takto som to mal v plane
-//vypise to aj do Labelu kde je nazov tovaru
-//vyhlada tovar v zozname tovaru a zisti jeho index, zaznamena ho
-//globalna premenna index bude pouzita do VLOZ
+mameTovar:= False;
+Label2.Visible:= False;
    ListBox1.Items.Clear;
    kodTovaru:=Edit3.Text;
    for i:=1 to m do
-      if kodTovaru = tovar[i].kod then
+      if kodTovaru = tovar[ i ].kod then
          begin
-           Label2.Caption:= tovar[i].nazov;
-           Memo2.visible:=true;
-           Memo2.append(tovar[i].nazov);
-           Label2.Visible:= True;
-           itemIndex:= i - 1;
-           //-1 preto, lebo v procedure VlozBtnClick je z nejakeho dovodu: "itemIndex = itemIndex + 1;"
-           //a nechcel som do toho rypat, ale mali by sme to odstranit asi
+           mameTovar:= true;
+           if tovar[ i ].pocet > 0 then
+             begin
+               Label2.Caption:= tovar[ i ].nazov;
+               Memo2.visible:= true;
+               Memo2.append(tovar[ i ].nazov);
+               Label2.Visible:= True;
+               itemIndex:= i - 1;
+             end
+           else
+             begin
+               ShowMessage('Prepáčte, ale tento tovar momentálne nemáme na sklade.');
+             end;
          end;
+   if mameTovar = false then
+         ShowMessage('Tovar s takýmto kódom neexistuje');
 
 end;
 
