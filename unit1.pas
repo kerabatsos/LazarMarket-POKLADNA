@@ -13,12 +13,16 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    MasoBtn: TButton;
+    Memo3: TMemo;
+    MrazeneBtn: TButton;
+    ZeleninaBtn: TButton;
     Memo1: TMemo;
     Memo2: TMemo;
     StornoBtn: TButton;
     OvocieBtn: TButton;
     PecivoBtn: TButton;
-    OstatneBtn: TButton;
+    DrogeriaBtn: TButton;
     VyhladajBtn: TButton;
     VlozBtn: TButton;
     PrejstKPlatbeBtn: TButton;
@@ -37,6 +41,10 @@ type
     Label6: TLabel;
     ListBox1: TListBox;
     ListBox2: TListBox;
+    procedure DrogeriaBtnClick(Sender: TObject);
+    procedure MasoBtnClick(Sender: TObject);
+    procedure Memo1Change(Sender: TObject);
+    procedure MrazeneBtnClick(Sender: TObject);
     procedure OdhlasitBtnClick(Sender: TObject);
     procedure LogInBtnClick(Sender: TObject);
     procedure PecivoBtnClick(Sender: TObject);
@@ -81,6 +89,46 @@ type zoznamOvocia=record
      pocet: integer;
 end;
 
+type zoznamzeleniny=record
+     kod: string;
+     nazov: string;
+     nakupnacena: integer;
+     predajnacena: integer;
+     pocet: integer;
+end;
+
+type zoznampeciva=record
+     kod: string;
+     nazov: string;
+     nakupnacena: integer;
+     predajnacena: integer;
+     pocet: integer;
+end;
+
+type zoznammrazeneho=record
+     kod: string;
+     nazov: string;
+     nakupnacena: integer;
+     predajnacena: integer;
+     pocet: integer;
+end;
+
+type zoznamdrogerie=record
+     kod: string;
+     nazov: string;
+     nakupnacena: integer;
+     predajnacena: integer;
+     pocet: integer;
+end;
+
+type zoznammasa=record
+     kod: string;
+     nazov: string;
+     nakupnacena: integer;
+     predajnacena: integer;
+     pocet: integer;
+end;
+
 type zoznamUctenka=record
      kod: string;
      nazov: string;
@@ -89,8 +137,8 @@ type zoznamUctenka=record
 end;
 
 const n=6;
-      m=10;
-      o=5;
+      m=12;
+      o=10;
       p=50;
 
 var
@@ -98,9 +146,14 @@ var
   tovar: array[1..m] of zoznamtovaru;
   sklad: array[1..2,1..m] of integer;
   ovocie: array[1..o] of zoznamovocia;
+  zelenina: array[1..o] of zoznamzeleniny;
+  pecivo: array[1..o] of zoznampeciva;
+  mrazene: array[1..o] of zoznammrazeneho;
+  drogeria: array[1..o] of zoznamdrogerie;
+  maso: array[1..o] of zoznammasa;
   uctenka: array[1..p] of zoznamuctenka;
   //subory: array of textfile;
-  i, itemindex, pocetobjektov, celkom, q: integer;
+  i, itemindex, pocetobjektov, celkom, q, ov, z, pe, mr, d, ma, praca: integer;
   subor1, subor2, subor3, subor4, subor5: textfile;
   znak: char;
   kod, pokladnik, kodtovaru: string;
@@ -148,7 +201,10 @@ label5.visible:=false;
 Label6.visible:=false;
 OvocieBtn.visible:=false;
 PecivoBtn.visible:=false;
-OstatneBtn.visible:=false;
+DrogeriaBtn.visible:=false;
+ZeleninaBtn.visible:=false;
+MrazeneBtn.visible:=false;
+MasoBtn.visible:=false;
 VyhladajBtn.visible:=false;
 VlozBtn.visible:=false;
 PrejstKPlatbeBtn.visible:=false;
@@ -189,7 +245,10 @@ label5.visible:=true;
 Label6.visible:=false;
 OvocieBtn.visible:=true;
 PecivoBtn.visible:=true;
-OstatneBtn.visible:=true;
+DrogeriaBtn.visible:=true;
+ZeleninaBtn.visible:=true;
+MrazeneBtn.visible:=true;
+MasoBtn.visible:=true;
 VyhladajBtn.visible:=true;
 ZaplatitBtn.visible:=false;
 OdhlasitBtn.visible:=true;
@@ -212,7 +271,11 @@ end;
 
 procedure TForm1.PecivoBtnClick(Sender: TObject);
 begin
+praca:=3;
 Memo2.visible:=false;
+ListBox1.Items.Clear;
+for i:=1 to pe do
+    ListBox1.Items.Add(pecivo[i].nazov+'       '+inttostr(pecivo[i].pocet));
 end;
 
 procedure TForm1.Edit1EditingDone(Sender: TObject);
@@ -286,7 +349,7 @@ end;
 assignfile(subor2,'TOVAR.txt');
 reset(subor2);
 readln(subor2,x2);
-//memo2.append(inttostr(x2));
+//memo3.append(inttostr(x2));
 for i:=1 to x2 do
     begin
        kod:='';
@@ -295,15 +358,16 @@ for i:=1 to x2 do
              tovar[i].kod:=tovar[i].kod+znak;
              read(subor2,znak);
        until znak=';';
-    //memo2.append(tovar[i].kod);
+    //memo3.append(tovar[i].kod);
     readln(subor2,tovar[i].nazov);  //precita cely string po koniec a skoci na dalsi riadok
-    //memo2.append(tovar[i].nazov);
+    //memo3.append(tovar[i].nazov);
     end;
 closefile(subor2);
 
 assignfile(subor3,'CENNIK.txt');
 reset(subor3);
 readln(subor3,x3);
+//memo3.Append(inttostr(x3));
 for i:=1 to x3 do
     begin
          kod:=''; //vycisti premennu
@@ -312,15 +376,17 @@ for i:=1 to x3 do
                kod:=kod+znak;
                read(subor3,znak);
          until znak=';';
-    //memo2.append(kod);
+    //memo3.append(kod);
     readln(subor3,rozdelujstring);
     nakupnacena:=strtoint(rozdelujstring[1]);
     predajnacena:=strtoint(rozdelujstring[3]);
-    for j:=1 to m do
+    for j:=1 to x3 do
          if tovar[j].kod=kod then
             begin
                  tovar[j].nakupnacena:=nakupnacena;
                  tovar[j].predajnacena:=predajnacena;
+                 //memo3.append(inttostr(tovar[j].nakupnacena));
+                 //memo3.append(inttostr(tovar[j].predajnacena));
             end;
 end;
 closefile(subor3);
@@ -340,12 +406,91 @@ for i:=1 to x4 do
        //memo2.append(kod);
        readln(subor4,pocet);
        //memo2.append(inttostr(pocet));
-    for j:=1 to m do
+    for j:=1 to x4 do
        if tovar[j].kod=kod then tovar[j].pocet:=pocet;
      //memo1.append(inttostr(tovar[i].kod)+tovar[i].nazov+inttostr(tovar[i].nakupnacena)+inttostr(tovar[i].predajnacena)+inttostr(tovar[i].pocet));
     end;
 closefile(subor4);
 
+//NASLEDUJE VYCISTENIE RECORDOV--------------------------------------------------------
+{for i:=1 to x2 do
+               begin
+                   ovocie[i].kod:=' ';
+                   ovocie[i].nazov:=' ';
+                   ovocie[i].predajnacena:=0;
+                   ovocie[i].kupnacena:=0;
+               end; }
+//NASLEDUJE ROZDELOVANIE DO RECORDOV --------------------------------------------------
+ov:=0;
+z:=0;
+pe:=0;
+mr:=0;
+d:=0;
+ma:=0;
+//memo3.append(tovar[1].kod);
+for i:=1 to x2 do
+    begin
+    if (tovar[i].kod[1]+tovar[i].kod[2]) = '11' then
+       begin
+         inc(ov);
+         ovocie[ov].kod:=tovar[i].kod;
+         ovocie[ov].nazov:=tovar[i].nazov;
+         ovocie[ov].nakupnacena:=tovar[i].nakupnacena;
+         ovocie[ov].predajnacena:=tovar[i].predajnacena;
+         ovocie[ov].pocet:=tovar[i].pocet;
+         //memo3.append(ovocie[o].kod+ovocie[o].nazov+inttostr(ovocie[o].nakupnacena)+inttostr(ovocie[o].predajnacena)+inttostr(ovocie[o].pocet));
+       end;
+    if (tovar[i].kod[1]+tovar[i].kod[2]) = '12' then
+       begin
+         inc(z);
+         zelenina[z].kod:=tovar[i].kod;
+         zelenina[z].nazov:=tovar[i].nazov;
+         zelenina[z].nakupnacena:=tovar[i].nakupnacena;
+         zelenina[z].predajnacena:=tovar[i].predajnacena;
+         zelenina[z].pocet:=tovar[i].pocet;
+         //memo3.append(zelenina[z].kod+zelenina[z].nazov+inttostr(zelenina[z].nakupnacena)+inttostr(zelenina[z].predajnacena)+inttostr(zelenina[z].pocet));
+       end;
+    if (tovar[i].kod[1]+tovar[i].kod[2]) = '13' then
+       begin
+         inc(pe);
+         pecivo[pe].kod:=tovar[i].kod;
+         pecivo[pe].nazov:=tovar[i].nazov;
+         pecivo[pe].nakupnacena:=tovar[i].nakupnacena;
+         pecivo[pe].predajnacena:=tovar[i].predajnacena;
+         pecivo[pe].pocet:=tovar[i].pocet;
+         //memo3.append(pecivo[p].kod+pecivo[p].nazov+inttostr(pecivo[p].nakupnacena)+inttostr(pecivo[p].predajnacena)+inttostr(pecivo[p].pocet));
+       end;
+    if (tovar[i].kod[1]+tovar[i].kod[2]) = '14' then
+       begin
+         inc(mr);
+         mrazene[mr].kod:=tovar[i].kod;
+         mrazene[mr].nazov:=tovar[i].nazov;
+         mrazene[mr].nakupnacena:=tovar[i].nakupnacena;
+         mrazene[mr].predajnacena:=tovar[i].predajnacena;
+         mrazene[mr].pocet:=tovar[i].pocet;
+         //memo3.append(mrazene[mr].kod+mrazene[mr].nazov+inttostr(mrazene[mr].nakupnacena)+inttostr(mrazene[mr].predajnacena)+inttostr(mrazene[mr].pocet));
+       end;
+    if (tovar[i].kod[1]+tovar[i].kod[2]) = '15' then
+       begin
+         inc(d);
+         drogeria[d].kod:=tovar[i].kod;
+         drogeria[d].nazov:=tovar[i].nazov;
+         drogeria[d].nakupnacena:=tovar[i].nakupnacena;
+         drogeria[d].predajnacena:=tovar[i].predajnacena;
+         drogeria[d].pocet:=tovar[i].pocet;
+         //memo3.append(drogeria[d].kod+drogeria[d].nazov+inttostr(drogeria[d].nakupnacena)+inttostr(drogeria[d].predajnacena)+inttostr(drogeria[d].pocet));
+       end;
+     if (tovar[i].kod[1]+tovar[i].kod[2]) = '16' then
+       begin
+         inc(ma);
+         maso[ma].kod:=tovar[i].kod;
+         maso[ma].nazov:=tovar[i].nazov;
+         maso[ma].nakupnacena:=tovar[i].nakupnacena;
+         maso[ma].predajnacena:=tovar[i].predajnacena;
+         maso[ma].pocet:=tovar[i].pocet;
+         //memo3.append(maso[m].kod+maso[m].nazov+inttostr(maso[m].nakupnacena)+inttostr(maso[m].predajnacena)+inttostr(maso[m].pocet));
+       end;
+    end;
 end;
 
 procedure TForm1.PrejstKPlatbeBtnClick(Sender: TObject);
@@ -367,10 +512,11 @@ end;
 
 procedure TForm1.OvocieBtnClick(Sender: TObject);
 begin
+praca:=1;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
-for i:=1 to m do
-    ListBox1.Items.Add(tovar[i].nazov+'       '+inttostr(tovar[i].pocet));
+for i:=1 to ov do
+    ListBox1.Items.Add(ovocie[i].nazov+'       '+inttostr(ovocie[i].pocet));
 end;
 
 procedure TForm1.StornoBtnClick(Sender: TObject);
@@ -446,7 +592,11 @@ end;
 
 procedure TForm1.ZeleninaBtnClick(Sender: TObject);
 begin
-
+praca:=2;
+Memo2.visible:=false;
+ListBox1.Items.Clear;
+for i:=1 to z do
+    ListBox1.Items.Add(zelenina[i].nazov+'       '+inttostr(zelenina[i].pocet));
 end;
 
 procedure TForm1.VlozBtnClick(Sender: TObject);  //dve moznosti: vloz ak je to list objektov alebo je vyhladany podla kodu
@@ -481,8 +631,31 @@ if  ListBox1.Count > 0 then
                   itemIndex:= i;
                   Break;
              end;
-      Label2.Caption:= (tovar[itemIndex+1].nazov); //musela som pouzit nazov z recordu, lebo v listboxe bude aj pocet tovaru
-      Label2.Visible:= True;
+      //tu bude CASE a uprimne netusim, preco je tam label2.true..to dam inam a nemusi tu byt potom begin end, len case.
+      if praca=1 then begin
+                           Label2.Caption:= (ovocie[itemIndex+1].nazov); //musela som pouzit nazov z recordu, lebo v listboxe bude aj pocet tovaru
+                           Label2.Visible:= True;
+                       end;
+      if praca=2 then begin
+                           Label2.Caption:= (zelenina[itemIndex+1].nazov);
+                           Label2.Visible:= True;
+                       end;
+      if praca=3 then begin
+                           Label2.Caption:= (pecivo[itemIndex+1].nazov); //musela som pouzit nazov z recordu, lebo v listboxe bude aj pocet tovaru
+                           Label2.Visible:= True;
+                       end;
+      if praca=4 then begin
+                           Label2.Caption:= (mrazene[itemIndex+1].nazov); //musela som pouzit nazov z recordu, lebo v listboxe bude aj pocet tovaru
+                           Label2.Visible:= True;
+                       end;
+      if praca=5 then begin
+                           Label2.Caption:= (drogeria[itemIndex+1].nazov); //musela som pouzit nazov z recordu, lebo v listboxe bude aj pocet tovaru
+                           Label2.Visible:= True;
+                       end;
+      if praca=6 then begin
+                           Label2.Caption:= (maso[itemIndex+1].nazov); //musela som pouzit nazov z recordu, lebo v listboxe bude aj pocet tovaru
+                           Label2.Visible:= True;
+                       end;
    end;
 end;
 
@@ -493,6 +666,38 @@ begin
      Edit1.Visible:= True;
      Loginbtn.Visible:= True;
      Edit1.Caption:= '';
+end;
+
+procedure TForm1.MrazeneBtnClick(Sender: TObject);
+begin
+praca:=4;
+Memo2.visible:=false;
+ListBox1.Items.Clear;
+for i:=1 to mr do
+    ListBox1.Items.Add(mrazene[i].nazov+'       '+inttostr(mrazene[i].pocet));
+end;
+
+procedure TForm1.DrogeriaBtnClick(Sender: TObject);
+begin
+praca:=5;
+Memo2.visible:=false;
+ListBox1.Items.Clear;
+for i:=1 to d do
+    ListBox1.Items.Add(drogeria[i].nazov+'       '+inttostr(drogeria[i].pocet));
+end;
+
+procedure TForm1.MasoBtnClick(Sender: TObject);
+begin
+praca:=6;
+Memo2.visible:=false;
+ListBox1.Items.Clear;
+for i:=1 to ma do
+    ListBox1.Items.Add(maso[i].nazov+'       '+inttostr(maso[i].pocet));
+end;
+
+procedure TForm1.Memo1Change(Sender: TObject);
+begin
+
 end;
 
 end.

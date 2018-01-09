@@ -1,7 +1,7 @@
 object Form1: TForm1
   Left = 565
   Height = 497
-  Top = 132
+  Top = 107
   Width = 756
   Caption = 'Form1'
   ClientHeight = 497
@@ -50,26 +50,27 @@ object Form1: TForm1
     Left = 24
     Height = 49
     Top = 72
-    Width = 232
-    Caption = 'Ovocie a zelenina'
+    Width = 80
+    Caption = 'Ovocie'
     OnClick = OvocieBtnClick
     TabOrder = 3
   end
   object PecivoBtn: TButton
-    Left = 272
+    Left = 192
     Height = 49
     Top = 72
-    Width = 112
+    Width = 88
     Caption = 'Pečivo'
     OnClick = PecivoBtnClick
     TabOrder = 4
   end
-  object OstatneBtn: TButton
-    Left = 400
+  object DrogeriaBtn: TButton
+    Left = 368
     Height = 49
     Top = 72
-    Width = 120
-    Caption = 'Ostatné'
+    Width = 88
+    Caption = 'Drogéria'
+    OnClick = DrogeriaBtnClick
     TabOrder = 5
   end
   object VyhladajBtn: TButton
@@ -179,11 +180,12 @@ object Form1: TForm1
   object Memo1: TMemo
     Left = 24
     Height = 305
-    Top = 79
+    Top = 64
     Width = 704
     Lines.Strings = (
       'Memo1'
     )
+    OnChange = Memo1Change
     TabOrder = 13
   end
   object ZaplatitBtn: TButton
@@ -221,5 +223,32 @@ object Form1: TForm1
       'Memo2'
     )
     TabOrder = 16
+  end
+  object ZeleninaBtn: TButton
+    Left = 104
+    Height = 49
+    Top = 72
+    Width = 88
+    Caption = 'Zelenina'
+    OnClick = ZeleninaBtnClick
+    TabOrder = 17
+  end
+  object MrazeneBtn: TButton
+    Left = 280
+    Height = 49
+    Top = 72
+    Width = 90
+    Caption = 'Mrazené'
+    OnClick = MrazeneBtnClick
+    TabOrder = 18
+  end
+  object MasoBtn: TButton
+    Left = 456
+    Height = 48
+    Top = 72
+    Width = 88
+    Caption = 'Mäso'
+    OnClick = MasoBtnClick
+    TabOrder = 19
   end
 end
