@@ -298,6 +298,7 @@ Label2.Visible:= False;
            mameTovar:= true;
            if tovar[ i ].pocet > 0 then
              begin
+               praca:=7;
                Label2.Caption:= tovar[ i ].nazov;
                Memo2.visible:= true;
                Memo2.append(tovar[ i ].nazov);
@@ -306,7 +307,7 @@ Label2.Visible:= False;
              end
            else
              begin
-               ShowMessage('Prepáčte, ale tento tovar momentálne nemáme na sklade.');
+               ShowMessage(tovar[i].nazov+': Prepáčte, ale tento tovar momentálne nemáme na sklade.');
              end;
          end;
    if mameTovar = false then
@@ -331,19 +332,9 @@ i:=0;
 while not eof(subor1) do     //nacitanie mien a kodov pokladnikov
 begin
      inc(i);
-     read(subor1,znak);
-     repeat
-       pokladnici[i].meno:=pokladnici[i].meno+znak;
-       read(subor1,znak);
-     until znak = ' ';
-
-     repeat
-       read(subor1,znak);
-       pokladnici[i].kod:=pokladnici[i].kod+znak;
-     until eoLn(subor1);
-
-     //memo2.append(pokladnici[i].meno+pokladnici[i].kod);
-     readln(subor1);
+     readln(subor1,pokladnici[i].meno);
+     readln(subor1,pokladnici[i].kod);
+     //memo3.append(pokladnici[i].meno+pokladnici[i].kod);
 end;
 
 assignfile(subor2,'TOVAR.txt');
@@ -412,14 +403,6 @@ for i:=1 to x4 do
     end;
 closefile(subor4);
 
-//NASLEDUJE VYCISTENIE RECORDOV--------------------------------------------------------
-{for i:=1 to x2 do
-               begin
-                   ovocie[i].kod:=' ';
-                   ovocie[i].nazov:=' ';
-                   ovocie[i].predajnacena:=0;
-                   ovocie[i].kupnacena:=0;
-               end; }
 //NASLEDUJE ROZDELOVANIE DO RECORDOV --------------------------------------------------
 ov:=0;
 z:=0;
@@ -430,66 +413,69 @@ ma:=0;
 //memo3.append(tovar[1].kod);
 for i:=1 to x2 do
     begin
-    if (tovar[i].kod[1]+tovar[i].kod[2]) = '11' then
-       begin
-         inc(ov);
-         ovocie[ov].kod:=tovar[i].kod;
-         ovocie[ov].nazov:=tovar[i].nazov;
-         ovocie[ov].nakupnacena:=tovar[i].nakupnacena;
-         ovocie[ov].predajnacena:=tovar[i].predajnacena;
-         ovocie[ov].pocet:=tovar[i].pocet;
-         //memo3.append(ovocie[o].kod+ovocie[o].nazov+inttostr(ovocie[o].nakupnacena)+inttostr(ovocie[o].predajnacena)+inttostr(ovocie[o].pocet));
-       end;
-    if (tovar[i].kod[1]+tovar[i].kod[2]) = '12' then
-       begin
-         inc(z);
-         zelenina[z].kod:=tovar[i].kod;
-         zelenina[z].nazov:=tovar[i].nazov;
-         zelenina[z].nakupnacena:=tovar[i].nakupnacena;
-         zelenina[z].predajnacena:=tovar[i].predajnacena;
-         zelenina[z].pocet:=tovar[i].pocet;
-         //memo3.append(zelenina[z].kod+zelenina[z].nazov+inttostr(zelenina[z].nakupnacena)+inttostr(zelenina[z].predajnacena)+inttostr(zelenina[z].pocet));
-       end;
-    if (tovar[i].kod[1]+tovar[i].kod[2]) = '13' then
-       begin
-         inc(pe);
-         pecivo[pe].kod:=tovar[i].kod;
-         pecivo[pe].nazov:=tovar[i].nazov;
-         pecivo[pe].nakupnacena:=tovar[i].nakupnacena;
-         pecivo[pe].predajnacena:=tovar[i].predajnacena;
-         pecivo[pe].pocet:=tovar[i].pocet;
-         //memo3.append(pecivo[p].kod+pecivo[p].nazov+inttostr(pecivo[p].nakupnacena)+inttostr(pecivo[p].predajnacena)+inttostr(pecivo[p].pocet));
-       end;
-    if (tovar[i].kod[1]+tovar[i].kod[2]) = '14' then
-       begin
-         inc(mr);
-         mrazene[mr].kod:=tovar[i].kod;
-         mrazene[mr].nazov:=tovar[i].nazov;
-         mrazene[mr].nakupnacena:=tovar[i].nakupnacena;
-         mrazene[mr].predajnacena:=tovar[i].predajnacena;
-         mrazene[mr].pocet:=tovar[i].pocet;
-         //memo3.append(mrazene[mr].kod+mrazene[mr].nazov+inttostr(mrazene[mr].nakupnacena)+inttostr(mrazene[mr].predajnacena)+inttostr(mrazene[mr].pocet));
-       end;
-    if (tovar[i].kod[1]+tovar[i].kod[2]) = '15' then
-       begin
-         inc(d);
-         drogeria[d].kod:=tovar[i].kod;
-         drogeria[d].nazov:=tovar[i].nazov;
-         drogeria[d].nakupnacena:=tovar[i].nakupnacena;
-         drogeria[d].predajnacena:=tovar[i].predajnacena;
-         drogeria[d].pocet:=tovar[i].pocet;
-         //memo3.append(drogeria[d].kod+drogeria[d].nazov+inttostr(drogeria[d].nakupnacena)+inttostr(drogeria[d].predajnacena)+inttostr(drogeria[d].pocet));
-       end;
-     if (tovar[i].kod[1]+tovar[i].kod[2]) = '16' then
-       begin
-         inc(ma);
-         maso[ma].kod:=tovar[i].kod;
-         maso[ma].nazov:=tovar[i].nazov;
-         maso[ma].nakupnacena:=tovar[i].nakupnacena;
-         maso[ma].predajnacena:=tovar[i].predajnacena;
-         maso[ma].pocet:=tovar[i].pocet;
-         //memo3.append(maso[m].kod+maso[m].nazov+inttostr(maso[m].nakupnacena)+inttostr(maso[m].predajnacena)+inttostr(maso[m].pocet));
-       end;
+         if tovar[i].pocet>0 then
+            begin
+                if (tovar[i].kod[1]+tovar[i].kod[2]) = '11' then
+                   begin
+                     inc(ov);
+                     ovocie[ov].kod:=tovar[i].kod;
+                     ovocie[ov].nazov:=tovar[i].nazov;
+                     ovocie[ov].nakupnacena:=tovar[i].nakupnacena;
+                     ovocie[ov].predajnacena:=tovar[i].predajnacena;
+                     ovocie[ov].pocet:=tovar[i].pocet;
+                     //memo3.append(ovocie[o].kod+ovocie[o].nazov+inttostr(ovocie[o].nakupnacena)+inttostr(ovocie[o].predajnacena)+inttostr(ovocie[o].pocet));
+                   end;
+                if (tovar[i].kod[1]+tovar[i].kod[2]) = '12' then
+                   begin
+                     inc(z);
+                     zelenina[z].kod:=tovar[i].kod;
+                     zelenina[z].nazov:=tovar[i].nazov;
+                     zelenina[z].nakupnacena:=tovar[i].nakupnacena;
+                     zelenina[z].predajnacena:=tovar[i].predajnacena;
+                     zelenina[z].pocet:=tovar[i].pocet;
+                     //memo3.append(zelenina[z].kod+zelenina[z].nazov+inttostr(zelenina[z].nakupnacena)+inttostr(zelenina[z].predajnacena)+inttostr(zelenina[z].pocet));
+                   end;
+                if (tovar[i].kod[1]+tovar[i].kod[2]) = '13' then
+                   begin
+                     inc(pe);
+                     pecivo[pe].kod:=tovar[i].kod;
+                     pecivo[pe].nazov:=tovar[i].nazov;
+                     pecivo[pe].nakupnacena:=tovar[i].nakupnacena;
+                     pecivo[pe].predajnacena:=tovar[i].predajnacena;
+                     pecivo[pe].pocet:=tovar[i].pocet;
+                     //memo3.append(pecivo[p].kod+pecivo[p].nazov+inttostr(pecivo[p].nakupnacena)+inttostr(pecivo[p].predajnacena)+inttostr(pecivo[p].pocet));
+                   end;
+                if (tovar[i].kod[1]+tovar[i].kod[2]) = '14' then
+                   begin
+                     inc(mr);
+                     mrazene[mr].kod:=tovar[i].kod;
+                     mrazene[mr].nazov:=tovar[i].nazov;
+                     mrazene[mr].nakupnacena:=tovar[i].nakupnacena;
+                     mrazene[mr].predajnacena:=tovar[i].predajnacena;
+                     mrazene[mr].pocet:=tovar[i].pocet;
+                     //memo3.append(mrazene[mr].kod+mrazene[mr].nazov+inttostr(mrazene[mr].nakupnacena)+inttostr(mrazene[mr].predajnacena)+inttostr(mrazene[mr].pocet));
+                   end;
+                if (tovar[i].kod[1]+tovar[i].kod[2]) = '15' then
+                   begin
+                     inc(d);
+                     drogeria[d].kod:=tovar[i].kod;
+                     drogeria[d].nazov:=tovar[i].nazov;
+                     drogeria[d].nakupnacena:=tovar[i].nakupnacena;
+                     drogeria[d].predajnacena:=tovar[i].predajnacena;
+                     drogeria[d].pocet:=tovar[i].pocet;
+                     //memo3.append(drogeria[d].kod+drogeria[d].nazov+inttostr(drogeria[d].nakupnacena)+inttostr(drogeria[d].predajnacena)+inttostr(drogeria[d].pocet));
+                   end;
+                 if (tovar[i].kod[1]+tovar[i].kod[2]) = '16' then
+                   begin
+                     inc(ma);
+                     maso[ma].kod:=tovar[i].kod;
+                     maso[ma].nazov:=tovar[i].nazov;
+                     maso[ma].nakupnacena:=tovar[i].nakupnacena;
+                     maso[ma].predajnacena:=tovar[i].predajnacena;
+                     maso[ma].pocet:=tovar[i].pocet;
+                     //memo3.append(maso[m].kod+maso[m].nazov+inttostr(maso[m].nakupnacena)+inttostr(maso[m].predajnacena)+inttostr(maso[m].pocet));
+                   end;
+            end;
     end;
 end;
 
@@ -500,7 +486,7 @@ memo1.clear;
 label6.visible:=true;
 memo1.visible:=true;
 ZaplatitBtn.visible:=true;
-memo1.append('                                                                                          Lazarmarket');
+memo1.append('                                                                                                                                                                                              Lazarmarket');
 memo1.append('Obsluhuje Vas: '+pokladnik);
 memo1.append(' ');
 for i:=1 to pocetobjektov do
@@ -609,11 +595,58 @@ begin
              itemindex:= itemindex+1;
              inc( pocetobjektov );
         //memo2.append('pocet objektov '+inttostr(pocetobjektov));
-             Listbox2.Items.Add( tovar[ itemindex ].kod + '  ' + tovar[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( tovar[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*tovar[ itemindex ].predajnacena ) + '€' );
-             uctenka[ pocetobjektov ].kod:= tovar[ itemindex ].kod;
-             uctenka[ pocetobjektov ].nazov:= tovar[ itemindex ].nazov;
-             uctenka[ pocetobjektov ].cena:= tovar[ itemindex ].predajnacena;
-             uctenka[ pocetobjektov ].pocet:= pocet;
+             case praca of
+                  1: begin
+                          Listbox2.Items.Add( ovocie[ itemindex ].kod + '  ' + ovocie[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( ovocie[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*ovocie[ itemindex ].predajnacena ) + '€' );
+                          uctenka[ pocetobjektov ].kod:= ovocie[ itemindex ].kod;
+                          uctenka[ pocetobjektov ].nazov:= ovocie[ itemindex ].nazov;
+                          uctenka[ pocetobjektov ].cena:= ovocie[ itemindex ].predajnacena;
+                          uctenka[ pocetobjektov ].pocet:= pocet;
+                     end;
+                  2: begin
+                          Listbox2.Items.Add( zelenina[ itemindex ].kod + '  ' + zelenina[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( zelenina[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*zelenina[ itemindex ].predajnacena ) + '€' );
+                          uctenka[ pocetobjektov ].kod:= zelenina[ itemindex ].kod;
+                          uctenka[ pocetobjektov ].nazov:= zelenina[ itemindex ].nazov;
+                          uctenka[ pocetobjektov ].cena:= zelenina[ itemindex ].predajnacena;
+                          uctenka[ pocetobjektov ].pocet:= pocet;
+                     end;
+                  3: begin
+                          Listbox2.Items.Add( pecivo[ itemindex ].kod + '  ' + pecivo[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( pecivo[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*pecivo[ itemindex ].predajnacena ) + '€' );
+                          uctenka[ pocetobjektov ].kod:= pecivo[ itemindex ].kod;
+                          uctenka[ pocetobjektov ].nazov:= pecivo[ itemindex ].nazov;
+                          uctenka[ pocetobjektov ].cena:= pecivo[ itemindex ].predajnacena;
+                          uctenka[ pocetobjektov ].pocet:= pocet;
+                     end;
+                  4: begin
+                          Listbox2.Items.Add( mrazene[ itemindex ].kod + '  ' + mrazene[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( mrazene[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*mrazene[ itemindex ].predajnacena ) + '€' );
+                          uctenka[ pocetobjektov ].kod:= mrazene[ itemindex ].kod;
+                          uctenka[ pocetobjektov ].nazov:= mrazene[ itemindex ].nazov;
+                          uctenka[ pocetobjektov ].cena:= mrazene[ itemindex ].predajnacena;
+                          uctenka[ pocetobjektov ].pocet:= pocet;
+                     end;
+                  5: begin
+                          Listbox2.Items.Add( drogeria[ itemindex ].kod + '  ' + drogeria[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( drogeria[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*drogeria[ itemindex ].predajnacena ) + '€' );
+                          uctenka[ pocetobjektov ].kod:= drogeria[ itemindex ].kod;
+                          uctenka[ pocetobjektov ].nazov:= drogeria[ itemindex ].nazov;
+                          uctenka[ pocetobjektov ].cena:= drogeria[ itemindex ].predajnacena;
+                          uctenka[ pocetobjektov ].pocet:= pocet;
+                     end;
+                  6: begin
+                          Listbox2.Items.Add( maso[ itemindex ].kod + '  ' + maso[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( maso[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*maso[ itemindex ].predajnacena ) + '€' );
+                          uctenka[ pocetobjektov ].kod:= maso[ itemindex ].kod;
+                          uctenka[ pocetobjektov ].nazov:= maso[ itemindex ].nazov;
+                          uctenka[ pocetobjektov ].cena:= maso[ itemindex ].predajnacena;
+                          uctenka[ pocetobjektov ].pocet:= pocet;
+                     end;
+                  7: begin      //prosim, ako je mozne, ze to funguje s poziciou na zaklade premennej itemindex? na zaklade toho, co si, Samko, napisal do procedury VyhladajBtn OnClick.
+                          Listbox2.Items.Add( tovar[ itemindex ].kod + '  ' + tovar[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( tovar[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*tovar[ itemindex ].predajnacena ) + '€' );
+                          uctenka[ pocetobjektov ].kod:= tovar[ itemindex ].kod;
+                          uctenka[ pocetobjektov ].nazov:= tovar[ itemindex ].nazov;
+                          uctenka[ pocetobjektov ].cena:= tovar[ itemindex ].predajnacena;
+                          uctenka[ pocetobjektov ].pocet:= pocet;
+                     end;
+             end;
+
         //memo2.append(inttostr(uctenka[pocetobjektov].kod)+'  '+uctenka[pocetobjektov].nazov+'         '+inttostr(uctenka[pocetobjektov].pocet)+'x'+inttostr(uctenka[pocetobjektov].cena)+'€'+'    '+inttostr(uctenka[pocetobjektov].pocet*uctenka[pocetobjektov].cena)+'€');
              celkom:= celkom + ( uctenka[ pocetobjektov ].pocet*uctenka[ pocetobjektov ].cena );
              edit2.clear;
@@ -626,39 +659,22 @@ begin
 if  ListBox1.Count > 0 then
    begin
       for i:= 0 to ListBox1.Count-1 do
-          begin
           if ListBox1.Selected[ i ] = True then
              begin
                   itemIndex:= i;
                   Break;
              end;
-          //tu bude CASE a uprimne netusim, preco je tam label2.true..to dam inam a nemusi tu byt potom begin end, len case.
-          if praca=1 then begin
-                               Label2.Caption:= (ovocie[itemIndex+1].nazov); //musela som pouzit nazov z recordu, lebo v listboxe bude aj pocet tovaru
-                               Label2.Visible:= True;
-                           end;
-          if praca=2 then begin
-                               Label2.Caption:= (zelenina[itemIndex+1].nazov);
-                               Label2.Visible:= True;
-                           end;
-          if praca=3 then begin
-                               Label2.Caption:= (pecivo[itemIndex+1].nazov); //musela som pouzit nazov z recordu, lebo v listboxe bude aj pocet tovaru
-                               Label2.Visible:= True;
-                           end;
-          if praca=4 then begin
-                               Label2.Caption:= (mrazene[itemIndex+1].nazov); //musela som pouzit nazov z recordu, lebo v listboxe bude aj pocet tovaru
-                               Label2.Visible:= True;
-                           end;
-          if praca=5 then begin
-                               Label2.Caption:= (drogeria[itemIndex+1].nazov); //musela som pouzit nazov z recordu, lebo v listboxe bude aj pocet tovaru
-                               Label2.Visible:= True;
-                           end;
-          if praca=6 then begin
-                               Label2.Caption:= (maso[itemIndex+1].nazov); //musela som pouzit nazov z recordu, lebo v listboxe bude aj pocet tovaru
-                               Label2.Visible:= True;
-                           end;
 
-          end;
+      Label2.Visible:= True;
+
+      case praca of
+         1: Label2.Caption:= (ovocie[itemIndex+1].nazov);
+         2: Label2.Caption:= (zelenina[itemIndex+1].nazov);
+         3: Label2.Caption:= (pecivo[itemIndex+1].nazov);
+         4: Label2.Caption:= (mrazene[itemIndex+1].nazov);
+         5: Label2.Caption:= (drogeria[itemIndex+1].nazov);
+         6: Label2.Caption:= (maso[itemIndex+1].nazov);
+      end;
    end;
 end;
 
@@ -688,6 +704,7 @@ ListBox1.Items.Clear;
 for i:=1 to d do
     ListBox1.Items.Add(drogeria[i].nazov+'       '+inttostr(drogeria[i].pocet));
 end;
+
 
 procedure TForm1.MasoBtnClick(Sender: TObject);
 begin

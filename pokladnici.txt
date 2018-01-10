@@ -1,6 +1,12 @@
-Samo 0000
-Katka 1910
-Matej 1147
-Simon 1111
-Julka 1245
-Mato 1698
+Samo
+0000
+Katka
+1910
+Matej
+1147
+Simon
+1111
+Julka
+1245
+Mato
+1698
