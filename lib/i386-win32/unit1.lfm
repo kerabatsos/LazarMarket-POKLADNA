@@ -1,131 +1,254 @@
 object Form1: TForm1
-  Left = 200
-  Height = 378
-  Top = 147
-  Width = 716
+  Left = 328
+  Height = 600
+  Top = 50
+  Width = 756
   Caption = 'Form1'
-  ClientHeight = 378
-  ClientWidth = 716
+  ClientHeight = 600
+  ClientWidth = 756
+  Color = clMoneyGreen
   OnCreate = FormCreate
   LCLVersion = '1.4.0.4'
   object Label1: TLabel
-    Left = 288
+    Left = 608
     Height = 15
-    Top = 136
-    Width = 128
+    Top = 240
+    Width = 129
     Caption = 'Zadajte, prosím, Váš kód'
     ParentColor = False
   end
   object Edit1: TEdit
-    Left = 304
+    Left = 630
     Height = 23
-    Top = 160
+    Top = 272
     Width = 80
+    EchoMode = emPassword
+    NumbersOnly = True
+    OnEditingDone = Edit1EditingDone
+    PasswordChar = '*'
     TabOrder = 0
-    Text = 'Edit1'
   end
-  object Button1: TButton
-    Left = 304
+  object LogInBtn: TButton
+    Left = 630
     Height = 25
-    Top = 192
-    Width = 78
+    Top = 312
+    Width = 82
     Caption = 'vstúpiť'
-    OnClick = Button1Click
+    OnClick = LogInBtnClick
     TabOrder = 1
   end
   object Edit2: TEdit
-    Left = 592
+    Left = 1176
     Height = 23
-    Top = 152
-    Width = 105
+    Top = 200
+    Width = 81
+    NumbersOnly = True
     TabOrder = 2
-    Text = 'Zadaj počet'
+    Text = '0'
   end
-  object Button2: TButton
-    Left = 16
-    Height = 49
-    Top = 72
-    Width = 112
+  object OvocieBtn: TButton
+    Left = 48
+    Height = 63
+    Top = 77
+    Width = 143
     Caption = 'Ovocie'
+    OnClick = OvocieBtnClick
     TabOrder = 3
   end
-  object Button3: TButton
-    Left = 144
-    Height = 49
-    Top = 72
-    Width = 112
-    Caption = 'Zelenina'
-    OnClick = Button3Click
+  object PecivoBtn: TButton
+    Left = 352
+    Height = 65
+    Top = 75
+    Width = 152
+    Caption = 'Pečivo'
+    OnClick = PecivoBtnClick
     TabOrder = 4
   end
-  object Button4: TButton
-    Left = 272
-    Height = 49
-    Top = 72
-    Width = 112
-    Caption = 'Pečivo'
+  object DrogeriaBtn: TButton
+    Left = 680
+    Height = 64
+    Top = 77
+    Width = 152
+    Caption = 'Drogéria'
+    OnClick = DrogeriaBtnClick
     TabOrder = 5
   end
-  object Button5: TButton
-    Left = 400
-    Height = 49
-    Top = 72
-    Width = 120
-    Caption = 'Ostatné'
+  object VyhladajBtn: TButton
+    Left = 992
+    Height = 34
+    Top = 29
+    Width = 88
+    Caption = 'vyhľadaj'
+    OnClick = VyhladajBtnClick
     TabOrder = 6
   end
-  object Button6: TButton
-    Left = 392
-    Height = 25
-    Top = 8
-    Width = 75
-    Caption = 'vyhľadaj'
-    TabOrder = 7
-  end
   object Image1: TImage
-    Left = 632
+    Left = 1256
     Height = 65
-    Top = 8
+    Top = 29
     Width = 73
   end
-  object Image2: TImage
-    Left = 16
-    Height = 214
-    Top = 136
-    Width = 500
-  end
   object Label2: TLabel
-    Left = 544
-    Height = 15
-    Top = 152
-    Width = 34
+    Left = 1136
+    Height = 34
+    Top = 160
+    Width = 87
     Caption = 'Label2'
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Height = -29
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     ParentColor = False
+    ParentFont = False
   end
   object Edit3: TEdit
-    Left = 24
+    Left = 48
     Height = 23
-    Top = 10
-    Width = 352
-    TabOrder = 8
-    Text = 'Zadaj kód tovaru'
+    Top = 32
+    Width = 936
+    TabOrder = 7
   end
-  object Button7: TButton
-    Left = 544
+  object VlozBtn: TButton
+    Left = 1096
     Height = 40
-    Top = 184
-    Width = 153
+    Top = 240
+    Width = 161
     Caption = 'VLOŽ'
+    OnClick = VlozBtnClick
+    TabOrder = 8
+  end
+  object ListBox1: TListBox
+    Left = 48
+    Height = 507
+    Top = 160
+    Width = 936
+    ItemHeight = 0
+    OnClick = ListBox1Click
     TabOrder = 9
   end
+  object Label3: TLabel
+    Left = 1040
+    Height = 15
+    Top = 664
+    Width = 34
+    Caption = 'Label3'
+    ParentColor = False
+  end
+  object Label4: TLabel
+    Left = 49
+    Height = 15
+    Top = 8
+    Width = 142
+    Caption = 'Vyhľadať tovar podľa kódu'
+    ParentColor = False
+  end
+  object PrejstKPlatbeBtn: TButton
+    Left = 1016
+    Height = 48
+    Top = 600
+    Width = 224
+    Caption = 'Prejsť k platbe'
+    OnClick = PrejstKPlatbeBtnClick
+    TabOrder = 10
+  end
+  object Label5: TLabel
+    Left = 1096
+    Height = 15
+    Top = 208
+    Width = 62
+    Caption = 'Zadaj počet'
+    ParentColor = False
+  end
+  object ListBox2: TListBox
+    Left = 1016
+    Height = 288
+    Top = 296
+    Width = 320
+    ItemHeight = 0
+    TabOrder = 11
+  end
+  object StornoBtn: TButton
+    Left = 1248
+    Height = 49
+    Top = 600
+    Width = 88
+    Caption = 'Storno'
+    OnClick = StornoBtnClick
+    TabOrder = 12
+  end
   object Memo1: TMemo
-    Left = 546
-    Height = 109
-    Top = 241
-    Width = 147
+    Left = 48
+    Height = 512
+    Top = 77
+    Width = 1264
     Lines.Strings = (
       'Memo1'
     )
-    TabOrder = 10
+    OnChange = Memo1Change
+    TabOrder = 13
+  end
+  object ZaplatitBtn: TButton
+    Left = 552
+    Height = 48
+    Top = 624
+    Width = 272
+    Caption = 'Zaplatiť'
+    OnClick = ZaplatitBtnClick
+    TabOrder = 14
+  end
+  object OdhlasitBtn: TButton
+    Left = 1152
+    Height = 34
+    Top = 29
+    Width = 83
+    Caption = 'Odhlásiť sa'
+    OnClick = OdhlasitBtnClick
+    TabOrder = 15
+  end
+  object Label6: TLabel
+    Left = 640
+    Height = 15
+    Top = 24
+    Width = 34
+    Caption = 'Label6'
+    ParentColor = False
+  end
+  object Memo2: TMemo
+    Left = 48
+    Height = 507
+    Top = 160
+    Width = 936
+    Lines.Strings = (
+      'Memo2'
+    )
+    TabOrder = 16
+  end
+  object ZeleninaBtn: TButton
+    Left = 200
+    Height = 63
+    Top = 77
+    Width = 144
+    Caption = 'Zelenina'
+    OnClick = ZeleninaBtnClick
+    TabOrder = 17
+  end
+  object MrazeneBtn: TButton
+    Left = 512
+    Height = 64
+    Top = 77
+    Width = 154
+    Caption = 'Mrazené'
+    OnClick = MrazeneBtnClick
+    TabOrder = 18
+  end
+  object MasoBtn: TButton
+    Left = 840
+    Height = 64
+    Top = 77
+    Width = 144
+    Caption = 'Mäso'
+    OnClick = MasoBtnClick
+    TabOrder = 19
   end
 end

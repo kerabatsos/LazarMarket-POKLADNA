@@ -302,7 +302,7 @@ Label2.Visible:= False;
                Memo2.visible:= true;
                Memo2.append(tovar[ i ].nazov);
                Label2.Visible:= True;
-               itemIndex:= i - 1;
+               itemIndex:= i; // len tak
              end
            else
              begin
@@ -591,7 +591,7 @@ begin
      pocet:= strtoint( edit2.text );
      if pocet > 0 then
         begin
-             itemindex:= itemindex+1;
+             //itemindex:= itemindex+1;
              inc( pocetobjektov );
         //memo2.append('pocet objektov '+inttostr(pocetobjektov));
              case praca of
@@ -660,19 +660,19 @@ if  ListBox1.Count > 0 then
       for i:= 0 to ListBox1.Count-1 do
           if ListBox1.Selected[ i ] = True then
              begin
-                  itemIndex:= i;
+                  itemIndex:= i+1;
                   Break;
              end;
 
       Label2.Visible:= True;
 
       case praca of
-         1: Label2.Caption:= (ovocie[itemIndex+1].nazov);
-         2: Label2.Caption:= (zelenina[itemIndex+1].nazov);
-         3: Label2.Caption:= (pecivo[itemIndex+1].nazov);
-         4: Label2.Caption:= (mrazene[itemIndex+1].nazov);
-         5: Label2.Caption:= (drogeria[itemIndex+1].nazov);
-         6: Label2.Caption:= (maso[itemIndex+1].nazov);
+         1: Label2.Caption:= (ovocie[itemIndex].nazov);
+         2: Label2.Caption:= (zelenina[itemIndex].nazov);
+         3: Label2.Caption:= (pecivo[itemIndex].nazov);
+         4: Label2.Caption:= (mrazene[itemIndex].nazov);
+         5: Label2.Caption:= (drogeria[itemIndex].nazov);
+         6: Label2.Caption:= (maso[itemIndex].nazov);
       end;
    end;
 end;
