@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, LCLType;
+  StdCtrls, Math, LCLType;
 
 type
 
@@ -70,8 +70,7 @@ type
 type zoznamTovaru=record
      kod: string;
      nazov: string;
-     nakupnacena: integer;
-     predajnacena: integer;
+     predajnacena: float;
      pocet: integer;
 end;
 
@@ -83,48 +82,42 @@ end;
 type zoznamOvocia=record
      kod: string;
      nazov: string;
-     nakupnacena: integer;
-     predajnacena: integer;
+     predajnacena: float;
      pocet: integer;
 end;
 
 type zoznamzeleniny=record
      kod: string;
      nazov: string;
-     nakupnacena: integer;
-     predajnacena: integer;
+     predajnacena: float;
      pocet: integer;
 end;
 
 type zoznampeciva=record
      kod: string;
      nazov: string;
-     nakupnacena: integer;
-     predajnacena: integer;
+     predajnacena: float;
      pocet: integer;
 end;
 
 type zoznammrazeneho=record
      kod: string;
      nazov: string;
-     nakupnacena: integer;
-     predajnacena: integer;
+     predajnacena: float;
      pocet: integer;
 end;
 
 type zoznamdrogerie=record
      kod: string;
      nazov: string;
-     nakupnacena: integer;
-     predajnacena: integer;
+     predajnacena: float;
      pocet: integer;
 end;
 
 type zoznammasa=record
      kod: string;
      nazov: string;
-     nakupnacena: integer;
-     predajnacena: integer;
+     predajnacena: float;
      pocet: integer;
 end;
 
@@ -132,7 +125,7 @@ type zoznamUctenka=record
      kod: string;
      nazov: string;
      pocet: integer;
-     cena: integer;
+     cena: float;
 end;
 
 const n=6;
@@ -152,7 +145,8 @@ var
   maso: array[1..o] of zoznammasa;
   uctenka: array[1..p] of zoznamuctenka;
   //subory: array of textfile;
-  i, itemindex, pocetobjektov, celkom, q, ov, z, pe, mr, d, ma, praca: integer;
+  i, itemindex, pocetobjektov, q, ov, z, pe, mr, d, ma, praca: integer;
+  celkom : float;
   subor1, subor2, subor3, subor4, subor5: textfile;
   znak: char;
   kod, pokladnik, kodtovaru: string;
@@ -316,8 +310,10 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 var
-rozdelujstring: string;
-hold,j,x2,x3,x4,nakupnacena,predajnacena,pocet: integer;    //x je premenna na pocet riadkov v txt subore
+cenaString: string;
+hold,j,x2,x3,x4,pocet: integer; //x je premenna na pocet riadkov v txt subore
+cena : float;
+
 begin
 q:=0; //premenna na poradove cislo uctenky
 ListBox1.Items.Clear;
@@ -360,21 +356,29 @@ readln(subor3,x3);
 //memo3.Append(inttostr(x3));
 for i:=1 to x3 do
     begin
-         kod:=''; //vycisti premennu
+         kod:='';
          read(subor3,znak);
          repeat
                kod:=kod+znak;
                read(subor3,znak);
-         until znak=';';
+         until znak = ';';
+         repeat
+               read(subor3,znak);
+         until znak = ';';
+
+         ReadLn(subor3,cenaString);
+         {cenaString := '';
+         repeat
+               read(subor3,znak);
+               cenaString := cenaString + znak;
+         until Eoln(subor3);   }
+
     //memo3.append(kod);
-    readln(subor3,rozdelujstring);
-    nakupnacena:=strtoint(rozdelujstring[1]);
-    predajnacena:=strtoint(rozdelujstring[3]);
+    cena := StrToFloat(cenaString);
     for j:=1 to x3 do
-         if tovar[j].kod=kod then
+         if tovar[j].kod = kod then
             begin
-                 tovar[j].nakupnacena:=nakupnacena;
-                 tovar[j].predajnacena:=predajnacena;
+                 tovar[j].predajnacena := cena;
                  //memo3.append(inttostr(tovar[j].nakupnacena));
                  //memo3.append(inttostr(tovar[j].predajnacena));
             end;
@@ -419,7 +423,7 @@ for i:=1 to x2 do
                      inc(ov);
                      ovocie[ov].kod:=tovar[i].kod;
                      ovocie[ov].nazov:=tovar[i].nazov;
-                     ovocie[ov].nakupnacena:=tovar[i].nakupnacena;
+                     //ovocie[ov].nakupnacena:=tovar[i].nakupnacena;
                      ovocie[ov].predajnacena:=tovar[i].predajnacena;
                      ovocie[ov].pocet:=tovar[i].pocet;
                      //memo3.append(ovocie[o].kod+ovocie[o].nazov+inttostr(ovocie[o].nakupnacena)+inttostr(ovocie[o].predajnacena)+inttostr(ovocie[o].pocet));
@@ -429,7 +433,7 @@ for i:=1 to x2 do
                      inc(z);
                      zelenina[z].kod:=tovar[i].kod;
                      zelenina[z].nazov:=tovar[i].nazov;
-                     zelenina[z].nakupnacena:=tovar[i].nakupnacena;
+                     //zelenina[z].nakupnacena:=tovar[i].nakupnacena;
                      zelenina[z].predajnacena:=tovar[i].predajnacena;
                      zelenina[z].pocet:=tovar[i].pocet;
                      //memo3.append(zelenina[z].kod+zelenina[z].nazov+inttostr(zelenina[z].nakupnacena)+inttostr(zelenina[z].predajnacena)+inttostr(zelenina[z].pocet));
@@ -439,7 +443,7 @@ for i:=1 to x2 do
                      inc(pe);
                      pecivo[pe].kod:=tovar[i].kod;
                      pecivo[pe].nazov:=tovar[i].nazov;
-                     pecivo[pe].nakupnacena:=tovar[i].nakupnacena;
+                     //pecivo[pe].nakupnacena:=tovar[i].nakupnacena;
                      pecivo[pe].predajnacena:=tovar[i].predajnacena;
                      pecivo[pe].pocet:=tovar[i].pocet;
                      //memo3.append(pecivo[p].kod+pecivo[p].nazov+inttostr(pecivo[p].nakupnacena)+inttostr(pecivo[p].predajnacena)+inttostr(pecivo[p].pocet));
@@ -449,7 +453,7 @@ for i:=1 to x2 do
                      inc(mr);
                      mrazene[mr].kod:=tovar[i].kod;
                      mrazene[mr].nazov:=tovar[i].nazov;
-                     mrazene[mr].nakupnacena:=tovar[i].nakupnacena;
+                     //mrazene[mr].nakupnacena:=tovar[i].nakupnacena;
                      mrazene[mr].predajnacena:=tovar[i].predajnacena;
                      mrazene[mr].pocet:=tovar[i].pocet;
                      //memo3.append(mrazene[mr].kod+mrazene[mr].nazov+inttostr(mrazene[mr].nakupnacena)+inttostr(mrazene[mr].predajnacena)+inttostr(mrazene[mr].pocet));
@@ -459,7 +463,7 @@ for i:=1 to x2 do
                      inc(d);
                      drogeria[d].kod:=tovar[i].kod;
                      drogeria[d].nazov:=tovar[i].nazov;
-                     drogeria[d].nakupnacena:=tovar[i].nakupnacena;
+                     //drogeria[d].nakupnacena:=tovar[i].nakupnacena;
                      drogeria[d].predajnacena:=tovar[i].predajnacena;
                      drogeria[d].pocet:=tovar[i].pocet;
                      //memo3.append(drogeria[d].kod+drogeria[d].nazov+inttostr(drogeria[d].nakupnacena)+inttostr(drogeria[d].predajnacena)+inttostr(drogeria[d].pocet));
@@ -469,7 +473,7 @@ for i:=1 to x2 do
                      inc(ma);
                      maso[ma].kod:=tovar[i].kod;
                      maso[ma].nazov:=tovar[i].nazov;
-                     maso[ma].nakupnacena:=tovar[i].nakupnacena;
+                     //maso[ma].nakupnacena:=tovar[i].nakupnacena;
                      maso[ma].predajnacena:=tovar[i].predajnacena;
                      maso[ma].pocet:=tovar[i].pocet;
                      //memo3.append(maso[m].kod+maso[m].nazov+inttostr(maso[m].nakupnacena)+inttostr(maso[m].predajnacena)+inttostr(maso[m].pocet));
@@ -489,10 +493,10 @@ memo1.append('                                                                  
 memo1.append('Obsluhuje Vas: '+pokladnik);
 memo1.append(' ');
 for i:=1 to pocetobjektov do
-    (memo1.append(uctenka[i].kod+'  '+uctenka[i].nazov+'         '+inttostr(uctenka[i].pocet)+'x'+inttostr(uctenka[i].cena)+'€'+'    '+inttostr(uctenka[i].pocet*uctenka[i].cena)+'€'));
+    (memo1.append(uctenka[i].kod+'  '+uctenka[i].nazov+'         '+floattostr(uctenka[i].pocet)+'x'+floattostr(uctenka[i].cena)+'€'+'    '+floattostr(uctenka[i].pocet*uctenka[i].cena)+'€'));
 memo1.append(' ');
 memo1.append('---------------------------');
-memo1.append(inttostr(celkom)+' €');
+memo1.append(floattostr(celkom)+' €');
 end;
 
 procedure TForm1.OvocieBtnClick(Sender: TObject);
@@ -567,10 +571,10 @@ writeln(subor5,'                                                                
 writeln(subor5,'Obsluhuje Vas: '+pokladnik);
 writeln(subor5);
 for i:=1 to pocetobjektov do
-    (writeln(subor5,uctenka[i].kod+'  '+uctenka[i].nazov+'         '+inttostr(uctenka[i].pocet)+'x'+inttostr(uctenka[i].cena)+'€'+'    '+inttostr(uctenka[i].pocet*uctenka[i].cena)+'€'));
+    (writeln(subor5,uctenka[i].kod+'  '+uctenka[i].nazov+'         '+inttostr(uctenka[i].pocet)+'x'+floattostr(uctenka[i].cena)+'€'+'    '+floattostr(uctenka[i].pocet*uctenka[i].cena)+'€'));
 writeln(subor5);
 writeln(subor5,'---------------------------');
-writeln(subor5,inttostr(celkom)+' €');
+writeln(subor5,floattostr(celkom)+' €');
 closefile(subor5);
 Nakup;
 end;
@@ -588,7 +592,8 @@ procedure TForm1.VlozBtnClick(Sender: TObject);  //dve moznosti: vloz ak je to l
 var
 pocet: integer;
 begin
-     pocet:= strtoint( edit2.text );
+
+     trystrtoint( edit2.text , pocet );
      if pocet > 0 then
         begin
              //itemindex:= itemindex+1;
@@ -596,49 +601,49 @@ begin
         //memo2.append('pocet objektov '+inttostr(pocetobjektov));
              case praca of
                   1: begin
-                          Listbox2.Items.Add( ovocie[ itemindex ].kod + '  ' + ovocie[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( ovocie[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*ovocie[ itemindex ].predajnacena ) + '€' );
+                          Listbox2.Items.Add( ovocie[ itemindex ].kod + '  ' + ovocie[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + Floattostr( ovocie[ itemindex ].predajnacena ) + '€' + '    ' + floattostr( pocet*ovocie[ itemindex ].predajnacena ) + '€' );
                           uctenka[ pocetobjektov ].kod:= ovocie[ itemindex ].kod;
                           uctenka[ pocetobjektov ].nazov:= ovocie[ itemindex ].nazov;
                           uctenka[ pocetobjektov ].cena:= ovocie[ itemindex ].predajnacena;
                           uctenka[ pocetobjektov ].pocet:= pocet;
                      end;
                   2: begin
-                          Listbox2.Items.Add( zelenina[ itemindex ].kod + '  ' + zelenina[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( zelenina[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*zelenina[ itemindex ].predajnacena ) + '€' );
+                          Listbox2.Items.Add( zelenina[ itemindex ].kod + '  ' + zelenina[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + floattostr( zelenina[ itemindex ].predajnacena ) + '€' + '    ' + floattostr( pocet*zelenina[ itemindex ].predajnacena ) + '€' );
                           uctenka[ pocetobjektov ].kod:= zelenina[ itemindex ].kod;
                           uctenka[ pocetobjektov ].nazov:= zelenina[ itemindex ].nazov;
                           uctenka[ pocetobjektov ].cena:= zelenina[ itemindex ].predajnacena;
                           uctenka[ pocetobjektov ].pocet:= pocet;
                      end;
                   3: begin
-                          Listbox2.Items.Add( pecivo[ itemindex ].kod + '  ' + pecivo[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( pecivo[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*pecivo[ itemindex ].predajnacena ) + '€' );
+                          Listbox2.Items.Add( pecivo[ itemindex ].kod + '  ' + pecivo[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + floattostr( pecivo[ itemindex ].predajnacena ) + '€' + '    ' + floattostr( pocet*pecivo[ itemindex ].predajnacena ) + '€' );
                           uctenka[ pocetobjektov ].kod:= pecivo[ itemindex ].kod;
                           uctenka[ pocetobjektov ].nazov:= pecivo[ itemindex ].nazov;
                           uctenka[ pocetobjektov ].cena:= pecivo[ itemindex ].predajnacena;
                           uctenka[ pocetobjektov ].pocet:= pocet;
                      end;
                   4: begin
-                          Listbox2.Items.Add( mrazene[ itemindex ].kod + '  ' + mrazene[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( mrazene[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*mrazene[ itemindex ].predajnacena ) + '€' );
+                          Listbox2.Items.Add( mrazene[ itemindex ].kod + '  ' + mrazene[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + floattostr( mrazene[ itemindex ].predajnacena ) + '€' + '    ' + floattostr( pocet*mrazene[ itemindex ].predajnacena ) + '€' );
                           uctenka[ pocetobjektov ].kod:= mrazene[ itemindex ].kod;
                           uctenka[ pocetobjektov ].nazov:= mrazene[ itemindex ].nazov;
                           uctenka[ pocetobjektov ].cena:= mrazene[ itemindex ].predajnacena;
                           uctenka[ pocetobjektov ].pocet:= pocet;
                      end;
                   5: begin
-                          Listbox2.Items.Add( drogeria[ itemindex ].kod + '  ' + drogeria[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( drogeria[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*drogeria[ itemindex ].predajnacena ) + '€' );
+                          Listbox2.Items.Add( drogeria[ itemindex ].kod + '  ' + drogeria[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + floattostr( drogeria[ itemindex ].predajnacena ) + '€' + '    ' + floattostr( pocet*drogeria[ itemindex ].predajnacena ) + '€' );
                           uctenka[ pocetobjektov ].kod:= drogeria[ itemindex ].kod;
                           uctenka[ pocetobjektov ].nazov:= drogeria[ itemindex ].nazov;
                           uctenka[ pocetobjektov ].cena:= drogeria[ itemindex ].predajnacena;
                           uctenka[ pocetobjektov ].pocet:= pocet;
                      end;
                   6: begin
-                          Listbox2.Items.Add( maso[ itemindex ].kod + '  ' + maso[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( maso[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*maso[ itemindex ].predajnacena ) + '€' );
+                          Listbox2.Items.Add( maso[ itemindex ].kod + '  ' + maso[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + floattostr( maso[ itemindex ].predajnacena ) + '€' + '    ' + floattostr( pocet*maso[ itemindex ].predajnacena ) + '€' );
                           uctenka[ pocetobjektov ].kod:= maso[ itemindex ].kod;
                           uctenka[ pocetobjektov ].nazov:= maso[ itemindex ].nazov;
                           uctenka[ pocetobjektov ].cena:= maso[ itemindex ].predajnacena;
                           uctenka[ pocetobjektov ].pocet:= pocet;
                      end;
                   7: begin      //prosim, ako je mozne, ze to funguje s poziciou na zaklade premennej itemindex? na zaklade toho, co si, Samko, napisal do procedury VyhladajBtn OnClick.
-                          Listbox2.Items.Add( tovar[ itemindex ].kod + '  ' + tovar[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + inttostr( tovar[ itemindex ].predajnacena ) + '€' + '    ' + inttostr( pocet*tovar[ itemindex ].predajnacena ) + '€' );
+                          Listbox2.Items.Add( tovar[ itemindex ].kod + '  ' + tovar[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + floattostr( tovar[ itemindex ].predajnacena ) + '€' + '    ' + floattostr( pocet*tovar[ itemindex ].predajnacena ) + '€' );
                           uctenka[ pocetobjektov ].kod:= tovar[ itemindex ].kod;
                           uctenka[ pocetobjektov ].nazov:= tovar[ itemindex ].nazov;
                           uctenka[ pocetobjektov ].cena:= tovar[ itemindex ].predajnacena;

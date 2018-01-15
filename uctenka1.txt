@@ -1,7 +1,7 @@
                                                                                  Lazarmarket
-Obsluhuje Vas: Simon
+Obsluhuje Vas: Samo
 
-131  Chlieb         5x3€    15€
+123  Mrkva         3x2€    6€
 
 ---------------------------
-15 €
+6 €
