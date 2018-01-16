@@ -1,25 +1,25 @@
 object Form1: TForm1
-  Left = 328
+  Left = 723
   Height = 600
-  Top = 50
-  Width = 756
+  Top = 58
+  Width = 343
   Caption = 'Form1'
   ClientHeight = 600
-  ClientWidth = 756
+  ClientWidth = 343
   Color = clMoneyGreen
   OnCreate = FormCreate
   LCLVersion = '1.6.2.0'
   object Label1: TLabel
     Left = 608
-    Height = 20
+    Height = 15
     Top = 240
-    Width = 162
+    Width = 128
     Caption = 'Zadajte, prosím, Váš kód'
     ParentColor = False
   end
   object Edit1: TEdit
     Left = 630
-    Height = 28
+    Height = 23
     Top = 272
     Width = 80
     EchoMode = emPassword
@@ -39,7 +39,7 @@ object Form1: TForm1
   end
   object Edit2: TEdit
     Left = 1176
-    Height = 28
+    Height = 23
     Top = 200
     Width = 81
     NumbersOnly = True
@@ -47,28 +47,28 @@ object Form1: TForm1
     Text = '0'
   end
   object OvocieBtn: TButton
-    Left = 48
+    Left = 208
     Height = 63
     Top = 77
-    Width = 143
+    Width = 127
     Caption = 'Ovocie'
     OnClick = OvocieBtnClick
     TabOrder = 3
   end
   object PecivoBtn: TButton
-    Left = 352
+    Left = 480
     Height = 65
-    Top = 75
-    Width = 152
+    Top = 77
+    Width = 128
     Caption = 'Pečivo'
     OnClick = PecivoBtnClick
     TabOrder = 4
   end
   object DrogeriaBtn: TButton
-    Left = 680
+    Left = 752
     Height = 64
     Top = 77
-    Width = 152
+    Width = 112
     Caption = 'Drogéria'
     OnClick = DrogeriaBtnClick
     TabOrder = 5
@@ -104,7 +104,7 @@ object Form1: TForm1
   end
   object Edit3: TEdit
     Left = 48
-    Height = 28
+    Height = 23
     Top = 32
     Width = 936
     TabOrder = 7
@@ -129,17 +129,17 @@ object Form1: TForm1
   end
   object Label3: TLabel
     Left = 1040
-    Height = 20
+    Height = 15
     Top = 664
-    Width = 44
+    Width = 34
     Caption = 'Label3'
     ParentColor = False
   end
   object Label4: TLabel
     Left = 49
-    Height = 20
+    Height = 15
     Top = 8
-    Width = 180
+    Width = 142
     Caption = 'Vyhľadať tovar podľa kódu'
     ParentColor = False
   end
@@ -154,9 +154,9 @@ object Form1: TForm1
   end
   object Label5: TLabel
     Left = 1096
-    Height = 20
+    Height = 15
     Top = 208
-    Width = 80
+    Width = 62
     Caption = 'Zadaj počet'
     ParentColor = False
   end
@@ -180,7 +180,7 @@ object Form1: TForm1
   object Memo1: TMemo
     Left = 48
     Height = 512
-    Top = 77
+    Top = 112
     Width = 1264
     Lines.Strings = (
       'Memo1'
@@ -208,9 +208,9 @@ object Form1: TForm1
   end
   object Label6: TLabel
     Left = 640
-    Height = 20
+    Height = 15
     Top = 24
-    Width = 44
+    Width = 34
     Caption = 'Label6'
     ParentColor = False
   end
@@ -225,30 +225,39 @@ object Form1: TForm1
     TabOrder = 16
   end
   object ZeleninaBtn: TButton
-    Left = 200
+    Left = 344
     Height = 63
     Top = 77
-    Width = 144
+    Width = 128
     Caption = 'Zelenina'
     OnClick = ZeleninaBtnClick
     TabOrder = 17
   end
   object MrazeneBtn: TButton
-    Left = 512
+    Left = 616
     Height = 64
     Top = 77
-    Width = 154
+    Width = 128
     Caption = 'Mrazené'
     OnClick = MrazeneBtnClick
     TabOrder = 18
   end
   object MasoBtn: TButton
-    Left = 840
+    Left = 872
     Height = 64
     Top = 77
-    Width = 144
+    Width = 112
     Caption = 'Mäso'
     OnClick = MasoBtnClick
     TabOrder = 19
+  end
+  object VsetokTovarBtn: TButton
+    Left = 49
+    Height = 61
+    Top = 79
+    Width = 150
+    Caption = 'Všetok tovar'
+    OnClick = VsetokTovarBtnClick
+    TabOrder = 20
   end
 end

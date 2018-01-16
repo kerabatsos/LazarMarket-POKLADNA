@@ -1,7 +1,7 @@
                                                                                  Lazarmarket
-Obsluhuje Vas: Samo
+Obsluhuje Vas: Katka
 
-123  Mrkva         3x2€    6€
+111  Jablka         3x2.11€    6.33€
 
 ---------------------------
-6 €
+6.33 €

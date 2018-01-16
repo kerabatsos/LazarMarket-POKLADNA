@@ -13,6 +13,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    VsetokTovarBtn: TButton;
     MasoBtn: TButton;
     MrazeneBtn: TButton;
     ZeleninaBtn: TButton;
@@ -50,6 +51,7 @@ type
     procedure PrejstKPlatbeBtnClick(Sender: TObject);
     procedure OvocieBtnClick(Sender: TObject);
     procedure StornoBtnClick(Sender: TObject);
+    procedure VsetokTovarBtnClick(Sender: TObject);
     procedure ZaplatitBtnClick(Sender: TObject);
     procedure ZeleninaBtnClick(Sender: TObject);
     procedure VyhladajBtnClick(Sender: TObject);
@@ -77,6 +79,13 @@ end;
 type zoznamPokladnikov=record
      meno: string;
      kod: string;
+end;
+
+type zoznamVsetkehoTovaru=record
+     kod: string;
+     nazov: string;
+     predajnacena: float;
+     pocet: integer;
 end;
 
 type zoznamOvocia=record
@@ -136,6 +145,7 @@ const n=6;
 var
   pokladnici: array[1..n] of zoznampokladnikov;
   tovar: array[1..m] of zoznamtovaru;
+  vsetoktovar: array[1..m] of zoznamvsetkehotovaru;
   sklad: array[1..2,1..m] of integer;
   ovocie: array[1..o] of zoznamovocia;
   zelenina: array[1..o] of zoznamzeleniny;
@@ -145,7 +155,7 @@ var
   maso: array[1..o] of zoznammasa;
   uctenka: array[1..p] of zoznamuctenka;
   //subory: array of textfile;
-  i, itemindex, pocetobjektov, q, ov, z, pe, mr, d, ma, praca: integer;
+  i, itemindex, pocetobjektov, q, ov, z, pe, mr, d, ma, praca, vt, x: integer;
   celkom : float;
   subor1, subor2, subor3, subor4, subor5: textfile;
   znak: char;
@@ -162,6 +172,7 @@ procedure TForm1.Prihlasenie;     //procedura
 var
   k: boolean;
 begin
+
 kod:=edit1.text;
 k:=false;
 for i:=1 to n do
@@ -202,6 +213,7 @@ VyhladajBtn.visible:=false;
 VlozBtn.visible:=false;
 PrejstKPlatbeBtn.visible:=false;
 StornoBtn.visible:=false;
+VsetokTovarBtn.Visible:=false;
 //NakupBtn.visible:=false;
 OdhlasitBtn.visible:=false;
 ZaplatitBtn.visible:=false;
@@ -236,6 +248,7 @@ label3.visible:=true;
 label4.visible:=true;
 label5.visible:=true;
 Label6.visible:=false;
+VsetokTovarBtn.visible:=true;
 OvocieBtn.visible:=true;
 PecivoBtn.visible:=true;
 DrogeriaBtn.visible:=true;
@@ -268,7 +281,7 @@ praca:=3;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
 for i:=1 to pe do
-    ListBox1.Items.Add(pecivo[i].nazov+'       '+inttostr(pecivo[i].pocet));
+    ListBox1.Items.Add(pecivo[i].nazov+'       '+inttostr(pecivo[i].pocet)+' ks');
 end;
 
 procedure TForm1.Edit1EditingDone(Sender: TObject);
@@ -305,7 +318,7 @@ Label2.Visible:= False;
          end;
    if mameTovar = false then
          ShowMessage('Tovar s takýmto kódom neexistuje');
-
+edit3.clear;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -314,7 +327,10 @@ cenaString: string;
 hold,j,x2,x3,x4,pocet: integer; //x je premenna na pocet riadkov v txt subore
 cena : float;
 
+
 begin
+
+DefaultFormatSettings.DecimalSeparator := '.';
 q:=0; //premenna na poradove cislo uctenky
 ListBox1.Items.Clear;
 ListBox2.Items.Clear;
@@ -331,6 +347,7 @@ begin
      readln(subor1,pokladnici[i].kod);
      //memo3.append(pokladnici[i].meno+pokladnici[i].kod);
 end;
+closefile(subor1);
 
 assignfile(subor2,'TOVAR.txt');
 reset(subor2);
@@ -366,12 +383,12 @@ for i:=1 to x3 do
                read(subor3,znak);
          until znak = ';';
 
-
-         cenaString := '';
+         ReadLn(subor3,cenaString);
+         {cenaString := '';
          repeat
                read(subor3,znak);
                cenaString := cenaString + znak;
-         until Eoln(subor3);
+         until Eoln(subor3);   }
 
     //memo3.append(kod);
     cena := StrToFloat(cenaString);
@@ -407,6 +424,7 @@ for i:=1 to x4 do
 closefile(subor4);
 
 //NASLEDUJE ROZDELOVANIE DO RECORDOV --------------------------------------------------
+vt:=0;
 ov:=0;
 z:=0;
 pe:=0;
@@ -480,6 +498,17 @@ for i:=1 to x2 do
                    end;
             end;
     end;
+for i:=1 to x2 do
+   if tovar[i].pocet>0 then
+     begin
+       inc(vt);
+       vsetoktovar[vt].kod:=tovar[i].kod;
+       vsetoktovar[vt].nazov:=tovar[i].nazov;
+       //mrazene[mr].nakupnacena:=tovar[i].nakupnacena;
+       vsetoktovar[vt].predajnacena:=tovar[i].predajnacena;
+       vsetoktovar[vt].pocet:=tovar[i].pocet;
+     end;
+x:=x2;
 end;
 
 procedure TForm1.PrejstKPlatbeBtnClick(Sender: TObject);
@@ -505,7 +534,7 @@ praca:=1;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
 for i:=1 to ov do
-    ListBox1.Items.Add(ovocie[i].nazov+'       '+inttostr(ovocie[i].pocet));
+    ListBox1.Items.Add(ovocie[i].nazov+'       '+inttostr(ovocie[i].pocet)+' ks');
 end;
 
 procedure TForm1.StornoBtnClick(Sender: TObject);
@@ -560,7 +589,17 @@ begin
 
 end;
 
+procedure TForm1.VsetokTovarBtnClick(Sender: TObject);
+begin
+praca:=0;
+Memo2.visible:=false;
+ListBox1.Items.Clear;
+for i:=1 to vt do
+    ListBox1.Items.Add(vsetoktovar[i].nazov+'       '+inttostr(vsetoktovar[i].pocet)+' ks');
+end;
+
 procedure TForm1.ZaplatitBtnClick(Sender: TObject);
+var i,j: integer;
 begin
 SchovajObjekty;
 //NakupBtn.visible:=true;
@@ -576,6 +615,22 @@ writeln(subor5);
 writeln(subor5,'---------------------------');
 writeln(subor5,floattostr(celkom)+' €');
 closefile(subor5);
+
+for i:=1 to pocetobjektov do
+    for j:=1 to x do
+        begin
+           if uctenka[i].kod=tovar[j].kod then
+              begin
+                tovar[j].pocet:=tovar[j].pocet-uctenka[i].pocet;
+                break;
+              end;
+        end;
+
+{rewrite(subor4);
+writeln(subor4,x);
+for i:=1 to x do
+    writeln(tovar[i].kod+';'+inttostr(tovar[i].pocet));
+closefile(subor4);}
 Nakup;
 end;
 
@@ -585,7 +640,7 @@ praca:=2;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
 for i:=1 to z do
-    ListBox1.Items.Add(zelenina[i].nazov+'       '+inttostr(zelenina[i].pocet));
+    ListBox1.Items.Add(zelenina[i].nazov+'       '+inttostr(zelenina[i].pocet)+' ks');
 end;
 
 procedure TForm1.VlozBtnClick(Sender: TObject);  //dve moznosti: vloz ak je to list objektov alebo je vyhladany podla kodu
@@ -600,6 +655,13 @@ begin
              inc( pocetobjektov );
         //memo2.append('pocet objektov '+inttostr(pocetobjektov));
              case praca of
+                  0: begin
+                          Listbox2.Items.Add( vsetoktovar[ itemindex ].kod + '  ' + vsetoktovar[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + Floattostr( vsetoktovar[ itemindex ].predajnacena ) + '€' + '    ' + floattostr( pocet*vsetoktovar[ itemindex ].predajnacena ) + '€' );
+                          uctenka[ pocetobjektov ].kod:= vsetoktovar[ itemindex ].kod;
+                          uctenka[ pocetobjektov ].nazov:= vsetoktovar[ itemindex ].nazov;
+                          uctenka[ pocetobjektov ].cena:= vsetoktovar[ itemindex ].predajnacena;
+                          uctenka[ pocetobjektov ].pocet:= pocet;
+                     end;
                   1: begin
                           Listbox2.Items.Add( ovocie[ itemindex ].kod + '  ' + ovocie[ itemindex ].nazov + '         '+ inttostr( pocet ) + 'x' + Floattostr( ovocie[ itemindex ].predajnacena ) + '€' + '    ' + floattostr( pocet*ovocie[ itemindex ].predajnacena ) + '€' );
                           uctenka[ pocetobjektov ].kod:= ovocie[ itemindex ].kod;
@@ -672,6 +734,7 @@ if  ListBox1.Count > 0 then
       Label2.Visible:= True;
 
       case praca of
+         0: Label2.Caption:= (vsetoktovar[itemIndex].nazov);
          1: Label2.Caption:= (ovocie[itemIndex].nazov);
          2: Label2.Caption:= (zelenina[itemIndex].nazov);
          3: Label2.Caption:= (pecivo[itemIndex].nazov);
@@ -697,7 +760,7 @@ praca:=4;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
 for i:=1 to mr do
-    ListBox1.Items.Add(mrazene[i].nazov+'       '+inttostr(mrazene[i].pocet));
+    ListBox1.Items.Add(mrazene[i].nazov+'       '+inttostr(mrazene[i].pocet)+' ks');
 end;
 
 procedure TForm1.DrogeriaBtnClick(Sender: TObject);
@@ -706,7 +769,7 @@ praca:=5;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
 for i:=1 to d do
-    ListBox1.Items.Add(drogeria[i].nazov+'       '+inttostr(drogeria[i].pocet));
+    ListBox1.Items.Add(drogeria[i].nazov+'       '+inttostr(drogeria[i].pocet)+' ks');
 end;
 
 
@@ -716,7 +779,7 @@ praca:=6;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
 for i:=1 to ma do
-    ListBox1.Items.Add(maso[i].nazov+'       '+inttostr(maso[i].pocet));
+    ListBox1.Items.Add(maso[i].nazov+'       '+inttostr(maso[i].pocet)+' ks');
 end;
 
 procedure TForm1.Memo1Change(Sender: TObject);
