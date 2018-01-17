@@ -515,9 +515,11 @@ for i:=1 to x4 do
     end;
 closefile(subor4);
 
+x:=x2;
+
 RozdelenieDoRecordov;
 
-x:=x2;
+
 end;
 
 procedure TForm1.PrejstKPlatbeBtnClick(Sender: TObject);
@@ -601,7 +603,7 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-//kontrola;
+kontrola;
 end;
 
 procedure TForm1.VsetokTovarBtnClick(Sender: TObject);
@@ -812,6 +814,7 @@ for i:=1 to x4 do
      //memo1.append(inttostr(tovar[i].kod)+tovar[i].nazov+inttostr(tovar[i].nakupnacena)+inttostr(tovar[i].predajnacena)+inttostr(tovar[i].pocet));
     end;
 closefile(subor4);
+
 x:=x4;
 
 RozdelenieDoRecordov;

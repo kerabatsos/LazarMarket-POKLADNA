@@ -338,6 +338,17 @@ ma:=0;
 //memo3.append(tovar[1].kod);
 
 for i:=1 to x do
+   if tovar[i].pocet>0 then
+     begin
+       inc(vt);
+       vsetoktovar[vt].kod:=tovar[i].kod;
+       vsetoktovar[vt].nazov:=tovar[i].nazov;
+       //mrazene[mr].nakupnacena:=tovar[i].nakupnacena;
+       vsetoktovar[vt].predajnacena:=tovar[i].predajnacena;
+       vsetoktovar[vt].pocet:=tovar[i].pocet;
+     end;
+
+for i:=1 to x do
     begin
          if tovar[i].pocet>0 then
             begin
@@ -504,20 +515,11 @@ for i:=1 to x4 do
     end;
 closefile(subor4);
 
-for i:=1 to x do
-   if tovar[i].pocet>0 then
-     begin
-       inc(vt);
-       vsetoktovar[vt].kod:=tovar[i].kod;
-       vsetoktovar[vt].nazov:=tovar[i].nazov;
-       //mrazene[mr].nakupnacena:=tovar[i].nakupnacena;
-       vsetoktovar[vt].predajnacena:=tovar[i].predajnacena;
-       vsetoktovar[vt].pocet:=tovar[i].pocet;
-     end;
+x:=x2;
 
 RozdelenieDoRecordov;
 
-x:=x2;
+
 end;
 
 procedure TForm1.PrejstKPlatbeBtnClick(Sender: TObject);
