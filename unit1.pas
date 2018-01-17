@@ -15,6 +15,7 @@ type
   TForm1 = class(TForm)
     Memo3: TMemo;
     KontrolaSkladu: TTimer;
+    KontrolaCenniku: TTimer;
     VsetokTovarBtn: TButton;
     MasoBtn: TButton;
     MrazeneBtn: TButton;
@@ -44,6 +45,7 @@ type
     ListBox1: TListBox;
     ListBox2: TListBox;
     procedure DrogeriaBtnClick(Sender: TObject);
+    procedure KontrolaCennikuTimer(Sender: TObject);
     procedure MasoBtnClick(Sender: TObject);
     procedure MrazeneBtnClick(Sender: TObject);
     procedure OdhlasitBtnClick(Sender: TObject);
@@ -813,6 +815,39 @@ Memo2.visible:=false;
 ListBox1.Items.Clear;
 for i:=1 to d do
     ListBox1.Items.Add(drogeria[i].nazov+'       '+inttostr(drogeria[i].pocet)+' ks');
+end;
+
+procedure TForm1.KontrolaCennikuTimer(Sender: TObject);
+var cenastring: string;
+    x3, j: integer;
+    cena: float;
+begin
+reset(subor3);
+readln(subor3,x3);
+for i:=1 to x3 do
+    begin
+         kod:='';
+         read(subor3,znak);
+         repeat
+               kod:=kod+znak;
+               read(subor3,znak);
+         until znak = ';';
+         repeat
+               read(subor3,znak);
+         until znak = ';';
+
+         ReadLn(subor3,cenaString);
+
+    cena := StrToFloat(cenaString);
+    for j:=1 to x3 do
+         if tovar[j].kod = kod then
+            begin
+                 tovar[j].predajnacena := cena;
+                 //memo3.append(inttostr(tovar[j].nakupnacena));
+                 //memo3.append(inttostr(tovar[j].predajnacena));
+            end;
+    end;
+closefile(subor3);
 end;
 
 procedure TForm1.MasoBtnClick(Sender: TObject);
