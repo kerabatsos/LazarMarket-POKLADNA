@@ -23,6 +23,7 @@
         <IsVisibleTab Value="True"/>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <TopLine Value="601"/>
         <CursorPos X="22" Y="628"/>
 =======
@@ -33,6 +34,10 @@
         <TopLine Value="657"/>
         <CursorPos Y="659"/>
 >>>>>>> parent of 65f3fbb... id transakcie
+=======
+        <TopLine Value="601"/>
+        <CursorPos X="22" Y="628"/>
+>>>>>>> parent of aceb05d... Merge branch 'master' of https://github.com/katkavalkovic/LazarMarket-POKLADNA
         <UsageCount Value="58"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -69,6 +74,9 @@
         <Filename Value="unit1.pas"/>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of aceb05d... Merge branch 'master' of https://github.com/katkavalkovic/LazarMarket-POKLADNA
         <Caret Line="337" TopLine="309"/>
       </Position1>
       <Position2>
@@ -114,6 +122,7 @@
       <Position12>
         <Filename Value="unit1.pas"/>
         <Caret Line="642" Column="31" TopLine="594"/>
+<<<<<<< HEAD
 =======
         <Caret Line="436" Column="8" TopLine="414"/>
 =======
@@ -168,6 +177,8 @@
 =======
         <Caret Line="885" Column="5" TopLine="874"/>
 >>>>>>> parent of 65f3fbb... id transakcie
+=======
+>>>>>>> parent of aceb05d... Merge branch 'master' of https://github.com/katkavalkovic/LazarMarket-POKLADNA
       </Position12>
       <Position13>
         <Filename Value="unit1.pas"/>
@@ -177,6 +188,9 @@
         <Filename Value="unit1.pas"/>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of aceb05d... Merge branch 'master' of https://github.com/katkavalkovic/LazarMarket-POKLADNA
         <Caret Line="809" Column="8" TopLine="801"/>
       </Position14>
       <Position15>
@@ -242,6 +256,7 @@
       <Position30>
         <Filename Value="unit1.pas"/>
         <Caret Line="792" Column="5" TopLine="781"/>
+<<<<<<< HEAD
 =======
         <Caret Line="642" Column="31" TopLine="594"/>
 =======
@@ -316,6 +331,8 @@
 =======
         <Caret Line="544" TopLine="542"/>
 >>>>>>> parent of 65f3fbb... id transakcie
+=======
+>>>>>>> parent of aceb05d... Merge branch 'master' of https://github.com/katkavalkovic/LazarMarket-POKLADNA
       </Position30>
     </JumpHistory>
   </ProjectSession>
