@@ -678,7 +678,7 @@ writeln(subor4,x);
 for i:=1 to x do
     writeln(subor4,tovar[i].kod+';'+inttostr(tovar[i].pocet));
 closefile(subor4);
-Nakup;
+
  //prepisujem statistiky
  suborStatistiky := '';
 Assignfile( subor6 , 'STATISTIKY.txt' );
@@ -696,10 +696,11 @@ Rewrite( subor6 );
 Write( subor6 , inttostr(lines + pocetObjektov) + suborStatistiky );
 
 for k := 1 to pocetobjektov do
-     writeln( subor6,  'P;' + inttostr( gen ) + ';' + uctenka[k].kod + ';' + inttostr(uctenka[k].pocet) + floattostr(uctenka[k].cena));
+     writeln( subor6,  'P;' + inttostr( gen ) + ';' + uctenka[k].kod + ';' + inttostr(uctenka[k].pocet) + ';' + floattostr(uctenka[k].cena));
 
  closefile( subor6 );
 
+ Nakup;
 end;
 
 procedure TForm1.ZeleninaBtnClick(Sender: TObject);
