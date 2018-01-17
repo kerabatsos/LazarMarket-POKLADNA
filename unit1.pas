@@ -540,7 +540,6 @@ end;
 
 procedure TForm1.OvocieBtnClick(Sender: TObject);
 begin
-kontrola;
 praca:=1;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
@@ -639,13 +638,11 @@ end;
 
 procedure TForm1.ZaplatitBtnClick(Sender: TObject);
 var i,j: integer;
-  gen : int64;
-
 begin
 SchovajObjekty;
 //NakupBtn.visible:=true;
-gen := random(9999999999 - 1000000000) + 1000000000;
-assignfile(subor5,'P'+inttostr(gen)+'.txt');
+inc(q);
+assignfile(subor5,'uctenka'+inttostr(q)+'.txt');
 rewrite(subor5);
 writeln(subor5,'                                                                                 Lazarmarket');
 writeln(subor5,'Obsluhuje Vas: '+pokladnik);
