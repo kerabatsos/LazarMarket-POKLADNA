@@ -162,7 +162,7 @@ var
   //subory: array of textfile;
   i, itemindex, pocetobjektov, q, ov, z, pe, mr, d, ma, praca, vt, x: integer;
   celkom : float;
-  subor1, subor2, subor3, subor4, subor5: textfile;
+  subor1, subor2, subor3, subor4, subor5, subor6: textfile;
   znak: char;
   kod, pokladnik, kodtovaru: string;
   Form1: TForm1;
@@ -424,6 +424,7 @@ cenaString: string;
 hold,j,x2,x3,x4,pocet: integer; //x je premenna na pocet riadkov v txt subore
 cena : float;
 begin
+Randomize;
 DefaultFormatSettings.DecimalSeparator := '.';
 q:=0; //premenna na poradove cislo uctenky
 ListBox1.Items.Clear;
@@ -639,13 +640,14 @@ for i:=1 to vt do
 end;
 
 procedure TForm1.ZaplatitBtnClick(Sender: TObject);
-var i,j: integer;
+var i,j,k, lines: integer;
   gen : int64;
-
+  suborStatistiky: string;
+  citamZnak : char;
 begin
 SchovajObjekty;
 //NakupBtn.visible:=true;
-gen := random(9999999999 - 1000000000) + 1000000000;
+gen := random(99999999 - 10000000) + 10000000;
 assignfile(subor5,'P'+inttostr(gen)+'.txt');
 rewrite(subor5);
 writeln(subor5,'                                                                                 Lazarmarket');
@@ -677,6 +679,27 @@ for i:=1 to x do
     writeln(subor4,tovar[i].kod+';'+inttostr(tovar[i].pocet));
 closefile(subor4);
 Nakup;
+ //prepisujem statistiky
+ suborStatistiky := '';
+Assignfile( subor6 , 'STATISTIKY.txt' );
+Reset( subor6 );
+Read( subor6 , lines );
+
+Repeat
+      Read( subor6 , citamZnak );
+      suborStatistiky := suborStatistiky + citamZnak;
+until Eof( subor6 );
+closefile( subor6 );
+
+Assignfile( subor6 , 'STATISTIKY.txt' );
+Rewrite( subor6 );
+Write( subor6 , inttostr(lines + pocetObjektov) + suborStatistiky );
+
+for k := 1 to pocetobjektov do
+     writeln( subor6,  'P;' + inttostr( gen ) + ';' + uctenka[k].kod + ';' + inttostr(uctenka[k].pocet) + floattostr(uctenka[k].cena));
+
+ closefile( subor6 );
+
 end;
 
 procedure TForm1.ZeleninaBtnClick(Sender: TObject);
@@ -836,7 +859,7 @@ for i:=1 to x3 do
                read(subor3,znak);
          until znak = ';';
 
-         ReadLn(subor3,cenaString);
+         ReadLn(subor3,cenaString);//
 
     cena := StrToFloat(cenaString);
     for j:=1 to x3 do
