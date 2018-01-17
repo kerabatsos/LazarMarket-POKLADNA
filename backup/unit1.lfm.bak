@@ -2,10 +2,10 @@ object Form1: TForm1
   Left = 723
   Height = 600
   Top = 58
-  Width = 471
+  Width = 343
   Caption = 'Form1'
   ClientHeight = 600
-  ClientWidth = 471
+  ClientWidth = 343
   Color = clMoneyGreen
   OnCreate = FormCreate
   LCLVersion = '1.6.2.0'
@@ -269,8 +269,8 @@ object Form1: TForm1
     )
     TabOrder = 21
   end
-  object Timer1: TTimer
-    OnTimer = Timer1Timer
+  object KontrolaSkladu: TTimer
+    OnTimer = KontrolaSkladuTimer
     left = 8
     top = 8
   end
