@@ -491,8 +491,9 @@ for i:=1 to x3 do
                  //memo3.append(inttostr(tovar[j].nakupnacena));
                  //memo3.append(inttostr(tovar[j].predajnacena));
             end;
-    end;
+end;
 closefile(subor3);
+
 
 assignfile(subor4,'SKLAD.txt');
 reset(subor4);
@@ -517,8 +518,6 @@ closefile(subor4);
 x:=x2;
 
 RozdelenieDoRecordov;
-
-
 end;
 
 procedure TForm1.PrejstKPlatbeBtnClick(Sender: TObject);
@@ -540,7 +539,6 @@ end;
 
 procedure TForm1.OvocieBtnClick(Sender: TObject);
 begin
-kontrola;
 praca:=1;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
@@ -600,33 +598,6 @@ begin
 
 end;
 
-procedure TForm1.KontrolaSkladuTimer(Sender: TObject);
-var
-x4,pocet,j: integer; //x je premenna na pocet riadkov v txt subore
-begin
-reset(subor4);
-readln(subor4,x4);
-for i:=1 to x4 do
-    begin
-       kod:='';
-       read(subor4,znak);
-       repeat
-             kod:=kod+znak;
-             read(subor4,znak);
-       until znak=';';
-       //memo2.append(kod);
-       readln(subor4,pocet);
-       //memo2.append(inttostr(pocet));
-    for j:=1 to x4 do
-       if tovar[j].kod=kod then tovar[j].pocet:=pocet;
-     //memo1.append(inttostr(tovar[i].kod)+tovar[i].nazov+inttostr(tovar[i].nakupnacena)+inttostr(tovar[i].predajnacena)+inttostr(tovar[i].pocet));
-    end;
-closefile(subor4);
-
-x:=x4;
-
-RozdelenieDoRecordov;
-end;
 
 procedure TForm1.VsetokTovarBtnClick(Sender: TObject);
 begin
@@ -639,11 +610,11 @@ end;
 
 procedure TForm1.ZaplatitBtnClick(Sender: TObject);
 var i,j: integer;
-  gen : int64;
-
+    gen : int64;
 begin
 SchovajObjekty;
 //NakupBtn.visible:=true;
+inc(q);
 gen := random(9999999999 - 1000000000) + 1000000000;
 assignfile(subor5,'P'+inttostr(gen)+'.txt');
 rewrite(subor5);
@@ -816,6 +787,7 @@ for i:=1 to d do
     ListBox1.Items.Add(drogeria[i].nazov+'       '+inttostr(drogeria[i].pocet)+' ks');
 end;
 
+
 procedure TForm1.MasoBtnClick(Sender: TObject);
 begin
 praca:=6;
@@ -825,6 +797,33 @@ for i:=1 to ma do
     ListBox1.Items.Add(maso[i].nazov+'       '+inttostr(maso[i].pocet)+' ks');
 end;
 
+procedure TForm1.KontrolaSkladuTimer(Sender: TObject);
+var
+x4,pocet,j: integer; //x je premenna na pocet riadkov v txt subore
+begin
+reset(subor4);
+readln(subor4,x4);
+for i:=1 to x4 do
+    begin
+       kod:='';
+       read(subor4,znak);
+       repeat
+             kod:=kod+znak;
+             read(subor4,znak);
+       until znak=';';
+       //memo2.append(kod);
+       readln(subor4,pocet);
+       //memo2.append(inttostr(pocet));
+    for j:=1 to x4 do
+       if tovar[j].kod=kod then tovar[j].pocet:=pocet;
+     //memo1.append(inttostr(tovar[i].kod)+tovar[i].nazov+inttostr(tovar[i].nakupnacena)+inttostr(tovar[i].predajnacena)+inttostr(tovar[i].pocet));
+    end;
+closefile(subor4);
+
+x:=x4;
+
+RozdelenieDoRecordov;
+end;
 
 end.
 
