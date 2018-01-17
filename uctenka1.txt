@@ -1,8 +1,7 @@
                                                                                  Lazarmarket
 Obsluhuje Vas: Katka
 
-135  Rozok         8x6€    48€
-131  Chlieb         8x3€    24€
+145  Zmes         5x3€    15€
 
 ---------------------------
-72 €
+15 €
