@@ -13,7 +13,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    Memo3: TMemo;
+    Label7: TLabel;
     KontrolaSkladu: TTimer;
     KontrolaCenniku: TTimer;
     VsetokTovarBtn: TButton;
@@ -46,6 +46,7 @@ type
     ListBox2: TListBox;
     procedure DrogeriaBtnClick(Sender: TObject);
     procedure KontrolaCennikuTimer(Sender: TObject);
+    procedure ListBox2Click(Sender: TObject);
     procedure MasoBtnClick(Sender: TObject);
     procedure MrazeneBtnClick(Sender: TObject);
     procedure OdhlasitBtnClick(Sender: TObject);
@@ -164,7 +165,7 @@ var
   celkom : float;
   subor1, subor2, subor3, subor4, subor5, subor6: textfile;
   znak: char;
-  kod, pokladnik, kodtovaru: string;
+  kod, pokladnik, kodtovaru, kodpokladnika: string;
   Form1: TForm1;
 
 implementation
@@ -177,12 +178,12 @@ procedure TForm1.Prihlasenie;     //procedura
 var
   k: boolean;
 begin
-
-kod:=edit1.text;
+celkom:=0;
+kodpokladnika:=edit1.text;
 k:=false;
 for i:=1 to n do
     begin
-    if pokladnici[i].kod = kod then
+    if pokladnici[i].kod = kodpokladnika then
        begin
          pokladnik:=pokladnici[i].meno;
          label3.caption:='Pokladnu obsluhuje: '+pokladnik;
@@ -208,6 +209,7 @@ label3.visible:=false;
 label4.visible:=false;
 label5.visible:=false;
 Label6.visible:=false;
+Label7.visible:=false;
 OvocieBtn.visible:=false;
 PecivoBtn.visible:=false;
 DrogeriaBtn.visible:=false;
@@ -427,11 +429,13 @@ begin
 Randomize;
 DefaultFormatSettings.DecimalSeparator := '.';
 q:=0; //premenna na poradove cislo uctenky
+celkom:=0;
 ListBox1.Items.Clear;
 ListBox2.Items.Clear;
 image1.picture.loadfromfile('logo.png');
 Label6.Caption:='Košík';
 SchovajObjekty;  //vsetky az na label1,edit1 a LogInBtn
+
 assignfile(subor1,'pokladnici.txt');
 reset(subor1);
 i:=0;
@@ -521,7 +525,6 @@ x:=x2;
 
 RozdelenieDoRecordov;
 
-
 end;
 
 procedure TForm1.PrejstKPlatbeBtnClick(Sender: TObject);
@@ -554,9 +557,8 @@ procedure TForm1.StornoBtnClick(Sender: TObject);
 var
   stornoIndex, i: integer;
 begin
-
      case QuestionDlg ('STORNO','Chcete stornovať celý nákup alebo zvolenú položku?',mtCustom,[mrYes,'Nákup', mrNo , 'Položku', 'IsDefault'],'') of
-        mrYes: if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) = kod  then
+        mrYes: if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) = kodpokladnika  then
            begin
              SchovajObjekty;
              //NakupBtn.visible:=true;
@@ -572,7 +574,7 @@ begin
                  end;
            end
         else ShowMessage('Nesprávny kód.');
-        mrNo:  if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) =  kod  then
+        mrNo:  if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) =  kodpokladnika  then
                   begin
                     for i := 0 to (ListBox2.Count - 1) do
                         if ListBox2.Selected[ i ] = True then
@@ -581,6 +583,7 @@ begin
                     Listbox2.Items.Delete(stornoIndex);
                     stornoindex:=stornoindex+1;
                     celkom:=celkom-(uctenka[stornoindex].cena*uctenka[stornoindex].pocet);
+                    label7.caption:='Celkom: '+floattostr(celkom)+'€';
                     if stornoindex=pocetobjektov then
                        begin
                     uctenka[stornoindex].kod:=' ';
@@ -650,7 +653,8 @@ SchovajObjekty;
 gen := random(99999999 - 10000000) + 10000000;
 assignfile(subor5,'P'+inttostr(gen)+'.txt');
 rewrite(subor5);
-writeln(subor5,'                                                                                 Lazarmarket');
+writeln(subor5,'                                                                           Lazarmarket');
+writeln(subor5,datetostr(date)+'  '+timetostr(time));
 writeln(subor5,'Obsluhuje Vas: '+pokladnik);
 writeln(subor5);
 for i:=1 to pocetobjektov do
@@ -665,9 +669,9 @@ for i:=1 to pocetobjektov do
         begin
            if uctenka[i].kod=tovar[j].kod then
               begin
-                memo3.append(inttostr(tovar[j].pocet));
+                //memo3.append(inttostr(tovar[j].pocet));
                 tovar[j].pocet:=tovar[j].pocet-uctenka[i].pocet;
-                memo3.append(inttostr(tovar[j].pocet));
+                //memo3.append(inttostr(tovar[j].pocet));
                 break;
               end;
         end;
@@ -696,7 +700,7 @@ Rewrite( subor6 );
 Write( subor6 , inttostr(lines + pocetObjektov) + suborStatistiky );
 
 for k := 1 to pocetobjektov do
-     writeln( subor6,  'P;' + inttostr( gen ) + ';' + uctenka[k].kod + ';' + inttostr(uctenka[k].pocet) + floattostr(uctenka[k].cena));
+     writeln( subor6,  'P;' + inttostr( gen ) + ';' + uctenka[k].kod + ';' + inttostr(uctenka[k].pocet) + ';' + floattostr(uctenka[k].cena));
 
  closefile( subor6 );
 
@@ -716,7 +720,6 @@ procedure TForm1.VlozBtnClick(Sender: TObject);  //dve moznosti: vloz ak je to l
 var
 pocet: integer;
 begin
-
      trystrtoint( edit2.text , pocet );
      if pocet > 0 then
         begin
@@ -785,6 +788,8 @@ begin
         //memo2.append(inttostr(uctenka[pocetobjektov].kod)+'  '+uctenka[pocetobjektov].nazov+'         '+inttostr(uctenka[pocetobjektov].pocet)+'x'+inttostr(uctenka[pocetobjektov].cena)+'€'+'    '+inttostr(uctenka[pocetobjektov].pocet*uctenka[pocetobjektov].cena)+'€');
              celkom:= celkom + ( uctenka[ pocetobjektov ].pocet*uctenka[ pocetobjektov ].cena );
              edit2.clear;
+             label7.caption:='Celkom: '+floattostr(celkom)+'€';
+             label7.visible:=true;
         end;
 end;
 
@@ -872,6 +877,11 @@ for i:=1 to x3 do
             end;
     end;
 closefile(subor3);
+end;
+
+procedure TForm1.ListBox2Click(Sender: TObject);
+begin
+
 end;
 
 procedure TForm1.MasoBtnClick(Sender: TObject);
