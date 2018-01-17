@@ -8,14 +8,16 @@
 <<<<<<< HEAD
 =======
 135;10
-<<<<<<< HEAD
 131;-7
 >>>>>>> 65f3fbb6f089dc3e9f37fdad25be0bed44309926
+<<<<<<< HEAD
 =======
 131;2
 >>>>>>> parent of 65f3fbb... id transakcie
 =======
 >>>>>>> parent of aceb05d... Merge branch 'master' of https://github.com/katkavalkovic/LazarMarket-POKLADNA
+=======
+>>>>>>> parent of 242f621... Revert "timer1 done"
 141;19
 145;20
 151;24

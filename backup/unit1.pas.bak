@@ -541,7 +541,6 @@ end;
 
 procedure TForm1.OvocieBtnClick(Sender: TObject);
 begin
-kontrola;
 praca:=1;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
