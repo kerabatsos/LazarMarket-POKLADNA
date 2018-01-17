@@ -14,7 +14,7 @@ type
 
   TForm1 = class(TForm)
     Memo3: TMemo;
-    KontrolaSkladu: TTimer;
+    Timer1: TTimer;
     VsetokTovarBtn: TButton;
     MasoBtn: TButton;
     MrazeneBtn: TButton;
@@ -52,7 +52,7 @@ type
     procedure PrejstKPlatbeBtnClick(Sender: TObject);
     procedure OvocieBtnClick(Sender: TObject);
     procedure StornoBtnClick(Sender: TObject);
-    procedure KontrolaSkladuTimer(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
     procedure VsetokTovarBtnClick(Sender: TObject);
     procedure ZaplatitBtnClick(Sender: TObject);
     procedure ZeleninaBtnClick(Sender: TObject);
@@ -64,6 +64,7 @@ type
     procedure Prihlasenie;
     procedure SchovajObjekty;
     procedure Nakup;
+    procedure Kontrola;
     procedure RozdelenieDoRecordov;
 
   private
@@ -491,9 +492,8 @@ for i:=1 to x3 do
                  //memo3.append(inttostr(tovar[j].nakupnacena));
                  //memo3.append(inttostr(tovar[j].predajnacena));
             end;
-end;
+    end;
 closefile(subor3);
-
 
 assignfile(subor4,'SKLAD.txt');
 reset(subor4);
@@ -518,6 +518,8 @@ closefile(subor4);
 x:=x2;
 
 RozdelenieDoRecordov;
+
+
 end;
 
 procedure TForm1.PrejstKPlatbeBtnClick(Sender: TObject);
@@ -539,6 +541,7 @@ end;
 
 procedure TForm1.OvocieBtnClick(Sender: TObject);
 begin
+kontrola;
 praca:=1;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
@@ -598,6 +601,10 @@ begin
 
 end;
 
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+kontrola;
+end;
 
 procedure TForm1.VsetokTovarBtnClick(Sender: TObject);
 begin
@@ -610,11 +617,11 @@ end;
 
 procedure TForm1.ZaplatitBtnClick(Sender: TObject);
 var i,j: integer;
-    gen : int64;
+  gen : int64;
+
 begin
 SchovajObjekty;
 //NakupBtn.visible:=true;
-inc(q);
 gen := random(9999999999 - 1000000000) + 1000000000;
 assignfile(subor5,'P'+inttostr(gen)+'.txt');
 rewrite(subor5);
@@ -787,17 +794,7 @@ for i:=1 to d do
     ListBox1.Items.Add(drogeria[i].nazov+'       '+inttostr(drogeria[i].pocet)+' ks');
 end;
 
-
-procedure TForm1.MasoBtnClick(Sender: TObject);
-begin
-praca:=6;
-Memo2.visible:=false;
-ListBox1.Items.Clear;
-for i:=1 to ma do
-    ListBox1.Items.Add(maso[i].nazov+'       '+inttostr(maso[i].pocet)+' ks');
-end;
-
-procedure TForm1.KontrolaSkladuTimer(Sender: TObject);
+procedure TForm1.Kontrola;
 var
 x4,pocet,j: integer; //x je premenna na pocet riadkov v txt subore
 begin
@@ -824,6 +821,16 @@ x:=x4;
 
 RozdelenieDoRecordov;
 end;
+
+procedure TForm1.MasoBtnClick(Sender: TObject);
+begin
+praca:=6;
+Memo2.visible:=false;
+ListBox1.Items.Clear;
+for i:=1 to ma do
+    ListBox1.Items.Add(maso[i].nazov+'       '+inttostr(maso[i].pocet)+' ks');
+end;
+
 
 end.
 
