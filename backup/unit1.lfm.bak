@@ -1,19 +1,19 @@
 object Form1: TForm1
-  Left = 2
+  Left = 153
   Height = 705
-  Top = 180
-  Width = 1284
+  Top = 8
+  Width = 1204
   Caption = 'Form1'
-  ClientHeight = 705
-  ClientWidth = 1284
+  ClientHeight = 0
+  ClientWidth = 0
   Color = clMoneyGreen
   OnCreate = FormCreate
-  LCLVersion = '1.4.0.4'
+  LCLVersion = '1.6.2.0'
   object Label1: TLabel
     Left = 608
     Height = 15
     Top = 240
-    Width = 129
+    Width = 128
     Caption = 'Zadajte, prosím, Váš kód'
     ParentColor = False
   end
@@ -107,6 +107,7 @@ object Form1: TForm1
     Height = 23
     Top = 32
     Width = 936
+    OnChange = Edit3Change
     TabOrder = 7
   end
   object VlozBtn: TButton
@@ -166,7 +167,6 @@ object Form1: TForm1
     Top = 296
     Width = 264
     ItemHeight = 0
-    OnClick = ListBox2Click
     TabOrder = 11
   end
   object StornoBtn: TButton

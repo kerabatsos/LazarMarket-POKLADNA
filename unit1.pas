@@ -47,7 +47,6 @@ type
     ListBox2: TListBox;
     procedure DrogeriaBtnClick(Sender: TObject);
     procedure KontrolaCennikuTimer(Sender: TObject);
-    procedure ListBox2Click(Sender: TObject);
     procedure MasoBtnClick(Sender: TObject);
     procedure MrazeneBtnClick(Sender: TObject);
     procedure OdhlasitBtnClick(Sender: TObject);
@@ -186,6 +185,7 @@ var
   k: boolean;
 begin
 celkom:=0;
+edit2.clear;
 kodpokladnika:=edit1.text;
 k:=false;
 for i:=1 to n do
@@ -291,6 +291,7 @@ end;
 
 procedure TForm1.PecivoBtnClick(Sender: TObject);
 begin
+label2.Visible:=false;
 praca:=3;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
@@ -435,7 +436,7 @@ cena : float;
 begin
 
 //cesta k suboru
-filePath := '\\comenius\public\market\tima\';
+filePath := ''; //'\\comenius\public\market\tima\';
 Randomize;
 DefaultFormatSettings.DecimalSeparator := '.';
 q:=0; //premenna na poradove cislo uctenky
@@ -556,6 +557,7 @@ end;
 
 procedure TForm1.OvocieBtnClick(Sender: TObject);
 begin
+label2.Visible:=false;
 praca:=1;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
@@ -744,6 +746,7 @@ end;
 
 procedure TForm1.ZeleninaBtnClick(Sender: TObject);
 begin
+label2.Visible:=false;
 praca:=2;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
@@ -829,13 +832,14 @@ if zvolenyClick = true then
              label7.visible:=true;
         end;
    end;
-
+zvolenyClick:= false;
 end;
 
 procedure TForm1.ListBox1Click(Sender: TObject);
 var i: integer;
 begin
-  zvolenyClick := false;
+label2.visible:=false;
+zvolenyClick := false;
 if  ListBox1.Count > 0 then
    begin
       for i:= 0 to ListBox1.Count-1 do
@@ -843,10 +847,9 @@ if  ListBox1.Count > 0 then
              begin
                   itemIndex:= i+1;
                   zvolenyClick := true;
+                  Label2.Visible:= True;
                   Break;
              end;
-
-      Label2.Visible:= True;
 
       case praca of
          0: Label2.Caption:= (vsetoktovar[itemIndex].nazov);
@@ -871,6 +874,7 @@ end;
 
 procedure TForm1.MrazeneBtnClick(Sender: TObject);
 begin
+label2.Visible:=false;
 praca:=4;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
@@ -880,6 +884,7 @@ end;
 
 procedure TForm1.DrogeriaBtnClick(Sender: TObject);
 begin
+label2.Visible:=false;
 praca:=5;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
@@ -887,12 +892,21 @@ for i:=1 to d do
     ListBox1.Items.Add(drogeria[i].nazov+'       '+inttostr(drogeria[i].pocet)+' ks');
 end;
 
+procedure TForm1.MasoBtnClick(Sender: TObject);
+begin
+label2.Visible:=false;
+praca:=6;
+Memo2.visible:=false;
+ListBox1.Items.Clear;
+for i:=1 to ma do
+    ListBox1.Items.Add(maso[i].nazov+'       '+inttostr(maso[i].pocet)+' ks');
+end;
+
 procedure TForm1.KontrolaCennikuTimer(Sender: TObject);
 var cenastring: string;
     x3, j ,f : integer;
     cena: float;
 begin
-
 if FileExists( filePath + 'CENNIK_LOCK.txt' ) = false then
    begin
      f := FileCreate( filePath + 'CENNIK_LOCK.txt' );
@@ -927,20 +941,6 @@ if FileExists( filePath + 'CENNIK_LOCK.txt' ) = false then
 
       DeleteFile( filePath + 'CENNIK_LOCK.txt' );
    end;
-end;
-
-procedure TForm1.ListBox2Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.MasoBtnClick(Sender: TObject);
-begin
-praca:=6;
-Memo2.visible:=false;
-ListBox1.Items.Clear;
-for i:=1 to ma do
-    ListBox1.Items.Add(maso[i].nazov+'       '+inttostr(maso[i].pocet)+' ks');
 end;
 
 

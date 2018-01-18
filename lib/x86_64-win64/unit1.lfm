@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = -8
+  Left = 153
   Height = 705
-  Top = -8
-  Width = 1366
+  Top = 8
+  Width = 1204
   Caption = 'Form1'
-  ClientHeight = 705
-  ClientWidth = 1366
+  ClientHeight = 0
+  ClientWidth = 0
   Color = clMoneyGreen
   OnCreate = FormCreate
   LCLVersion = '1.6.2.0'
@@ -83,9 +83,9 @@ object Form1: TForm1
     TabOrder = 6
   end
   object Image1: TImage
-    Left = 1256
+    Left = 1192
     Height = 65
-    Top = 29
+    Top = 8
     Width = 73
   end
   object Label2: TLabel
@@ -144,10 +144,10 @@ object Form1: TForm1
     ParentColor = False
   end
   object PrejstKPlatbeBtn: TButton
-    Left = 1016
+    Left = 1000
     Height = 48
     Top = 600
-    Width = 224
+    Width = 169
     Caption = 'Prejsť k platbe'
     OnClick = PrejstKPlatbeBtnClick
     TabOrder = 10
@@ -161,28 +161,27 @@ object Form1: TForm1
     ParentColor = False
   end
   object ListBox2: TListBox
-    Left = 1016
+    Left = 1001
     Height = 272
     Top = 296
-    Width = 320
+    Width = 264
     ItemHeight = 0
-    OnClick = ListBox2Click
     TabOrder = 11
   end
   object StornoBtn: TButton
-    Left = 1248
+    Left = 1186
     Height = 49
-    Top = 600
-    Width = 88
+    Top = 599
+    Width = 71
     Caption = 'Storno'
     OnClick = StornoBtnClick
     TabOrder = 12
   end
   object Memo1: TMemo
-    Left = 48
+    Left = 64
     Height = 512
-    Top = 96
-    Width = 1264
+    Top = 80
+    Width = 1128
     Lines.Strings = (
       'Memo1'
     )
@@ -198,7 +197,7 @@ object Form1: TForm1
     TabOrder = 14
   end
   object OdhlasitBtn: TButton
-    Left = 1152
+    Left = 1088
     Height = 34
     Top = 29
     Width = 83
@@ -207,7 +206,7 @@ object Form1: TForm1
     TabOrder = 15
   end
   object Label6: TLabel
-    Left = 640
+    Left = 624
     Height = 15
     Top = 24
     Width = 34
@@ -218,7 +217,7 @@ object Form1: TForm1
     Left = 48
     Height = 507
     Top = 160
-    Width = 936
+    Width = 920
     Lines.Strings = (
       'Memo2'
     )
@@ -276,6 +275,13 @@ object Form1: TForm1
   object KontrolaCenniku: TTimer
     OnTimer = KontrolaCennikuTimer
     left = 376
+    top = 8
+  end
+  object PrepisStatistiky: TTimer
+    Enabled = False
+    Interval = 200
+    OnTimer = PrepisStatistikyTimer
+    left = 464
     top = 8
   end
 end
