@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 328
-  Height = 600
-  Top = 50
-  Width = 756
+  Left = 2
+  Height = 705
+  Top = 180
+  Width = 1284
   Caption = 'Form1'
-  ClientHeight = 600
-  ClientWidth = 756
+  ClientHeight = 705
+  ClientWidth = 1284
   Color = clMoneyGreen
   OnCreate = FormCreate
   LCLVersion = '1.4.0.4'
@@ -47,28 +47,28 @@ object Form1: TForm1
     Text = '0'
   end
   object OvocieBtn: TButton
-    Left = 48
+    Left = 208
     Height = 63
     Top = 77
-    Width = 143
+    Width = 127
     Caption = 'Ovocie'
     OnClick = OvocieBtnClick
     TabOrder = 3
   end
   object PecivoBtn: TButton
-    Left = 352
+    Left = 480
     Height = 65
-    Top = 75
-    Width = 152
+    Top = 77
+    Width = 128
     Caption = 'Pečivo'
     OnClick = PecivoBtnClick
     TabOrder = 4
   end
   object DrogeriaBtn: TButton
-    Left = 680
+    Left = 752
     Height = 64
     Top = 77
-    Width = 152
+    Width = 112
     Caption = 'Drogéria'
     OnClick = DrogeriaBtnClick
     TabOrder = 5
@@ -83,9 +83,9 @@ object Form1: TForm1
     TabOrder = 6
   end
   object Image1: TImage
-    Left = 1256
+    Left = 1192
     Height = 65
-    Top = 29
+    Top = 8
     Width = 73
   end
   object Label2: TLabel
@@ -144,10 +144,10 @@ object Form1: TForm1
     ParentColor = False
   end
   object PrejstKPlatbeBtn: TButton
-    Left = 1016
+    Left = 1000
     Height = 48
     Top = 600
-    Width = 224
+    Width = 169
     Caption = 'Prejsť k platbe'
     OnClick = PrejstKPlatbeBtnClick
     TabOrder = 10
@@ -161,31 +161,31 @@ object Form1: TForm1
     ParentColor = False
   end
   object ListBox2: TListBox
-    Left = 1016
-    Height = 288
+    Left = 1001
+    Height = 272
     Top = 296
-    Width = 320
+    Width = 264
     ItemHeight = 0
+    OnClick = ListBox2Click
     TabOrder = 11
   end
   object StornoBtn: TButton
-    Left = 1248
+    Left = 1186
     Height = 49
-    Top = 600
-    Width = 88
+    Top = 599
+    Width = 71
     Caption = 'Storno'
     OnClick = StornoBtnClick
     TabOrder = 12
   end
   object Memo1: TMemo
-    Left = 48
+    Left = 64
     Height = 512
-    Top = 77
-    Width = 1264
+    Top = 80
+    Width = 1128
     Lines.Strings = (
       'Memo1'
     )
-    OnChange = Memo1Change
     TabOrder = 13
   end
   object ZaplatitBtn: TButton
@@ -198,7 +198,7 @@ object Form1: TForm1
     TabOrder = 14
   end
   object OdhlasitBtn: TButton
-    Left = 1152
+    Left = 1088
     Height = 34
     Top = 29
     Width = 83
@@ -207,7 +207,7 @@ object Form1: TForm1
     TabOrder = 15
   end
   object Label6: TLabel
-    Left = 640
+    Left = 624
     Height = 15
     Top = 24
     Width = 34
@@ -218,37 +218,71 @@ object Form1: TForm1
     Left = 48
     Height = 507
     Top = 160
-    Width = 936
+    Width = 920
     Lines.Strings = (
       'Memo2'
     )
     TabOrder = 16
   end
   object ZeleninaBtn: TButton
-    Left = 200
+    Left = 344
     Height = 63
     Top = 77
-    Width = 144
+    Width = 128
     Caption = 'Zelenina'
     OnClick = ZeleninaBtnClick
     TabOrder = 17
   end
   object MrazeneBtn: TButton
-    Left = 512
+    Left = 616
     Height = 64
     Top = 77
-    Width = 154
+    Width = 128
     Caption = 'Mrazené'
     OnClick = MrazeneBtnClick
     TabOrder = 18
   end
   object MasoBtn: TButton
-    Left = 840
+    Left = 872
     Height = 64
     Top = 77
-    Width = 144
+    Width = 112
     Caption = 'Mäso'
     OnClick = MasoBtnClick
     TabOrder = 19
+  end
+  object VsetokTovarBtn: TButton
+    Left = 49
+    Height = 61
+    Top = 79
+    Width = 150
+    Caption = 'Všetok tovar'
+    OnClick = VsetokTovarBtnClick
+    TabOrder = 20
+  end
+  object Label7: TLabel
+    Left = 1016
+    Height = 15
+    Top = 576
+    Width = 34
+    Caption = 'Label7'
+    ParentColor = False
+  end
+  object KontrolaSkladu: TTimer
+    OnTimer = KontrolaSkladuTimer
+    left = 280
+    top = 8
+  end
+  object KontrolaCenniku: TTimer
+    OnTimer = KontrolaCennikuTimer
+    left = 376
+    top = 8
+  end
+  object PrepisStatistiky: TTimer
+    Enabled = False
+    Interval = 200
+    OnTimer = PrepisStatistikyTimer
+    left = 464
+    top = 8
   end
 end

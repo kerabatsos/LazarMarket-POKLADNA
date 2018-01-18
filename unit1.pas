@@ -16,6 +16,7 @@ type
     Label7: TLabel;
     KontrolaSkladu: TTimer;
     KontrolaCenniku: TTimer;
+    PrepisStatistiky: TTimer;
     VsetokTovarBtn: TButton;
     MasoBtn: TButton;
     MrazeneBtn: TButton;
@@ -54,6 +55,7 @@ type
     procedure PecivoBtnClick(Sender: TObject);
     procedure PrejstKPlatbeBtnClick(Sender: TObject);
     procedure OvocieBtnClick(Sender: TObject);
+    procedure PrepisStatistikyTimer(Sender: TObject);
     procedure StornoBtnClick(Sender: TObject);
     procedure KontrolaSkladuTimer(Sender: TObject);
     procedure VsetokTovarBtnClick(Sender: TObject);
@@ -144,7 +146,7 @@ type zoznamUctenka=record
 end;
 
 const n=6;
-      m=12;
+      m=16;//fuck
       o=10;
       p=50;
 
@@ -163,10 +165,15 @@ var
   //subory: array of textfile;
   i, itemindex, pocetobjektov, q, ov, z, pe, mr, d, ma, praca, vt, x: integer;
   celkom : float;
-  subor1, subor2, subor3, subor4, subor5, subor6: textfile;
+  subor1, tovarFile, cennikFile, skladFile, subor5, statistikyFile , skladLock: textfile;
   znak: char;
-  kod, pokladnik, kodtovaru, kodpokladnika: string;
+  kod, pokladnik, kodtovaru, kodpokladnika, filePath: string;
+  zvolenyClick: boolean;
   Form1: TForm1;
+  gen : int64;
+  k, lines: integer;
+  suborStatistiky: string;
+  citamZnak : char;
 
 implementation
 
@@ -426,6 +433,9 @@ cenaString: string;
 hold,j,x2,x3,x4,pocet: integer; //x je premenna na pocet riadkov v txt subore
 cena : float;
 begin
+
+//cesta k suboru
+filePath := '\\comenius\public\market\tima\';
 Randomize;
 DefaultFormatSettings.DecimalSeparator := '.';
 q:=0; //premenna na poradove cislo uctenky
@@ -436,8 +446,8 @@ image1.picture.loadfromfile('logo.png');
 Label6.Caption:='Košík';
 SchovajObjekty;  //vsetky az na label1,edit1 a LogInBtn
 
-assignfile(subor1,'pokladnici.txt');
-reset(subor1);
+AssignFile( subor1 , filePath + 'pokladnici.txt' );
+Reset(subor1);
 i:=0;
 while not eof(subor1) do     //nacitanie mien a kodov pokladnikov
 begin
@@ -448,46 +458,46 @@ begin
 end;
 closefile(subor1);
 
-assignfile(subor2,'TOVAR.txt');
-reset(subor2);
-readln(subor2,x2);
+assignfile(tovarFile,filePath + 'TOVAR.txt');
+reset(tovarFile);
+readln(tovarFile,x2);
 //memo3.append(inttostr(x2));
 for i:=1 to x2 do
     begin
        kod:='';
-       read(subor2,znak);
+       read(tovarFile,znak);
        repeat
              tovar[i].kod:=tovar[i].kod+znak;
-             read(subor2,znak);
+             read(tovarFile,znak);
        until znak=';';
     //memo3.append(tovar[i].kod);
-    readln(subor2,tovar[i].nazov);  //precita cely string po koniec a skoci na dalsi riadok
+    readln(tovarFile,tovar[i].nazov);  //precita cely string po koniec a skoci na dalsi riadok
     //memo3.append(tovar[i].nazov);
     end;
-closefile(subor2);
+closefile(tovarFile);
 
-assignfile(subor3,'CENNIK.txt');
-reset(subor3);
-readln(subor3,x3);
+assignfile(cennikFile,filePath + 'CENNIK.txt');
+reset(cennikFile);
+readln(cennikFile,x3);
 //memo3.Append(inttostr(x3));
 for i:=1 to x3 do
     begin
          kod:='';
-         read(subor3,znak);
+         read(cennikFile,znak);
          repeat
                kod:=kod+znak;
-               read(subor3,znak);
+               read(cennikFile,znak);
          until znak = ';';
          repeat
-               read(subor3,znak);
+               read(cennikFile,znak);
          until znak = ';';
 
-         ReadLn(subor3,cenaString);
+         ReadLn(cennikFile,cenaString);
          {cenaString := '';
          repeat
-               read(subor3,znak);
+               read(cennikFile,znak);
                cenaString := cenaString + znak;
-         until Eoln(subor3);   }
+         until Eoln(cennikFile);   }
 
     //memo3.append(kod);
     cena := StrToFloat(cenaString);
@@ -499,27 +509,27 @@ for i:=1 to x3 do
                  //memo3.append(inttostr(tovar[j].predajnacena));
             end;
     end;
-closefile(subor3);
+closefile(cennikFile);
 
-assignfile(subor4,'SKLAD.txt');
-reset(subor4);
-readln(subor4,x4);
+assignfile(skladFile,filePath + 'SKLAD.txt');
+reset(skladFile);
+readln(skladFile,x4);
 for i:=1 to x4 do
     begin
        kod:='';
-       read(subor4,znak);
+       read(skladFile,znak);
        repeat
              kod:=kod+znak;
-             read(subor4,znak);
+             read(skladFile,znak);
        until znak=';';
        //memo2.append(kod);
-       readln(subor4,pocet);
+       readln(skladFile,pocet);
        //memo2.append(inttostr(pocet));
     for j:=1 to x4 do
        if tovar[j].kod=kod then tovar[j].pocet:=pocet;
      //memo1.append(inttostr(tovar[i].kod)+tovar[i].nazov+inttostr(tovar[i].nakupnacena)+inttostr(tovar[i].predajnacena)+inttostr(tovar[i].pocet));
     end;
-closefile(subor4);
+closefile(skladFile);
 
 x:=x2;
 
@@ -551,6 +561,44 @@ Memo2.visible:=false;
 ListBox1.Items.Clear;
 for i:=1 to ov do
     ListBox1.Items.Add(ovocie[i].nazov+'       '+inttostr(ovocie[i].pocet)+' ks');
+end;
+
+procedure TForm1.PrepisStatistikyTimer(Sender: TObject);
+var
+f: integer;
+begin
+if FileExists( 'STATISTIKY_LOCK.txt' ) = false then
+   begin
+      f := FileCreate( filePath + 'STATISTIKY_LOCK.txt' );
+     FileClose( f );
+
+        suborStatistiky := '';
+      Assignfile( statistikyFile , filePath + 'STATISTIKY.txt' );
+      Reset( statistikyFile );
+      Read( statistikyFile , lines );
+
+      Repeat
+            Read( statistikyFile , citamZnak );
+            suborStatistiky := suborStatistiky + citamZnak;
+      until Eof( statistikyFile );
+      closefile( statistikyFile );
+
+      Assignfile( statistikyFile , filePath + 'STATISTIKY.txt' );
+      Rewrite( statistikyFile );
+      Write( statistikyFile , inttostr(lines + pocetObjektov) + suborStatistiky );
+
+      for k := 1 to pocetobjektov do
+           writeln( statistikyFile,  'P;' + inttostr( gen ) + ';' + uctenka[k].kod + ';' + inttostr(uctenka[k].pocet) + ';' + floattostr(uctenka[k].cena));
+
+       closefile( statistikyFile );
+
+       DeleteFile( filePath + 'STATISTIKY_LOCK.txt' );
+
+       PrepisStatistiky.Enabled := False;
+       Nakup;
+
+
+   end;
 end;
 
 procedure TForm1.StornoBtnClick(Sender: TObject);
@@ -599,7 +647,7 @@ begin
                              dec(pocetobjektov);
                         end;
                   end
-               else ShowMessage('Nesprávny kód.');
+               else ShowMessage( 'Nesprávny kód.' );
         mrCancel: ;
      end;
 
@@ -607,30 +655,39 @@ end;
 
 procedure TForm1.KontrolaSkladuTimer(Sender: TObject);
 var
-   x4,pocet,j: integer; //x je premenna na pocet riadkov v txt subore
+   x4,pocet,j,f: integer; //x je premenna na pocet riadkov v txt subore
+
 begin
-reset(subor4);
-readln(subor4,x4);
-for i:=1 to x4 do
-    begin
-       kod:='';
-       read(subor4,znak);
-       repeat
-             kod:=kod+znak;
-             read(subor4,znak);
-       until znak=';';
-       //memo2.append(kod);
-       readln(subor4,pocet);
-       //memo2.append(inttostr(pocet));
-    for j:=1 to x4 do
-       if tovar[j].kod=kod then tovar[j].pocet:=pocet;
-     //memo1.append(inttostr(tovar[i].kod)+tovar[i].nazov+inttostr(tovar[i].nakupnacena)+inttostr(tovar[i].predajnacena)+inttostr(tovar[i].pocet));
-    end;
-closefile(subor4);
 
-x:=x4;
+if  FileExists( filePath + 'SKLAD_LOCK.txt' ) = false then
+   begin
+   f := FileCreate( 'SKLAD_LOCK.txt' );
+   FileClose( f );
+    reset( skladFile );
+    readln( skladFile , x4 );
+    for i := 1 to x4 do
+        begin
+           kod := '';
+           read( skladFile , znak );
+           repeat
+                 kod := kod + znak;
+                 read( skladFile , znak );
+           until znak = ';';
 
-RozdelenieDoRecordov;
+           ReadLn( skladFile , pocet );
+
+        for j:=1 to x4 do
+           if tovar[ j ].kod = kod then
+              tovar[ j ].pocet := pocet;
+         //memo1.append(inttostr(tovar[i].kod)+tovar[i].nazov+inttostr(tovar[i].nakupnacena)+inttostr(tovar[i].predajnacena)+inttostr(tovar[i].pocet));
+        end;
+      closefile( skladFile );
+
+      x:=x4;
+
+     RozdelenieDoRecordov;
+    DeleteFile( 'SKLAD_LOCK.Txt' );
+   end;
 end;
 
 procedure TForm1.VsetokTovarBtnClick(Sender: TObject);
@@ -643,15 +700,12 @@ for i:=1 to vt do
 end;
 
 procedure TForm1.ZaplatitBtnClick(Sender: TObject);
-var i,j,k, lines: integer;
-  gen : int64;
-  suborStatistiky: string;
-  citamZnak : char;
+var i,j : integer;
 begin
 SchovajObjekty;
 //NakupBtn.visible:=true;
 gen := random(99999999 - 10000000) + 10000000;
-assignfile(subor5,'P'+inttostr(gen)+'.txt');
+assignfile(subor5,filePath + 'P'+inttostr(gen)+'.txt');
 rewrite(subor5);
 writeln(subor5,'                                                                           Lazarmarket');
 writeln(subor5,datetostr(date)+'  '+timetostr(time));
@@ -676,35 +730,16 @@ for i:=1 to pocetobjektov do
               end;
         end;
 
-assignfile(subor4,'SKLAD.txt');
-rewrite(subor4);
-writeln(subor4,x);
+assignfile(skladFile,filePath + 'SKLAD.txt');
+rewrite(skladFile);
+writeln(skladFile,x);
 for i:=1 to x do
-    writeln(subor4,tovar[i].kod+';'+inttostr(tovar[i].pocet));
-closefile(subor4);
+    writeln(skladFile,tovar[i].kod+';'+inttostr(tovar[i].pocet));
+closefile(skladFile);
 
  //prepisujem statistiky
- suborStatistiky := '';
-Assignfile( subor6 , 'STATISTIKY.txt' );
-Reset( subor6 );
-Read( subor6 , lines );
-
-Repeat
-      Read( subor6 , citamZnak );
-      suborStatistiky := suborStatistiky + citamZnak;
-until Eof( subor6 );
-closefile( subor6 );
-
-Assignfile( subor6 , 'STATISTIKY.txt' );
-Rewrite( subor6 );
-Write( subor6 , inttostr(lines + pocetObjektov) + suborStatistiky );
-
-for k := 1 to pocetobjektov do
-     writeln( subor6,  'P;' + inttostr( gen ) + ';' + uctenka[k].kod + ';' + inttostr(uctenka[k].pocet) + ';' + floattostr(uctenka[k].cena));
-
- closefile( subor6 );
-
- Nakup;
+ //niekde v timeri
+ PrepisStatistiky.Enabled := True;
 end;
 
 procedure TForm1.ZeleninaBtnClick(Sender: TObject);
@@ -720,6 +755,8 @@ procedure TForm1.VlozBtnClick(Sender: TObject);  //dve moznosti: vloz ak je to l
 var
 pocet: integer;
 begin
+if zvolenyClick = true then
+   begin
      trystrtoint( edit2.text , pocet );
      if pocet > 0 then
         begin
@@ -791,17 +828,21 @@ begin
              label7.caption:='Celkom: '+floattostr(celkom)+'€';
              label7.visible:=true;
         end;
+   end;
+
 end;
 
 procedure TForm1.ListBox1Click(Sender: TObject);
 var i: integer;
 begin
+  zvolenyClick := false;
 if  ListBox1.Count > 0 then
    begin
       for i:= 0 to ListBox1.Count-1 do
           if ListBox1.Selected[ i ] = True then
              begin
                   itemIndex:= i+1;
+                  zvolenyClick := true;
                   Break;
              end;
 
@@ -848,35 +889,44 @@ end;
 
 procedure TForm1.KontrolaCennikuTimer(Sender: TObject);
 var cenastring: string;
-    x3, j: integer;
+    x3, j ,f : integer;
     cena: float;
 begin
-reset(subor3);
-readln(subor3,x3);
-for i:=1 to x3 do
-    begin
-         kod:='';
-         read(subor3,znak);
-         repeat
-               kod:=kod+znak;
-               read(subor3,znak);
-         until znak = ';';
-         repeat
-               read(subor3,znak);
-         until znak = ';';
 
-         ReadLn(subor3,cenaString);//
+if FileExists( filePath + 'CENNIK_LOCK.txt' ) = false then
+   begin
+     f := FileCreate( filePath + 'CENNIK_LOCK.txt' );
+     FileClose( f );
 
-    cena := StrToFloat(cenaString);
-    for j:=1 to x3 do
-         if tovar[j].kod = kod then
-            begin
-                 tovar[j].predajnacena := cena;
-                 //memo3.append(inttostr(tovar[j].nakupnacena));
-                 //memo3.append(inttostr(tovar[j].predajnacena));
-            end;
-    end;
-closefile(subor3);
+      reset(cennikFile);
+      readln(cennikFile,x3);
+      for i:=1 to x3 do
+          begin
+               kod:='';
+               read(cennikFile,znak);
+               repeat
+                     kod:=kod+znak;
+                     read(cennikFile,znak);
+               until znak = ';';
+               repeat
+                     read(cennikFile,znak);
+               until znak = ';';
+
+               ReadLn(cennikFile,cenaString);//
+
+          cena := StrToFloat(cenaString);
+          for j:=1 to x3 do
+               if tovar[j].kod = kod then
+                  begin
+                       tovar[j].predajnacena := cena;
+                       //memo3.append(inttostr(tovar[j].nakupnacena));
+                       //memo3.append(inttostr(tovar[j].predajnacena));
+                  end;
+          end;
+      closefile(cennikFile);
+
+      DeleteFile( filePath + 'CENNIK_LOCK.txt' );
+   end;
 end;
 
 procedure TForm1.ListBox2Click(Sender: TObject);

@@ -1,13 +1,17 @@
-12
-111;Jablka
-112;Banany
-123;Mrkva
-124;Rajciny
-135;Rozok
-131;Chlieb
-141;Pizza
-145;Zmes
-151;Kefa
-155;Vonavka
-161;Kuracie
-166;Bravcove
+16
+112564;banan
+111245;figa
+113456;pomaranc
+115647;pomelo
+124521;paradajka
+126598;uhorka
+136574;hranolky
+135487;parky
+145213;rozok
+145496;chlieb
+149651;celozrnne pecivo
+158465;sampon
+152630;zubna pasta
+169801;kuracie prsia
+165936;prasa
+165847;klobaska
