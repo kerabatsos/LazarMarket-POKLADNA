@@ -1,10 +1,10 @@
 16
-112564;banan
-111245;figa
-113456;pomaranc
+112564;banany
+111245;figy
+113456;pomarance
 115647;pomelo
-124521;paradajka
-126598;uhorka
+124521;paradajky
+126598;uhorky
 136574;hranolky
 135487;parky
 145213;rozok

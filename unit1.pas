@@ -17,6 +17,7 @@ type
     KontrolaSkladu: TTimer;
     KontrolaCenniku: TTimer;
     PrepisStatistiky: TTimer;
+    KontrolaTovaru: TTimer;
     VsetokTovarBtn: TButton;
     MasoBtn: TButton;
     MrazeneBtn: TButton;
@@ -47,6 +48,7 @@ type
     ListBox2: TListBox;
     procedure DrogeriaBtnClick(Sender: TObject);
     procedure KontrolaCennikuTimer(Sender: TObject);
+    procedure KontrolaTovaruTimer(Sender: TObject);
     procedure MasoBtnClick(Sender: TObject);
     procedure MrazeneBtnClick(Sender: TObject);
     procedure OdhlasitBtnClick(Sender: TObject);
@@ -941,6 +943,39 @@ if FileExists( filePath + 'CENNIK_LOCK.txt' ) = false then
 
       DeleteFile( filePath + 'CENNIK_LOCK.txt' );
    end;
+end;
+
+procedure TForm1.KontrolaTovaruTimer(Sender: TObject);
+var
+   x2,pocet,j,f: integer; //x je premenna na pocet riadkov v txt subore
+
+begin
+
+if  FileExists( filePath + 'TOVAR_LOCK.txt' ) = false then
+   begin
+   f := FileCreate( 'TOVAR_LOCK.txt' );
+   FileClose( f );
+    reset( tovarFile );
+    readln( tovarFile , x2 );
+    for i := 1 to x2 do
+        begin
+           kod := '';
+           read( tovarFile , znak );
+           repeat
+                 tovar[i].kod:=tovar[i].kod+znak;
+                 read( tovarFile , znak );
+           until znak = ';';
+           Readln(tovarFile,tovar[i].nazov);
+        end;
+    closefile( tovarFile );
+
+    x:=x2;   //nepamatam si, na co je to tu.
+
+    RozdelenieDoRecordov;
+
+    DeleteFile( 'TOVAR_LOCK.Txt' );
+   end;
+
 end;
 
 

@@ -107,7 +107,6 @@ object Form1: TForm1
     Height = 23
     Top = 32
     Width = 936
-    OnChange = Edit3Change
     TabOrder = 7
   end
   object VlozBtn: TButton

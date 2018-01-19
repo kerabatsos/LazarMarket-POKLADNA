@@ -46,7 +46,6 @@ type
     ListBox1: TListBox;
     ListBox2: TListBox;
     procedure DrogeriaBtnClick(Sender: TObject);
-    procedure Edit3Change(Sender: TObject);
     procedure KontrolaCennikuTimer(Sender: TObject);
     procedure MasoBtnClick(Sender: TObject);
     procedure MrazeneBtnClick(Sender: TObject);
