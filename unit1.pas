@@ -147,7 +147,7 @@ type zoznamUctenka=record
 end;
 
 const n=6;
-      m=16;//fuck
+      m=150;//fuck
       o=10;
       p=50;
 
@@ -960,6 +960,7 @@ if  FileExists( filePath + 'TOVAR_LOCK.txt' ) = false then
     for i := 1 to x2 do
         begin
            kod := '';
+           tovar[i].kod := '';
            read( tovarFile , znak );
            repeat
                  tovar[i].kod:=tovar[i].kod+znak;
@@ -970,6 +971,7 @@ if  FileExists( filePath + 'TOVAR_LOCK.txt' ) = false then
     closefile( tovarFile );
 
     x:=x2;   //nepamatam si, na co je to tu.
+             //asi aby sme si prepisali globalnu premennu, ktora nam hovori o pocte vsetkeho tovaru
 
     RozdelenieDoRecordov;
 
