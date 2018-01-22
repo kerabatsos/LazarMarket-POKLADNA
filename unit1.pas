@@ -321,6 +321,7 @@ Label2.Visible:= False;
            mameTovar:= true;
            if tovar[ i ].pocet > 0 then
              begin
+               zvolenyClick:= true;
                praca:=7;
                Label2.Caption:= tovar[ i ].nazov;
                Memo2.visible:= true;

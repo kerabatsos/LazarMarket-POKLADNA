@@ -147,7 +147,7 @@ type zoznamUctenka=record
 end;
 
 const n=6;
-      m=150;//fuck
+      m=150;
       o=10;
       p=50;
 

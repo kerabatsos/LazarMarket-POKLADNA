@@ -11,15 +11,15 @@ object Form1: TForm1
   LCLVersion = '1.6.2.0'
   object Label1: TLabel
     Left = 608
-    Height = 20
+    Height = 15
     Top = 240
-    Width = 162
+    Width = 128
     Caption = 'Zadajte, prosím, Váš kód'
     ParentColor = False
   end
   object Edit1: TEdit
     Left = 630
-    Height = 28
+    Height = 23
     Top = 272
     Width = 80
     EchoMode = emPassword
@@ -39,7 +39,7 @@ object Form1: TForm1
   end
   object Edit2: TEdit
     Left = 1176
-    Height = 28
+    Height = 23
     Top = 200
     Width = 81
     NumbersOnly = True
@@ -104,7 +104,7 @@ object Form1: TForm1
   end
   object Edit3: TEdit
     Left = 48
-    Height = 28
+    Height = 23
     Top = 32
     Width = 936
     TabOrder = 7
@@ -129,17 +129,17 @@ object Form1: TForm1
   end
   object Label3: TLabel
     Left = 1040
-    Height = 20
+    Height = 15
     Top = 664
-    Width = 44
+    Width = 34
     Caption = 'Label3'
     ParentColor = False
   end
   object Label4: TLabel
     Left = 49
-    Height = 20
+    Height = 15
     Top = 8
-    Width = 180
+    Width = 142
     Caption = 'Vyhľadať tovar podľa kódu'
     ParentColor = False
   end
@@ -154,9 +154,9 @@ object Form1: TForm1
   end
   object Label5: TLabel
     Left = 1096
-    Height = 20
+    Height = 15
     Top = 208
-    Width = 80
+    Width = 62
     Caption = 'Zadaj počet'
     ParentColor = False
   end
@@ -207,9 +207,9 @@ object Form1: TForm1
   end
   object Label6: TLabel
     Left = 624
-    Height = 20
+    Height = 15
     Top = 24
-    Width = 44
+    Width = 34
     Caption = 'Label6'
     ParentColor = False
   end
@@ -261,9 +261,9 @@ object Form1: TForm1
   end
   object Label7: TLabel
     Left = 1016
-    Height = 20
+    Height = 15
     Top = 576
-    Width = 44
+    Width = 34
     Caption = 'Label7'
     ParentColor = False
   end
