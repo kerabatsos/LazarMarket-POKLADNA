@@ -60,7 +60,6 @@ type
     procedure PrejstKPlatbeBtnClick(Sender: TObject);
     procedure OvocieBtnClick(Sender: TObject);
     procedure PrepisSkladTimer(Sender: TObject);
-    //procedure PrepisSkladTimer(Sender: TObject);
     procedure PrepisStatistikyTimer(Sender: TObject);
     procedure StornoBtnClick(Sender: TObject);
     procedure KontrolaSkladuTimer(Sender: TObject);
@@ -301,6 +300,7 @@ end;
 
 procedure TForm1.PecivoBtnClick(Sender: TObject);
 begin
+Edit2.Clear;
 label2.Visible:=false;
 praca:=3;
 Memo2.visible:=false;
@@ -321,8 +321,8 @@ begin
 memo2.clear;
 mameTovar:= False;
 Label2.Visible:= False;
-   ListBox1.Items.Clear;
-   kodTovaru:=Edit3.Text;
+ListBox1.Items.Clear;
+kodTovaru:=Edit3.Text;
    for i:=1 to m do
       if kodTovaru = tovar[ i ].kod then
          begin
@@ -448,7 +448,14 @@ begin
 if (FileExists( 'SKLAD.txt' ) = true) and  (FileExists( 'TOVAR.txt' ) = true)
    and (FileExists ( 'TOVAR.txt' ) = true) then
      begin
-
+        if FileExists ( 'STATISTIKY.txt' ) = false then
+             begin
+               assignfile( statistikyFile, 'STATISTIKY.txt' );
+               rewrite( statistikyFile );
+               write( statistikyFile, '0');
+               writeln( statistikyFile );
+               closefile( statistikyFile );
+             end;
         KontrolaTovaru.Enabled := true;
         KontrolaCenniku.Enabled := true;
         KontrolaSkladu.Enabled := true;
@@ -582,6 +589,7 @@ end;
 
 procedure TForm1.OvocieBtnClick(Sender: TObject);
 begin
+Edit2.Clear;
 label2.Visible:=false;
 praca:=1;
 Memo2.visible:=false;
@@ -598,28 +606,25 @@ f: integer;
 begin
 if FileExists( 'SKLAD_LOCK.txt' ) = false then
    begin
+        f := FileCreate( filePath + 'SKLAD_LOCK.txt' );
+        FileClose( f );
+        assignfile(skladFile,filePath + 'SKLAD.txt');
+        rewrite(skladFile);
+        writeln(skladFile,x);
 
-      f := FileCreate( filePath + 'SKLAD_LOCK.txt' );
-     FileClose( f );
+        for i:=1 to x do
+            writeln(skladFile,tovar[i].kod+';'+inttostr(tovar[i].pocet));
 
-      assignfile(skladFile,filePath + 'SKLAD.txt');
-      rewrite(skladFile);
-      writeln(skladFile,x);
-      for i:=1 to x do
-      writeln(skladFile,tovar[i].kod+';'+inttostr(tovar[i].pocet));
-      closefile(skladFile);
+        closefile(skladFile);
+        DeleteFile( filePath + 'SKLAD_LOCK.txt' );
 
-       DeleteFile( filePath + 'SKLAD_LOCK.txt' );
+        skladPrepisany := true;
 
-       skladPrepisany := true;
+        if (skladPrepisany = true) and (statistikyPrepisane = true) then
+           Nakup;
 
-       if (skladPrepisany = true) and (statistikyPrepisane = true) then
-          Nakup;
-
-       PrepisSklad.Enabled := False;
-
+        PrepisSklad.Enabled := False;
    end;
-
 end;
 
 procedure TForm1.PrepisStatistikyTimer(Sender: TObject);
@@ -631,7 +636,7 @@ if FileExists( 'STATISTIKY_LOCK.txt' ) = false then
       f := FileCreate( filePath + 'STATISTIKY_LOCK.txt' );
      FileClose( f );
 
-        suborStatistiky := '';
+      suborStatistiky := '';
       Assignfile( statistikyFile , filePath + 'STATISTIKY.txt' );
       Reset( statistikyFile );
       Read( statistikyFile , lines );
@@ -695,6 +700,7 @@ begin
                     stornoindex:=stornoindex+1;
                     celkom:=celkom-(uctenka[stornoindex].cena*uctenka[stornoindex].pocet);
                     label7.caption:='Celkom: '+floattostr(celkom)+'€';
+
                     if stornoindex=pocetobjektov then
                        begin
                     uctenka[stornoindex].kod:=' ';
@@ -756,6 +762,7 @@ end;
 procedure TForm1.VsetokTovarBtnClick(Sender: TObject);
 begin
 praca:=0;
+Edit2.Clear;
 Memo2.visible:=false;
 ListBox1.Items.Clear;
 for i:=1 to vt do
@@ -803,6 +810,7 @@ end;
 
 procedure TForm1.ZeleninaBtnClick(Sender: TObject);
 begin
+Edit2.Clear;
 label2.Visible:=false;
 praca:=2;
 Memo2.visible:=false;
@@ -887,9 +895,13 @@ if zvolenyClick = true then
              edit2.clear;
              label7.caption:='Celkom: '+floattostr(celkom)+'€';
              label7.visible:=true;
-        end;
+             Label2.caption:='';
+             memo2.clear;
+             zvolenyClick:= false;
+        end else
+             ShowMessage('Nie je možné zadať nulový počet. Opravte sa, prosím');
    end;
-zvolenyClick:= false;
+
 end;
 
 procedure TForm1.ListBox1Click(Sender: TObject);
@@ -931,6 +943,7 @@ end;
 
 procedure TForm1.MrazeneBtnClick(Sender: TObject);
 begin
+Edit2.Clear;
 label2.Visible:=false;
 praca:=4;
 Memo2.visible:=false;
@@ -941,6 +954,7 @@ end;
 
 procedure TForm1.DrogeriaBtnClick(Sender: TObject);
 begin
+Edit2.Clear;
 label2.Visible:=false;
 praca:=5;
 Memo2.visible:=false;
@@ -949,15 +963,22 @@ for i:=1 to d do
     ListBox1.Items.Add(drogeria[i].nazov+'       '+inttostr(drogeria[i].pocet)+' ks');
 end;
 
+
 procedure TForm1.Chyba1Timer(Sender: TObject);
 begin
 Chyba1.Enabled:= false;
+Edit1.Visible:=false;
+LogInBtn.visible:=false;
+Label1.visible:=false;
+SchovajObjekty;
+//Edit1.Visible:=false;
 ShowMessage('Chýba časť databázy. Napravte chybu a znovu zapnite program.');
 Close;
 end;
 
 procedure TForm1.MasoBtnClick(Sender: TObject);
 begin
+Edit2.Clear;
 label2.Visible:=false;
 praca:=6;
 Memo2.visible:=false;
@@ -1012,7 +1033,6 @@ var
    x2,pocet,j,f: integer; //x je premenna na pocet riadkov v txt subore
 
 begin
-
 if  FileExists( filePath + 'TOVAR_LOCK.txt' ) = false then
    begin
    f := FileCreate( 'TOVAR_LOCK.txt' );

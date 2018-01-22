@@ -89,9 +89,9 @@ object Form1: TForm1
     Width = 73
   end
   object Label2: TLabel
-    Left = 1136
+    Left = 1104
     Height = 34
-    Top = 160
+    Top = 168
     Width = 87
     Caption = 'Label2'
     Font.CharSet = EASTEUROPE_CHARSET
@@ -122,7 +122,7 @@ object Form1: TForm1
     Left = 48
     Height = 507
     Top = 160
-    Width = 936
+    Width = 920
     ItemHeight = 0
     OnClick = ListBox1Click
     TabOrder = 9
@@ -180,8 +180,8 @@ object Form1: TForm1
   object Memo1: TMemo
     Left = 64
     Height = 512
-    Top = 80
-    Width = 1128
+    Top = 88
+    Width = 1107
     Lines.Strings = (
       'Memo1'
     )
@@ -281,7 +281,7 @@ object Form1: TForm1
   end
   object PrepisStatistiky: TTimer
     Enabled = False
-    Interval = 200
+    Interval = 100
     OnTimer = PrepisStatistikyTimer
     left = 464
     top = 8
@@ -294,14 +294,16 @@ object Form1: TForm1
   end
   object PrepisSklad: TTimer
     Enabled = False
+    Interval = 100
     OnTimer = PrepisSkladTimer
     left = 216
     top = 8
   end
   object Chyba1: TTimer
     Enabled = False
+    Interval = 10
     OnTimer = Chyba1Timer
-    left = 648
+    left = 616
     top = 8
   end
 end
