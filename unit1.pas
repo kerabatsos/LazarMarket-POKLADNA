@@ -57,6 +57,7 @@ type
     procedure PecivoBtnClick(Sender: TObject);
     procedure PrejstKPlatbeBtnClick(Sender: TObject);
     procedure OvocieBtnClick(Sender: TObject);
+    procedure PrepisSkladTimer(Sender: TObject);
     //procedure PrepisSkladTimer(Sender: TObject);
     procedure PrepisStatistikyTimer(Sender: TObject);
     procedure StornoBtnClick(Sender: TObject);
@@ -171,7 +172,7 @@ var
   subor1, tovarFile, cennikFile, skladFile, subor5, statistikyFile , skladLock: textfile;
   znak: char;
   kod, pokladnik, kodtovaru, kodpokladnika, filePath: string;
-  zvolenyClick: boolean;
+  zvolenyClick, skladPrepisany, statistikyPrepisane: boolean;
   Form1: TForm1;
   gen : int64;
   k, lines: integer;
@@ -285,6 +286,9 @@ edit2.visible:=true;
 edit3.visible:=true;
 memo1.Visible:=false;
 memo2.visible:=false;
+
+statistikyPrepisane := false;
+skladPrepisany := false;
 
 end;
 
@@ -444,6 +448,10 @@ if (FileExists( 'SKLAD.txt' ) = true) and  (FileExists( 'TOVAR.txt' ) = true)
      begin
         //cesta k suboru
         filePath := ''; //'\\comenius\public\market\tima\';
+
+        statistikyPrepisane := false;
+        skladPrepisany := false;
+
         Randomize;
         DefaultFormatSettings.DecimalSeparator := '.';
         q:=0; //premenna na poradove cislo uctenky
@@ -573,44 +581,37 @@ for i:=1 to ov do
     ListBox1.Items.Add(ovocie[i].nazov+'       '+inttostr(ovocie[i].pocet)+' ks');
 end;
 
-{procedure TForm1.PrepisSkladTimer(Sender: TObject);
+
+
+procedure TForm1.PrepisSkladTimer(Sender: TObject);
 var
 f: integer;
 begin
 if FileExists( 'SKLAD_LOCK.txt' ) = false then
    begin
+
       f := FileCreate( filePath + 'SKLAD_LOCK.txt' );
-      FileClose( f );
+     FileClose( f );
 
-      suborStatistiky := '';
-      Assignfile( statistikyFile , filePath + 'STATISTIKY.txt' );
-      Reset( statistikyFile );
-      Read( statistikyFile , lines );
+      assignfile(skladFile,filePath + 'SKLAD.txt');
+      rewrite(skladFile);
+      writeln(skladFile,x);
+      for i:=1 to x do
+      writeln(skladFile,tovar[i].kod+';'+inttostr(tovar[i].pocet));
+      closefile(skladFile);
 
-      Repeat
-            Read( statistikyFile , citamZnak );
-            suborStatistiky := suborStatistiky + citamZnak;
-      until Eof( statistikyFile );
-      closefile( statistikyFile );
+       DeleteFile( filePath + 'SKLAD_LOCK.txt' );
 
-      Assignfile( statistikyFile , filePath + 'STATISTIKY.txt' );
-      Rewrite( statistikyFile );
-      Write( statistikyFile , inttostr(lines + pocetObjektov) + suborStatistiky );
+       skladPrepisany := true;
 
-      for k := 1 to pocetobjektov do
-           writeln( statistikyFile,  'P;' + inttostr( gen ) + ';' + uctenka[k].kod + ';' + inttostr(uctenka[k].pocet) + ';' + floattostr(uctenka[k].cena));
+       if (skladPrepisany = true) and (statistikyPrepisane = true) then
+          Nakup;
 
-       closefile( statistikyFile );
-
-       DeleteFile( filePath + 'STATISTIKY_LOCK.txt' );
-
-       PrepisStatistiky.Enabled := False;
-       Nakup;
-
+       PrepisSklad.Enabled := False;
 
    end;
 
-end;}
+end;
 
 procedure TForm1.PrepisStatistikyTimer(Sender: TObject);
 var
@@ -643,8 +644,12 @@ if FileExists( 'STATISTIKY_LOCK.txt' ) = false then
 
        DeleteFile( filePath + 'STATISTIKY_LOCK.txt' );
 
-       PrepisStatistiky.Enabled := False;
+       statistikyPrepisane := true;
+
+       if (skladPrepisany = true) and (statistikyPrepisane = true) then
        Nakup;
+
+       PrepisStatistiky.Enabled := False;
 
 
    end;
@@ -779,12 +784,8 @@ for i:=1 to pocetobjektov do
               end;
         end;
 
-assignfile(skladFile,filePath + 'SKLAD.txt');
-rewrite(skladFile);
-writeln(skladFile,x);
-for i:=1 to x do
-    writeln(skladFile,tovar[i].kod+';'+inttostr(tovar[i].pocet));
-closefile(skladFile);
+//prepisujem sklad
+  PrepisSklad.Enabled := True;
 
  //prepisujem statistiky
  //niekde v timeri
