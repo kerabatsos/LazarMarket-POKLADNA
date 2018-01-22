@@ -19,6 +19,7 @@ type
     PrepisStatistiky: TTimer;
     KontrolaTovaru: TTimer;
     PrepisSklad: TTimer;
+    Chyba1: TTimer;
     VsetokTovarBtn: TButton;
     MasoBtn: TButton;
     MrazeneBtn: TButton;
@@ -47,6 +48,7 @@ type
     Label6: TLabel;
     ListBox1: TListBox;
     ListBox2: TListBox;
+    procedure Chyba1Timer(Sender: TObject);
     procedure DrogeriaBtnClick(Sender: TObject);
     procedure KontrolaCennikuTimer(Sender: TObject);
     procedure KontrolaTovaruTimer(Sender: TObject);
@@ -446,6 +448,11 @@ begin
 if (FileExists( 'SKLAD.txt' ) = true) and  (FileExists( 'TOVAR.txt' ) = true)
    and (FileExists ( 'TOVAR.txt' ) = true) then
      begin
+
+        KontrolaTovaru.Enabled := true;
+        KontrolaCenniku.Enabled := true;
+        KontrolaSkladu.Enabled := true;
+
         //cesta k suboru
         filePath := ''; //'\\comenius\public\market\tima\';
 
@@ -550,7 +557,9 @@ if (FileExists( 'SKLAD.txt' ) = true) and  (FileExists( 'TOVAR.txt' ) = true)
         x:=x2;
 
         RozdelenieDoRecordov;
-     end;
+     end
+     else
+     Chyba1.Enabled:= True;
 
 end;
 
@@ -784,12 +793,8 @@ for i:=1 to pocetobjektov do
               end;
         end;
 
-assignfile(skladFile,filePath + 'SKLAD.txt');
-rewrite(skladFile);
-writeln(skladFile,x);
-for i:=1 to x do
-    writeln(skladFile,tovar[i].kod+';'+inttostr(tovar[i].pocet));
-closefile(skladFile);
+//prepisujem sklad
+  PrepisSklad.Enabled := True;
 
  //prepisujem statistiky
  //niekde v timeri
@@ -942,6 +947,14 @@ Memo2.visible:=false;
 ListBox1.Items.Clear;
 for i:=1 to d do
     ListBox1.Items.Add(drogeria[i].nazov+'       '+inttostr(drogeria[i].pocet)+' ks');
+end;
+
+procedure TForm1.Chyba1Timer(Sender: TObject);
+begin
+         ShowMessage('Chýba časť databázy. Napravte chybu a reštartujte program.');
+         Close;
+         Chyba1.Enabled:= false;
+
 end;
 
 procedure TForm1.MasoBtnClick(Sender: TObject);
