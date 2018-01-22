@@ -951,10 +951,9 @@ end;
 
 procedure TForm1.Chyba1Timer(Sender: TObject);
 begin
-         ShowMessage('Chýba časť databázy. Napravte chybu a reštartujte program.');
-         Close;
-         Chyba1.Enabled:= false;
-
+Chyba1.Enabled:= false;
+ShowMessage('Chýba časť databázy. Napravte chybu a znovu zapnite program.');
+Close;
 end;
 
 procedure TForm1.MasoBtnClick(Sender: TObject);

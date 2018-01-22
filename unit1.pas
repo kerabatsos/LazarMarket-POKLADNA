@@ -598,28 +598,25 @@ f: integer;
 begin
 if FileExists( 'SKLAD_LOCK.txt' ) = false then
    begin
+        f := FileCreate( filePath + 'SKLAD_LOCK.txt' );
+        FileClose( f );
+        assignfile(skladFile,filePath + 'SKLAD.txt');
+        rewrite(skladFile);
+        writeln(skladFile,x);
 
-      f := FileCreate( filePath + 'SKLAD_LOCK.txt' );
-     FileClose( f );
+        for i:=1 to x do
+            writeln(skladFile,tovar[i].kod+';'+inttostr(tovar[i].pocet));
 
-      assignfile(skladFile,filePath + 'SKLAD.txt');
-      rewrite(skladFile);
-      writeln(skladFile,x);
-      for i:=1 to x do
-      writeln(skladFile,tovar[i].kod+';'+inttostr(tovar[i].pocet));
-      closefile(skladFile);
+        closefile(skladFile);
+        DeleteFile( filePath + 'SKLAD_LOCK.txt' );
 
-       DeleteFile( filePath + 'SKLAD_LOCK.txt' );
+        skladPrepisany := true;
 
-       skladPrepisany := true;
+        if (skladPrepisany = true) and (statistikyPrepisane = true) then
+           Nakup;
 
-       if (skladPrepisany = true) and (statistikyPrepisane = true) then
-          Nakup;
-
-       PrepisSklad.Enabled := False;
-
+        PrepisSklad.Enabled := False;
    end;
-
 end;
 
 procedure TForm1.PrepisStatistikyTimer(Sender: TObject);
@@ -951,10 +948,9 @@ end;
 
 procedure TForm1.Chyba1Timer(Sender: TObject);
 begin
-         ShowMessage('Chýba časť databázy. Napravte chybu a reštartujte program.');
-         Close;
-         Chyba1.Enabled:= false;
-
+Chyba1.Enabled:= false;
+ShowMessage('Chýba časť databázy. Napravte chybu a znovu zapnite program.');
+Close;
 end;
 
 procedure TForm1.MasoBtnClick(Sender: TObject);
