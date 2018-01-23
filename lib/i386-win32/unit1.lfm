@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 2
-  Height = 705
-  Top = 180
-  Width = 1284
+  Left = -3
+  Height = 710
+  Top = 0
+  Width = 1269
   Caption = 'Form1'
-  ClientHeight = 705
-  ClientWidth = 1284
+  ClientHeight = 0
+  ClientWidth = 0
   Color = clMoneyGreen
   OnCreate = FormCreate
   LCLVersion = '1.4.0.4'
@@ -38,9 +38,9 @@ object Form1: TForm1
     TabOrder = 1
   end
   object Edit2: TEdit
-    Left = 1176
+    Left = 1152
     Height = 23
-    Top = 200
+    Top = 176
     Width = 81
     NumbersOnly = True
     TabOrder = 2
@@ -65,18 +65,18 @@ object Form1: TForm1
     TabOrder = 4
   end
   object DrogeriaBtn: TButton
-    Left = 752
+    Left = 760
     Height = 64
-    Top = 77
+    Top = 64
     Width = 112
     Caption = 'Drogéria'
     OnClick = DrogeriaBtnClick
     TabOrder = 5
   end
   object VyhladajBtn: TButton
-    Left = 992
+    Left = 896
     Height = 34
-    Top = 29
+    Top = 40
     Width = 88
     Caption = 'vyhľadaj'
     OnClick = VyhladajBtnClick
@@ -89,9 +89,9 @@ object Form1: TForm1
     Width = 73
   end
   object Label2: TLabel
-    Left = 1136
+    Left = 1112
     Height = 34
-    Top = 160
+    Top = 136
     Width = 87
     Caption = 'Label2'
     Font.CharSet = EASTEUROPE_CHARSET
@@ -103,10 +103,10 @@ object Form1: TForm1
     ParentFont = False
   end
   object Edit3: TEdit
-    Left = 48
+    Left = 16
     Height = 23
-    Top = 32
-    Width = 936
+    Top = 50
+    Width = 824
     TabOrder = 7
   end
   object VlozBtn: TButton
@@ -119,10 +119,10 @@ object Form1: TForm1
     TabOrder = 8
   end
   object ListBox1: TListBox
-    Left = 48
+    Left = 56
     Height = 507
-    Top = 160
-    Width = 936
+    Top = 152
+    Width = 920
     ItemHeight = 0
     OnClick = ListBox1Click
     TabOrder = 9
@@ -166,7 +166,6 @@ object Form1: TForm1
     Top = 296
     Width = 264
     ItemHeight = 0
-    OnClick = ListBox2Click
     TabOrder = 11
   end
   object StornoBtn: TButton
@@ -179,10 +178,10 @@ object Form1: TForm1
     TabOrder = 12
   end
   object Memo1: TMemo
-    Left = 64
+    Left = 16
     Height = 512
-    Top = 80
-    Width = 1128
+    Top = 96
+    Width = 1107
     Lines.Strings = (
       'Memo1'
     )
@@ -215,9 +214,9 @@ object Form1: TForm1
     ParentColor = False
   end
   object Memo2: TMemo
-    Left = 48
+    Left = 56
     Height = 507
-    Top = 160
+    Top = 152
     Width = 920
     Lines.Strings = (
       'Memo2'
@@ -269,20 +268,42 @@ object Form1: TForm1
     ParentColor = False
   end
   object KontrolaSkladu: TTimer
+    Enabled = False
     OnTimer = KontrolaSkladuTimer
-    left = 280
+    left = 288
     top = 8
   end
   object KontrolaCenniku: TTimer
+    Enabled = False
     OnTimer = KontrolaCennikuTimer
     left = 376
     top = 8
   end
   object PrepisStatistiky: TTimer
     Enabled = False
-    Interval = 200
+    Interval = 100
     OnTimer = PrepisStatistikyTimer
     left = 464
+    top = 8
+  end
+  object KontrolaTovaru: TTimer
+    Enabled = False
+    OnTimer = KontrolaTovaruTimer
+    left = 552
+    top = 8
+  end
+  object PrepisSklad: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = PrepisSkladTimer
+    left = 216
+    top = 8
+  end
+  object Chyba1: TTimer
+    Enabled = False
+    Interval = 10
+    OnTimer = Chyba1Timer
+    left = 616
     top = 8
   end
 end

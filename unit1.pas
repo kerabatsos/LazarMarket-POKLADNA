@@ -445,12 +445,14 @@ cenaString: string;
 hold,j,x2,x3,x4,pocet: integer; //x je premenna na pocet riadkov v txt subore
 cena : float;
 begin
-if (FileExists( 'SKLAD.txt' ) = true) and  (FileExists( 'TOVAR.txt' ) = true)
-   and (FileExists ( 'TOVAR.txt' ) = true) then
+//cesta k suboru
+filePath := ''; //'\\comenius\public\market\tima\';
+if (FileExists( filePath +  'SKLAD.txt' ) = true) and  (FileExists(  filePath + 'TOVAR.txt' ) = true)
+   and (FileExists ( filePath +  'CENNIK.txt' ) = true) then
      begin
-        if FileExists ( 'STATISTIKY.txt' ) = false then
+        if FileExists ( filePath +  'STATISTIKY.txt' ) = false then
              begin
-               assignfile( statistikyFile, 'STATISTIKY.txt' );
+               assignfile( statistikyFile, filePath +  'STATISTIKY.txt' );
                rewrite( statistikyFile );
                write( statistikyFile, '0');
                writeln( statistikyFile );
@@ -460,14 +462,14 @@ if (FileExists( 'SKLAD.txt' ) = true) and  (FileExists( 'TOVAR.txt' ) = true)
         KontrolaCenniku.Enabled := true;
         KontrolaSkladu.Enabled := true;
 
-        //cesta k suboru
-        filePath := ''; //'\\comenius\public\market\tima\';
+
+
 
         statistikyPrepisane := false;
         skladPrepisany := false;
 
         Randomize;
-        DefaultFormatSettings.DecimalSeparator := '.';
+        DefaultFormatSettings.DecimalSeparator := ',';
         q:=0; //premenna na poradove cislo uctenky
         celkom:=0;
         ListBox1.Items.Clear;
@@ -604,7 +606,7 @@ procedure TForm1.PrepisSkladTimer(Sender: TObject);
 var
 f: integer;
 begin
-if FileExists( 'SKLAD_LOCK.txt' ) = false then
+if FileExists( filePath + 'SKLAD_LOCK.txt' ) = false then
    begin
         f := FileCreate( filePath + 'SKLAD_LOCK.txt' );
         FileClose( f );
@@ -631,7 +633,7 @@ procedure TForm1.PrepisStatistikyTimer(Sender: TObject);
 var
 f: integer;
 begin
-if FileExists( 'STATISTIKY_LOCK.txt' ) = false then
+if FileExists( filePath + 'STATISTIKY_LOCK.txt' ) = false then
    begin
       f := FileCreate( filePath + 'STATISTIKY_LOCK.txt' );
      FileClose( f );
@@ -730,7 +732,7 @@ begin
 
 if  FileExists( filePath + 'SKLAD_LOCK.txt' ) = false then
    begin
-   f := FileCreate( 'SKLAD_LOCK.txt' );
+   f := FileCreate( filePath + 'SKLAD_LOCK.txt' );
    FileClose( f );
     reset( skladFile );
     readln( skladFile , x4 );
@@ -755,7 +757,7 @@ if  FileExists( filePath + 'SKLAD_LOCK.txt' ) = false then
       x:=x4;
 
      RozdelenieDoRecordov;
-    DeleteFile( 'SKLAD_LOCK.Txt' );
+    DeleteFile( filePath + 'SKLAD_LOCK.Txt' );
    end;
 end;
 
@@ -1035,7 +1037,7 @@ var
 begin
 if  FileExists( filePath + 'TOVAR_LOCK.txt' ) = false then
    begin
-   f := FileCreate( 'TOVAR_LOCK.txt' );
+   f := FileCreate( filePath + 'TOVAR_LOCK.txt' );
    FileClose( f );
     reset( tovarFile );
     readln( tovarFile , x2 );
@@ -1057,7 +1059,7 @@ if  FileExists( filePath + 'TOVAR_LOCK.txt' ) = false then
 
     RozdelenieDoRecordov;
 
-    DeleteFile( 'TOVAR_LOCK.Txt' );
+    DeleteFile( filePath + 'TOVAR_LOCK.Txt' );
    end;
 
 end;
