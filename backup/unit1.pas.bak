@@ -674,6 +674,7 @@ end;
 procedure TForm1.StornoBtnClick(Sender: TObject);
 var
   stornoIndex, i: integer;
+  zvolil_som : boolean;
 begin
      case QuestionDlg ('STORNO','Chcete stornovať celý nákup alebo zvolenú položku?',mtCustom,[mrYes,'Nákup', mrNo , 'Položku', 'IsDefault'],'') of
         mrYes: if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) = kodpokladnika  then
@@ -692,7 +693,13 @@ begin
                  end;
            end
         else ShowMessage('Nesprávny kód.');
-        mrNo:  if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) =  kodpokladnika  then
+        mrNo:  begin
+               zvolil_som := false;
+                for i := 0 to (ListBox2.Count - 1) do
+                    if ListBox2.Selected[ i ] = True then
+                       zvolil_som := true;
+                if zvolil_som = true then
+                if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) =  kodpokladnika  then
                   begin
                     for i := 0 to (ListBox2.Count - 1) do
                         if ListBox2.Selected[ i ] = True then
@@ -718,7 +725,9 @@ begin
                              dec(pocetobjektov);
                         end;
                   end
-               else ShowMessage( 'Nesprávny kód.' );
+               else ShowMessage( 'Nesprávny kód.' )
+               else ShowMessage( 'Prosím, zvoľte položku na stornovanie.' );
+        end;
         mrCancel: ;
      end;
 

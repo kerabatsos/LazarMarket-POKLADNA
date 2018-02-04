@@ -699,33 +699,33 @@ begin
                     if ListBox2.Selected[ i ] = True then
                        zvolil_som := true;
                 if zvolil_som = true then
-                if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) =  kodpokladnika  then
-                  begin
-                    for i := 0 to (ListBox2.Count - 1) do
-                        if ListBox2.Selected[ i ] = True then
-                           stornoIndex := i;
+                  if PasswordBox( 'STORNO' , 'Zadajte váš kód:' ) =  kodpokladnika  then
+                    begin
+                      for i := 0 to (ListBox2.Count - 1) do
+                          if ListBox2.Selected[ i ] = True then
+                             stornoIndex := i;
 
-                    Listbox2.Items.Delete(stornoIndex);
-                    stornoindex:=stornoindex+1;
-                    celkom:=celkom-(uctenka[stornoindex].cena*uctenka[stornoindex].pocet);
-                    label7.caption:='Celkom: '+floattostr(celkom)+'€';
+                      Listbox2.Items.Delete(stornoIndex);
+                      stornoindex:=stornoindex+1;
+                      celkom:=celkom-(uctenka[stornoindex].cena*uctenka[stornoindex].pocet);
+                      label7.caption:='Celkom: '+floattostr(celkom)+'€';
 
-                    if stornoindex=pocetobjektov then
-                       begin
-                    uctenka[stornoindex].kod:=' ';
-                    uctenka[stornoindex].nazov:=' ';
-                    uctenka[stornoindex].cena:=0;
-                    uctenka[stornoindex].pocet:=0;
-                    dec(pocetobjektov);
-                       end
-                    else
-                        begin
-                             for i:=stornoindex to pocetobjektov do
-                                 uctenka[i]:=uctenka[i+1];
-                             dec(pocetobjektov);
-                        end;
-                  end
-               else ShowMessage( 'Nesprávny kód.' )
+                      if stornoindex=pocetobjektov then
+                         begin
+                      uctenka[stornoindex].kod:=' ';
+                      uctenka[stornoindex].nazov:=' ';
+                      uctenka[stornoindex].cena:=0;
+                      uctenka[stornoindex].pocet:=0;
+                      dec(pocetobjektov);
+                         end
+                      else
+                          begin
+                               for i:=stornoindex to pocetobjektov do
+                                   uctenka[i]:=uctenka[i+1];
+                               dec(pocetobjektov);
+                          end;
+                    end
+                 else ShowMessage( 'Nesprávny kód.' )
                else ShowMessage( 'Prosím, zvoľte položku na stornovanie.' );
         end;
         mrCancel: ;
