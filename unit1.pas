@@ -360,7 +360,7 @@ ma:=0;
 //memo3.append(tovar[1].kod);
 
 for i:=1 to x do
-   if tovar[i].pocet>0 then
+   if (tovar[i].pocet>0) and (tovar[i].predajnacena>0) then
      begin
        inc(vt);
        vsetoktovar[vt].kod:=tovar[i].kod;
@@ -372,7 +372,7 @@ for i:=1 to x do
 
 for i:=1 to x do
     begin
-         if tovar[i].pocet>0 then
+         if (tovar[i].pocet>0) and (tovar[i].predajnacena>0) then
             begin
                 if (tovar[i].kod[1]+tovar[i].kod[2]) = '11' then
                    begin
@@ -446,7 +446,7 @@ hold,j,x2,x3,x4,pocet: integer; //x je premenna na pocet riadkov v txt subore
 cena : float;
 begin
 //cesta k suboru
-filePath := ''; //'\\comenius\public\market\tima\';
+filePath :=''; // '\\comenius\public\market\tima\';
 if (FileExists( filePath +  'SKLAD.txt' ) = true) and  (FileExists(  filePath + 'TOVAR.txt' ) = true)
    and (FileExists ( filePath +  'CENNIK.txt' ) = true) then
      begin
@@ -469,7 +469,7 @@ if (FileExists( filePath +  'SKLAD.txt' ) = true) and  (FileExists(  filePath + 
         skladPrepisany := false;
 
         Randomize;
-        DefaultFormatSettings.DecimalSeparator := ',';
+        DefaultFormatSettings.DecimalSeparator := '.';
         q:=0; //premenna na poradove cislo uctenky
         celkom:=0;
         ListBox1.Items.Clear;
@@ -777,7 +777,7 @@ begin
 SchovajObjekty;
 //NakupBtn.visible:=true;
 gen := random(99999999 - 10000000) + 10000000;
-assignfile(subor5,filePath + 'P'+inttostr(gen)+'.txt');
+assignfile(subor5,filePath+'uctenky\' + 'P'+inttostr(gen)+'.txt');
 rewrite(subor5);
 writeln(subor5,'                                                                           Lazarmarket');
 writeln(subor5,datetostr(date)+'  '+timetostr(time));

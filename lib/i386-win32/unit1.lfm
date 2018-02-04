@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = -3
+  Left = 141
   Height = 710
-  Top = 0
+  Top = 41
   Width = 1269
   Caption = 'Form1'
-  ClientHeight = 0
-  ClientWidth = 0
+  ClientHeight = 710
+  ClientWidth = 1269
   Color = clMoneyGreen
   OnCreate = FormCreate
   LCLVersion = '1.4.0.4'
