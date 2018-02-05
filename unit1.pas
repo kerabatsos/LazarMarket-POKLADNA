@@ -324,7 +324,7 @@ Label2.Visible:= False;
 ListBox1.Items.Clear;
 kodTovaru:=Edit3.Text;
    for i:=1 to m do
-      if kodTovaru = tovar[ i ].kod then
+      if (kodTovaru = tovar[ i ].kod) and not (kodTovaru = '')  then
          begin
            mameTovar:= true;
            if tovar[ i ].pocet > 0 then
@@ -340,6 +340,7 @@ kodTovaru:=Edit3.Text;
            else
              begin
                ShowMessage(tovar[i].nazov+': Prepáčte, ale tento tovar momentálne nemáme na sklade.');
+               break;
              end;
          end;
    if mameTovar = false then
