@@ -5,11 +5,11 @@
 115647;pomelo
 124521;paradajky
 126598;uhorky
-136574;hranolky
-135487;parky
-145213;rozok
-145496;chlieb
-149651;celozrnne pecivo
+146574;hranolky
+145487;parky
+135213;rozok
+135496;chlieb
+139651;celozrnne pecivo
 158465;sampon
 152630;zubna pasta
 169801;kuracie prsia

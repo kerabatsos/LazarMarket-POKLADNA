@@ -1,271 +1,443 @@
 object Form1: TForm1
-  Left = 30
+  Left = -3
   Height = 710
-  Top = 29
+  Top = 0
   Width = 1269
   Caption = 'Form1'
-  ClientHeight = 710
-  ClientWidth = 1269
+  ClientHeight = 0
+  ClientWidth = 0
   Color = clMoneyGreen
   OnCreate = FormCreate
   LCLVersion = '1.6.2.0'
   object Label1: TLabel
-    Left = 608
-    Height = 20
-    Top = 240
-    Width = 162
+    Left = 488
+    Height = 31
+    Top = 248
+    Width = 299
     Caption = 'Zadajte, prosím, Váš kód'
-    ParentColor = False
-  end
-  object Edit1: TEdit
-    Left = 630
-    Height = 28
-    Top = 272
-    Width = 80
-    EchoMode = emPassword
-    NumbersOnly = True
-    OnEditingDone = Edit1EditingDone
-    PasswordChar = '*'
-    TabOrder = 0
-  end
-  object LogInBtn: TButton
-    Left = 630
-    Height = 25
-    Top = 312
-    Width = 82
-    Caption = 'vstúpiť'
-    OnClick = LogInBtnClick
-    TabOrder = 1
-  end
-  object Edit2: TEdit
-    Left = 1152
-    Height = 28
-    Top = 176
-    Width = 81
-    NumbersOnly = True
-    TabOrder = 2
-    Text = '0'
-  end
-  object OvocieBtn: TButton
-    Left = 208
-    Height = 63
-    Top = 77
-    Width = 127
-    Caption = 'Ovocie'
-    OnClick = OvocieBtnClick
-    TabOrder = 3
-  end
-  object PecivoBtn: TButton
-    Left = 480
-    Height = 65
-    Top = 77
-    Width = 128
-    Caption = 'Pečivo'
-    OnClick = PecivoBtnClick
-    TabOrder = 4
-  end
-  object DrogeriaBtn: TButton
-    Left = 760
-    Height = 64
-    Top = 64
-    Width = 112
-    Caption = 'Drogéria'
-    OnClick = DrogeriaBtnClick
-    TabOrder = 5
-  end
-  object VyhladajBtn: TButton
-    Left = 896
-    Height = 34
-    Top = 40
-    Width = 88
-    Caption = 'vyhľadaj'
-    OnClick = VyhladajBtnClick
-    TabOrder = 6
-  end
-  object Image1: TImage
-    Left = 1192
-    Height = 65
-    Top = 8
-    Width = 73
-  end
-  object Label2: TLabel
-    Left = 1112
-    Height = 34
-    Top = 136
-    Width = 87
-    Caption = 'Label2'
-    Font.CharSet = EASTEUROPE_CHARSET
-    Font.Height = -29
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -27
     Font.Name = 'Georgia'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     ParentColor = False
     ParentFont = False
   end
+  object Edit1: TEdit
+    Left = 526
+    Height = 39
+    Top = 296
+    Width = 202
+    EchoMode = emPassword
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Height = -27
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    NumbersOnly = True
+    OnEditingDone = Edit1EditingDone
+    ParentFont = False
+    PasswordChar = '*'
+    TabOrder = 0
+  end
+  object LogInBtn: TButton
+    Left = 526
+    Height = 40
+    Top = 344
+    Width = 202
+    Caption = 'vstúpiť'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -19
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    OnClick = LogInBtnClick
+    ParentFont = False
+    TabOrder = 1
+  end
+  object Edit2: TEdit
+    Left = 1080
+    Height = 31
+    Top = 146
+    Width = 81
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Height = -19
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    NumbersOnly = True
+    ParentFont = False
+    TabOrder = 2
+    Text = '0'
+  end
+  object OvocieBtn: TButton
+    Left = 168
+    Height = 61
+    Top = 112
+    Width = 112
+    Caption = 'Ovocie'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    OnClick = OvocieBtnClick
+    ParentFont = False
+    TabOrder = 3
+  end
+  object PecivoBtn: TButton
+    Left = 400
+    Height = 61
+    Top = 111
+    Width = 120
+    Caption = 'Pečivo'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    OnClick = PecivoBtnClick
+    ParentFont = False
+    TabOrder = 4
+  end
+  object DrogeriaBtn: TButton
+    Left = 632
+    Height = 61
+    Top = 113
+    Width = 112
+    Caption = 'Drogéria'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    OnClick = DrogeriaBtnClick
+    ParentFont = False
+    TabOrder = 5
+  end
+  object VyhladajBtn: TButton
+    Left = 528
+    Height = 37
+    Top = 56
+    Width = 128
+    Caption = 'vyhľadaj'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -19
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    OnClick = VyhladajBtnClick
+    ParentFont = False
+    TabOrder = 6
+  end
+  object Image1: TImage
+    Left = 1184
+    Height = 65
+    Top = 9
+    Width = 73
+  end
+  object Label2: TLabel
+    Left = 960
+    Height = 34
+    Top = 104
+    Width = 101
+    Caption = 'Label2'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -29
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    OnClick = Label2Click
+  end
   object Edit3: TEdit
-    Left = 16
-    Height = 28
-    Top = 50
-    Width = 824
+    Left = 49
+    Height = 37
+    Top = 56
+    Width = 471
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Height = -24
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentFont = False
     TabOrder = 7
   end
   object VlozBtn: TButton
-    Left = 1096
-    Height = 40
-    Top = 240
-    Width = 161
+    Left = 960
+    Height = 64
+    Top = 184
+    Width = 201
     Caption = 'VLOŽ'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -19
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
     OnClick = VlozBtnClick
+    ParentFont = False
     TabOrder = 8
   end
   object ListBox1: TListBox
-    Left = 56
-    Height = 507
-    Top = 152
-    Width = 920
+    Left = 48
+    Height = 451
+    Top = 192
+    Width = 808
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     ItemHeight = 0
     OnClick = ListBox1Click
+    ParentFont = False
     TabOrder = 9
   end
   object Label3: TLabel
-    Left = 1040
-    Height = 20
-    Top = 664
+    Left = 46
+    Height = 18
+    Top = 656
     Width = 44
     Caption = 'Label3'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -15
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     ParentColor = False
+    ParentFont = False
   end
   object Label4: TLabel
     Left = 49
-    Height = 20
-    Top = 8
-    Width = 180
+    Height = 25
+    Top = 24
+    Width = 248
     Caption = 'Vyhľadať tovar podľa kódu'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     ParentColor = False
+    ParentFont = False
   end
   object PrejstKPlatbeBtn: TButton
-    Left = 1000
-    Height = 48
-    Top = 600
-    Width = 169
+    Left = 888
+    Height = 56
+    Top = 608
+    Width = 232
     Caption = 'Prejsť k platbe'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     OnClick = PrejstKPlatbeBtnClick
+    ParentFont = False
     TabOrder = 10
   end
   object Label5: TLabel
-    Left = 1096
-    Height = 20
-    Top = 208
-    Width = 80
+    Left = 960
+    Height = 25
+    Top = 152
+    Width = 108
     Caption = 'Zadaj počet'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     ParentColor = False
+    ParentFont = False
   end
   object ListBox2: TListBox
-    Left = 1001
-    Height = 272
-    Top = 296
-    Width = 264
+    Left = 888
+    Height = 296
+    Top = 264
+    Width = 344
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     ItemHeight = 0
+    ParentFont = False
     TabOrder = 11
   end
   object StornoBtn: TButton
-    Left = 1186
-    Height = 49
-    Top = 599
-    Width = 71
+    Left = 1128
+    Height = 56
+    Top = 608
+    Width = 104
     Caption = 'Storno'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     OnClick = StornoBtnClick
+    ParentFont = False
     TabOrder = 12
   end
   object Memo1: TMemo
-    Left = 16
-    Height = 512
-    Top = 96
-    Width = 1107
+    Left = 200
+    Height = 472
+    Top = 80
+    Width = 811
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Lines.Strings = (
       'Memo1'
     )
+    ParentFont = False
     TabOrder = 13
   end
   object ZaplatitBtn: TButton
-    Left = 552
-    Height = 48
-    Top = 624
-    Width = 272
+    Left = 488
+    Height = 64
+    Top = 616
+    Width = 288
     Caption = 'Zaplatiť'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     OnClick = ZaplatitBtnClick
+    ParentFont = False
     TabOrder = 14
   end
   object OdhlasitBtn: TButton
-    Left = 1088
-    Height = 34
-    Top = 29
-    Width = 83
+    Left = 1056
+    Height = 66
+    Top = 8
+    Width = 115
     Caption = 'Odhlásiť sa'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     OnClick = OdhlasitBtnClick
+    ParentFont = False
     TabOrder = 15
   end
   object Label6: TLabel
-    Left = 624
-    Height = 20
+    Left = 592
+    Height = 23
     Top = 24
-    Width = 44
+    Width = 57
     Caption = 'Label6'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -19
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     ParentColor = False
+    ParentFont = False
   end
   object Memo2: TMemo
-    Left = 56
-    Height = 507
-    Top = 152
-    Width = 920
+    Left = 49
+    Height = 451
+    Top = 192
+    Width = 808
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Lines.Strings = (
       'Memo2'
     )
+    ParentFont = False
     TabOrder = 16
   end
   object ZeleninaBtn: TButton
-    Left = 344
-    Height = 63
-    Top = 77
-    Width = 128
+    Left = 280
+    Height = 60
+    Top = 112
+    Width = 120
     Caption = 'Zelenina'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
     OnClick = ZeleninaBtnClick
+    ParentFont = False
     TabOrder = 17
   end
   object MrazeneBtn: TButton
-    Left = 616
-    Height = 64
-    Top = 77
-    Width = 128
+    Left = 520
+    Height = 61
+    Top = 112
+    Width = 112
     Caption = 'Mrazené'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
     OnClick = MrazeneBtnClick
+    ParentFont = False
     TabOrder = 18
   end
   object MasoBtn: TButton
-    Left = 872
-    Height = 64
-    Top = 77
+    Left = 745
+    Height = 61
+    Top = 112
     Width = 112
     Caption = 'Mäso'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
     OnClick = MasoBtnClick
+    ParentFont = False
     TabOrder = 19
   end
   object VsetokTovarBtn: TButton
-    Left = 49
+    Left = 48
     Height = 61
-    Top = 79
-    Width = 150
+    Top = 112
+    Width = 119
     Caption = 'Všetok tovar'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
     OnClick = VsetokTovarBtnClick
+    ParentFont = False
     TabOrder = 20
   end
   object Label7: TLabel
-    Left = 1016
-    Height = 20
-    Top = 576
-    Width = 44
+    Left = 896
+    Height = 31
+    Top = 569
+    Width = 80
     Caption = 'Label7'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -27
+    Font.Name = 'Georgia'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     ParentColor = False
+    ParentFont = False
   end
   object KontrolaSkladu: TTimer
     Enabled = False

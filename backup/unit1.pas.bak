@@ -52,6 +52,7 @@ type
     procedure DrogeriaBtnClick(Sender: TObject);
     procedure KontrolaCennikuTimer(Sender: TObject);
     procedure KontrolaTovaruTimer(Sender: TObject);
+    procedure Label2Click(Sender: TObject);
     procedure MasoBtnClick(Sender: TObject);
     procedure MrazeneBtnClick(Sender: TObject);
     procedure OdhlasitBtnClick(Sender: TObject);
@@ -324,7 +325,7 @@ Label2.Visible:= False;
 ListBox1.Items.Clear;
 kodTovaru:=Edit3.Text;
    for i:=1 to m do
-      if kodTovaru = tovar[ i ].kod then
+      if (kodTovaru = tovar[ i ].kod) and not (kodTovaru = '')  then
          begin
            mameTovar:= true;
            if tovar[ i ].pocet > 0 then
@@ -340,6 +341,7 @@ kodTovaru:=Edit3.Text;
            else
              begin
                ShowMessage(tovar[i].nazov+': Prepáčte, ale tento tovar momentálne nemáme na sklade.');
+               break;
              end;
          end;
    if mameTovar = false then
@@ -579,7 +581,10 @@ memo1.clear;
 label6.visible:=true;
 memo1.visible:=true;
 ZaplatitBtn.visible:=true;
-memo1.append('                                                                                                                                                                                              Lazarmarket');
+memo1.append('Lazarmarket');
+memo1.append(' ');
+memo1.append(datetostr(date)+'  '+timetostr(time));
+memo1.append(' ');
 memo1.append('Obsluhuje Vas: '+pokladnik);
 memo1.append(' ');
 for i:=1 to pocetobjektov do
@@ -1070,6 +1075,11 @@ if  FileExists( filePath + 'TOVAR_LOCK.txt' ) = false then
 
     DeleteFile( filePath + 'TOVAR_LOCK.Txt' );
    end;
+
+end;
+
+procedure TForm1.Label2Click(Sender: TObject);
+begin
 
 end;
 
